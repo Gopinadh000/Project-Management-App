@@ -1,16 +1,27 @@
 import mysql from 'mysql2/promise';
 import dotenv from "dotenv";
+import { DB_CREDIENTAILS_CONFIG } from "./db-data.js";
 
 dotenv.config();
 
-const db = mysql.createPool({
-    host: process.env.APP_HOST,
-    user:  process.env.APP_DB_USER,
-    password:  process.env.APP_DB_PASSWORD,
-    database: process.env.APP_DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,     // 👈 max connections in the pool
-    queueLimit: 0            // 👈 unlimited queue
-})
+// Get Application environment (DEV, PROD, or TEST)
+const APP_ENV = process.env.APP_ENV || "DEV";
 
-export {db};
+// Get database configuration based on environment
+const dbConfigObject = () => {
+  let z = DB_CREDIENTAILS_CONFIG[APP_ENV];
+  const dbConfig = {
+    host: z.HOST,
+    port: z.PORT,
+    user: z.USERNAME,
+    password: z.PASSWORD,
+    database: z.DATABASE,
+  };
+  return dbConfig;
+};
+
+const dbConfig = dbConfigObject();
+
+const db = mysql.createPool(dbConfig);
+
+export { db, APP_ENV };

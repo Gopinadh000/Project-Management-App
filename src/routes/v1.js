@@ -18,9 +18,9 @@ router.get('/' ,  (req, res)=>  res.send({message :"api parcel pending!"}));
 
 
 //User Routes 
-router.use('/users', userRoutes)
+router.use("/users", userRoutes);
+router.use("/projects", projectRoutes);
 
-router.use('/projects', projectRoutes)
 
 //Auth Routes (Public)
 router.post('/auth/register', registerUser);

@@ -310,16 +310,18 @@ export function displayStartupInfo(port, options = {}) {
     migrationsStatus ? `Migrations: ${migrationsStatus}` : '',
   ].filter(Boolean);
 
-  const maxLength = Math.max(...lines.map(line => {
-    // Remove ANSI codes for length calculation
-    return line.replace(/\x1b\[[0-9;]*m/g, '').length;
-  }));
+  const maxLength = Math.max(
+    ...lines.map((line) => {
+      // Remove ANSI codes for length calculation
+      return line.replace(/\x1b\[[0-9;]*m/g, "").length;
+    })
+  );
 
-  const boxWidth = maxLength + 4;
-  const border = '─'.repeat(boxWidth);
+  const boxWidth = maxLength + 3;
+  const border = "─".repeat(boxWidth);
   const topBorder = `╭${border}╮`;
   const bottomBorder = `╰${border}╯`;
-  const sideBorder = '│';
+  const sideBorder = "│";
 
   // Build the display
   console.log('\n');
