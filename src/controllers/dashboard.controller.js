@@ -1,4 +1,4 @@
-import { ReS, ReE } from '../utils/utils.js';
+import { ReS, ReE } from '../utils/Res.utils.js';
 
 export const getDashboardData = (req, res)=>{
 

@@ -1,5 +1,5 @@
 import { db } from '../config/db-config.js';
-import { ReS, ReE } from '../utils/utils.js';
+import { ReS, ReE } from '../utils/Res.utils.js';
 import { TableBuilder } from '../services/table-builder.service.js';
 import { usersTableConfig } from "../data-tables/users-table.config.js";
 

@@ -1,5 +1,5 @@
 import { verifyJWT, getTokenFromCookie, getTokenFromHeader } from './jwt.service.js';
-import { ReE } from '../../utils/utils.js';
+import {ReE} from '../../utils/Res.utils.js';
 
 export const authenticateToken = (req, res, next) => {
     // First try to get token from cookie, then from header

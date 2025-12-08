@@ -1,4 +1,4 @@
-import { ReS, ReE } from "../utils/utils.js";
+import { ReS, ReE } from "../utils/Res.utils.js";
 import { db } from "../config/db-config.js";
 import bcrypt from "bcryptjs";
 import { generateJWT } from "../services/jwt/jwt.service.js";

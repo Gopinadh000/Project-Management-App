@@ -1,4 +1,4 @@
-import { ReS, ReE } from '../utils/utils.js';
+import { ReS, ReE } from '../utils/Res.utils.js';
 import { db } from '../config/db-config.js';
 import { TableBuilder } from '../services/table-builder.service.js';
 import { tasksTableConfig } from "../data-tables/tasks-table.config.js";
