@@ -1,7 +1,7 @@
 
 
 export const ReS = (res, {data = {}, message= "", staus = true , statuscode = 200 , ...rest}) =>{
-    return res.status(code).json({
+    return res.status(statuscode).json({
         success: staus,
         message,
         data,

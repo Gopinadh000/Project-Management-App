@@ -34,29 +34,30 @@ export const registerUser = async (req, res) => {
         let newUserId = `${companyId}-0001`;
         let fullname = `${firstName} ${lastName}`;
 
+        // 3. Create company
          await connection.query(
             "INSERT INTO companies (company_id, company_name) VALUES (?, ?)",
             [companyId, companyName]
         );
 
-        // 5. Create user
-       
+        // 4. Create user
         await connection.query(
             "INSERT INTO users(id, name, email, role, company_id) VALUES (?, ?, ?, ?, ?)",
             [newUserId, fullname, email, role, companyId]
         );
 
-        // 6. Hash and store password
+        // 5. Hash and store password
         const passwordHash = await bcrypt.hash(password, 10);
         await connection.query(
             "INSERT INTO users_passwords (user_id, password, hash_password) VALUES (?, ?, ?)",
             [newUserId, password, passwordHash]
         );
 
-        //store basic user info 
+        //6. store basic user info 
         await connection.query("INSERT INTO users_details_info(user_id , first_name , last_name)  VALUES (? , ? , ?)", [newUserId ,  firstName , lastName ]);
 
         await connection.commit();
+
         // Generate JWT token for the new user
         const userData = {
             id: newUserId,
@@ -98,7 +99,7 @@ export const loginUser =  async (req, res) => {
         const [users] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
 
         if (users.length === 0) {
-            return ReE(res, { message: "Invalid email or password" });
+            return ReE(res, { message: "User Not Found with this email" });
         }
         const user = users[0];
 
@@ -112,7 +113,7 @@ export const loginUser =  async (req, res) => {
         // 3. Compare password
         const isMatch = await bcrypt.compare(password, passwordHash);
         if (!isMatch) {
-            return ReE(res, { message: "Invalid email or password" });
+            return ReE(res, { message: "Incorrect Password. Please Check!" });
         }
 
         // 4. Generate JWT token
