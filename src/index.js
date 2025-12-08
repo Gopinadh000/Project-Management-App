@@ -38,7 +38,7 @@ const PORT = process.env.APP_PORT || 4003;
       return process.env[envKey] || process.env.APP_DB_NAME || "database";
     };
 
-    dbStatus = `✅ Connected to ${getDbName(APP_ENV)} [${APP_ENV}]`;
+    // dbStatus = `✅ Connected to ${getDbName(APP_ENV)} [${APP_ENV}]`;
 
     // Calculate startup time
     const startupTime = `${Date.now() - startTime} ms`;

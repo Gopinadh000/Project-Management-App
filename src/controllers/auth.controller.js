@@ -11,7 +11,11 @@ export const registerUser = async (req, res) => {
         return ReE(res, { message: "All fields are required" , statuscode : 400 });
     };
 
+    const connection =  await  db.getConnection();
+
+
     try {
+        await connection.beginTransaction();
         // 1. Check if company already exists
         const [companies] = await db.query("SELECT * FROM companies WHERE company_id = ?", [companyId]);
 
@@ -20,39 +24,39 @@ export const registerUser = async (req, res) => {
         }
 
         // 2. Check if user already exists globally (email should be unique across all companies)
-        const [existingUsers] = await db.query("SELECT * FROM users WHERE email = ?", [email]);
+        const [existingUsers] = await connection.query("SELECT * FROM users WHERE email = ? AND company_id = ?",  [email, companyId ]);
         if (existingUsers.length > 0) {
+            await connection.rollback();
             return ReE(res, { message: "User with this email already exists" });
         }
 
-        // 3. Create the company first
-        await db.query(
+        let role = "SUPER_ADMIN"; // First user is always SUPER-ADMIN
+        let newUserId = `${companyId}-0001`;
+        let fullname = `${firstName} ${lastName}`;
+
+         await connection.query(
             "INSERT INTO companies (company_id, company_name) VALUES (?, ?)",
             [companyId, companyName]
         );
 
-        // 4. Determine role and user ID
-        let role = "SUPER_ADMIN"; // First user is always SUPER-ADMIN
-        let newUserId = `${companyId}-0001`;
-
         // 5. Create user
-        let fullname = `${firstName} ${lastName}`;
-        await db.query(
+       
+        await connection.query(
             "INSERT INTO users(id, name, email, role, company_id) VALUES (?, ?, ?, ?, ?)",
             [newUserId, fullname, email, role, companyId]
         );
 
-
         // 6. Hash and store password
         const passwordHash = await bcrypt.hash(password, 10);
-        await db.query(
+        await connection.query(
             "INSERT INTO users_passwords (user_id, password, hash_password) VALUES (?, ?, ?)",
             [newUserId, password, passwordHash]
         );
 
         //store basic user info 
-        const [savedUserData] = await db.query("INSERT INTO users_details_info(user_id , first_name , last_name)  VALUES (? , ? , ?)", [newUserId ,  firstName , lastName ])
+        await connection.query("INSERT INTO users_details_info(user_id , first_name , last_name)  VALUES (? , ? , ?)", [newUserId ,  firstName , lastName ]);
 
+        await connection.commit();
         // Generate JWT token for the new user
         const userData = {
             id: newUserId,
@@ -77,7 +81,10 @@ export const registerUser = async (req, res) => {
             message: "User registered successfully" 
         });
     } catch (err) {
-        return ReE(res, { message: "Registeration failed", error: err.message , err : err });
+        await connection.rollback();
+        return ReE(res, { message: "Registeration failed", error: err.message , err : err.message });
+    }finally{
+        connection.release();
     }
 };
 
