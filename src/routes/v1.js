@@ -1,4 +1,4 @@
-import express  from "express";
+import router from "../config/router.js";
 import {registerUser , loginUser} from "../controllers/auth.controller.js";
 import {createProject , getAllProjects , getProjectById , updateProject , deleteProject} from "../controllers/projects.controller.js";
 import {notificationSettings , emailSettings , securitySettings , privacySettings , applicationSettings} from "../controllers/settings.controller.js";
@@ -8,8 +8,6 @@ import {createTask , getAllTasks, updateTask , getTaskById , deleteTask, getAllT
 
 import userRoutes from  "./usersRoutes.js";
 import projectRoutes  from "./projectsRoutes.js"
-
-const router = express.Router();
 
 
  //Test api

@@ -1,5 +1,4 @@
-import express from 'express';
-const router = express.Router();
+import router from '../config/router.js';
 import {createProject , getAllProjects , updateProject , getProjectById , deleteProject, getAllProjectsTable} from "../controllers/projects.controller.js";
 import { authenticateToken } from "../services/jwt/auth.middleware.js";
 

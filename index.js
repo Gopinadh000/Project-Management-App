@@ -10,14 +10,14 @@ import { consoleBox } from "./src/utils/common.js";
 dotenv.config();
 
 // Create Express app
-const app = express();
+export const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For form-encoded bodies
 
 // Add routes to the app
-app.use("/api/v1", v1Routes);
+app.use("/api/v1", v1Routes); 
 
 // Start the server
 const PORT = process.env.APP_PORT || 4003;

@@ -1,3 +1,10 @@
 node_modules
 .startup-displayed
 .migrations-run
+
+.env
+.gitignore.local
+.DS_Store
+README-FILES
+.git
+g

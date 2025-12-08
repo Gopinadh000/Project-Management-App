@@ -1,5 +1,4 @@
-import express from 'express';
-const router = express.Router();
+import router from '../config/router.js';
 import { getAllUsers , getUserById , createUser , updateUser , deleteUser, getAllUsersTable} from "../controllers/users.controller.js";
 
 router.get('/usersdata', getAllUsersTable)
