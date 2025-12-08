@@ -10,19 +10,25 @@ import userRoutes from  "./usersRoutes.js";
 import projectRoutes  from "./projectsRoutes.js"
 
 
+
+
  //Test api
 router.get('/' ,  (req, res)=>  res.send({message :"api parcel pending!"}));
-
-
-
-//User Routes 
-router.use("/users", userRoutes);
-router.use("/projects", projectRoutes);
 
 
 //Auth Routes (Public)
 router.post('/auth/register', registerUser);
 router.post('/auth/login', loginUser);
+
+
+
+//User Routes 
+
+router.use("/projects", projectRoutes);
+router.use("/users", userRoutes);
+
+
+
 
 //Protected Routes (require authentication)
 router.get('/auth/me', authenticateToken, (req, res) => {

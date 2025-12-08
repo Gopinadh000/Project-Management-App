@@ -3,12 +3,13 @@ import { db } from "../config/db-config.js";
 import bcrypt from "bcryptjs";
 import { generateJWT } from "../services/jwt/jwt.service.js";
 
+
 export const registerUser = async (req, res) => {
-    const { firstName, lastName, email, password, companyId, companyName } = req.body;
+    const { firstName, lastName, email, password, companyId, companyName } = req?.body || {};
 
     if (!firstName || !lastName || !email || !password || !companyId || !companyName) {
-        return ReE(res, { message: "All fields are required" });
-    }
+        return ReE(res, { message: "All fields are required" , statuscode : 400 });
+    };
 
     try {
         // 1. Check if company already exists
@@ -81,7 +82,7 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser =  async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = req?.body || {};
 
         if (!email || !password) {
             return ReE(res, { message: "Email and password are required" });

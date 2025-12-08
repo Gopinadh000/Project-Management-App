@@ -1,7 +1,7 @@
-import router from '../config/router.js';
+import express from 'express';
 import { getAllUsers , getUserById , createUser , updateUser , deleteUser, getAllUsersTable} from "../controllers/users.controller.js";
 
-router.get('/usersdata', getAllUsersTable)
+const router = express.Router();
 
 //User Routes (Protected)
 router.get('/',  getAllUsers);
@@ -9,6 +9,7 @@ router.get('/:id',  getUserById);
 router.post('/',  createUser);
 router.put('/:id',  updateUser);
 router.delete('/:id' , deleteUser);
+router.get('/usersdata', getAllUsersTable)
 
 
 export default router;
