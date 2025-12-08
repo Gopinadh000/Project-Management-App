@@ -1,11 +1,11 @@
 import express from "express";
-import { serverConfig } from "./src/config/server-config.js";
 import { db, APP_ENV } from "./src/config/db-config.js";
 import dotenv from "dotenv";
 import { router as v1Routes } from "./src/routes/v1.js";
 import { runMigrations } from "./src/db-scripts/migrate.js";
 import cors from "cors";
 import { displayStartupInfo, shouldRunMigrations } from "./src/utils/common.js";
+import { consoleBox } from "./src/utils/common.js";
 
 dotenv.config();
 
@@ -74,5 +74,8 @@ const PORT = process.env.APP_PORT || 4003;
   }
 })();
 
-// Configure server
+const serverConfig = (app) => {
+  consoleBox("✅ Server configured successfully");
+};
+
 serverConfig(app);

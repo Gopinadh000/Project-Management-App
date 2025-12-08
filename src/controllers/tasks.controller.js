@@ -1,7 +1,7 @@
 import { ReS, ReE } from '../utils/utils.js';
 import { db } from '../config/db-config.js';
 import { TableBuilder } from '../services/table-builder.service.js';
-import { tasksTableConfig } from '../config/table-configs/tasks-table.config.js';
+import { tasksTableConfig } from "../data-tables/tasks-table.config.js";
 
 
 export const createTask = (req, res)=>{

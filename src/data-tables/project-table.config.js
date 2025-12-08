@@ -1,7 +1,3 @@
-/**
- * Projects Table Configuration
- * Defines the column structure for the projects table
- */
 
 //  COLUMN_TYPES_SUPPORTED : [
 //     'string', 'number', 'date', 'boolean', 'object' , 'datetime', 

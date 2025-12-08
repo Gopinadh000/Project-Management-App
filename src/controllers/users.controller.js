@@ -1,7 +1,7 @@
 import { db } from '../config/db-config.js';
 import { ReS, ReE } from '../utils/utils.js';
 import { TableBuilder } from '../services/table-builder.service.js';
-import { usersTableConfig } from '../config/table-configs/users-table.config.js';
+import { usersTableConfig } from "../data-tables/users-table.config.js";
 
 export const createUser = (req,res) =>{
     return res.json({data : "User Created"})

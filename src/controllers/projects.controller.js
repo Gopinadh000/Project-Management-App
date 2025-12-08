@@ -1,7 +1,8 @@
 import { ReS, ReE } from '../utils/utils.js';
 import { db } from '../config/db-config.js';
 import { TableBuilder } from '../services/table-builder.service.js';
-import { projectsTableConfig } from '../config/table-configs/projects-table.config.js';
+import { projectsTableConfig } from "../data-tables/project-table.config.js";
+
 
 export const createProject = async (req, res) => {
     const { projectName, description, projectOwner, startDate, endDate, priority, status } = req.body;
