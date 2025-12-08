@@ -9,7 +9,7 @@ router.get('/:id',  getUserById);
 router.post('/',  createUser);
 router.put('/:id',  updateUser);
 router.delete('/:id' , deleteUser);
-router.get('/usersdata', getAllUsersTable)
+router.get('/:srchtab=allusers', getAllUsersTable)
 
 
 export default router;

@@ -1,7 +1,7 @@
 import { ReS, ReE } from "../utils/Res.utils.js";
 import { db } from "../config/db-config.js";
 import bcrypt from "bcryptjs";
-import { generateJWT } from "../services/jwt/jwt.service.js";
+import { generateJWT , decodeJWT} from "../services/jwt/jwt.service.js";
 
 
 export const registerUser = async (req, res) => {
@@ -119,7 +119,8 @@ export const loginUser =  async (req, res) => {
         // 4. Generate JWT token
         const token = generateJWT(user);
 
-        // 5. Success response
+        const decodedjwt = decodeJWT(token);
+
         return ReS(res, { 
             data: { 
                 user: { 
@@ -129,7 +130,8 @@ export const loginUser =  async (req, res) => {
                     role: user.role,
                     companyId: user.company_id 
                 },
-                token: token 
+                token: token ,
+                decodedjwt: decodedjwt
             }, 
             message: "Login successful" 
         });

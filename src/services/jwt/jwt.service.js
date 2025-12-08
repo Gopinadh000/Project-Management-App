@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+const JWT_SECRET = process.env.APP_JWT_TOKEN || 'your-secret-key-change-in-production';
 const JWT_EXPIRES_IN = '5m'; // 5 minutes for cookies
 const COOKIE_NAME = 'auth_token';
 
@@ -15,6 +15,28 @@ export const generateJWT = (user) => {
 
     return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 };
+
+
+
+export const verifyJWT = (token) => {
+    try {
+        return jwt.verify(token, JWT_SECRET);
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
+};
+
+
+export const decodeJWT = (token) => {
+    try {
+        return jwt.decode(token);
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
+};
+
+
+
 
 export const setAuthCookie = (res, user) => {
     const token = generateJWT(user);
@@ -40,21 +62,8 @@ export const clearAuthCookie = (res) => {
     });
 };
 
-export const verifyJWT = (token) => {
-    try {
-        return jwt.verify(token, JWT_SECRET);
-    } catch (error) {
-        throw new Error('Invalid token');
-    }
-};
 
-export const decodeJWT = (token) => {
-    try {
-        return jwt.decode(token);
-    } catch (error) {
-        throw new Error('Invalid token');
-    }
-};
+
 
 export const getTokenFromCookie = (req) => {
     return req.cookies[COOKIE_NAME];

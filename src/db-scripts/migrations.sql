@@ -132,6 +132,12 @@ CREATE TABLE IF NOT EXISTS projects (
 </migration-script>
 
 
+<migration-script id="011_update_users_status_column">
+ALTER TABLE users
+ADD COLUMN status TINYINT(1)  DEFAULT 0
+AFTER company_id;
+</migration-script>
+
 
 
 
