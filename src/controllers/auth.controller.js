@@ -1,7 +1,7 @@
 import { ReS, ReE } from "../utils/Res.utils.js";
 import { db } from "../config/db-config.js";
 import bcrypt from "bcryptjs";
-import { generateJWT , decodeJWT  } from "../services/jwt/jwt.service.js";
+import { generateJWT , decodeJWT ,  setAuthCookie } from "../services/jwt/jwt.service.js";
 
 
 export const registerUser = async (req, res) => {
@@ -121,6 +121,8 @@ export const loginUser =  async (req, res) => {
 
         // setAuthCookie(res, token);
 
+        setAuthCookie(res ,  user);
+
         return ReS(res, { 
             data: { 
                 user: { 
@@ -139,5 +141,5 @@ export const loginUser =  async (req, res) => {
 
 export const logoutUser =  async (req, res)=>{
     res.clearCookie('auth_token')
-    return ReS(res, { message: "Logout successfull" , statuscode : 202});
+    return ReS(res, { message: "Successfully logged out 😏 🍀" , statuscode : 202});
 }

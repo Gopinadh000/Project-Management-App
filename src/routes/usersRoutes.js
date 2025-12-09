@@ -1,7 +1,7 @@
 import express from 'express';
 import { getAllUsers , getUserById , createUser , updateUser , deleteUser, getAllUsersTable} from "../controllers/users.controller.js";
 
-import  { jwtTokenAuthorization } from  "../services/jwt/jwt.service.js";
+import  { jwtTokenAuthorization , cookieTokenAuthorization } from  "../services/jwt/jwt.service.js";
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ const router = express.Router();
 //simple jwt token verification adding here
 
 //User Routes (Protected)
-router.get('/', jwtTokenAuthorization,   getAllUsers);
+router.get('/', cookieTokenAuthorization,   getAllUsers);
 router.get('/:id', jwtTokenAuthorization,   getUserById);
 router.post('/', jwtTokenAuthorization,   createUser);
 router.put('/:id', jwtTokenAuthorization,   updateUser);

@@ -7,11 +7,25 @@ import {getDashboardData , getTotalUsers , getTotalProjects , getTotalTasks} fro
 import {createTask , getAllTasks, updateTask , getTaskById , deleteTask, getAllTasksTable} from "../controllers/tasks.controller.js"
 
 import userRoutes from  "./usersRoutes.js";
-import projectRoutes  from "./projectsRoutes.js"
+import projectRoutes  from "./projectsRoutes.js";
+import { cookieTokenAuthorization } from "../services/jwt/jwt.service.js";
+import { ReS } from "../utils/Res.utils.js";
 
 
  //Test api
 router.get('/' ,  (req, res)=>  res.send({message :"api parcel pending!"}));
+router.get("/test" , cookieTokenAuthorization, (req, res)=> {
+
+    let userdata = {
+        id : req.user.id,
+        email : req.user.email,
+        name : req.user.name,
+        role : req.user.role,
+        companyId : req.user.companyId
+    }
+
+    return ReS(res, {message :"test api parcel pending From Cookie Token Authorization!",  data : userdata});
+});
 
 
 

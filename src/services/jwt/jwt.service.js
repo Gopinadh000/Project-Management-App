@@ -17,23 +17,6 @@ export const generateJWT = (user) => {
 };
 
 
-export const verifyJWT = async (token) => {
-    try {
-        return await jwt.verify(token, JWT_SECRET);
-    } catch (error) {
-        throw new Error('Invalid token');
-    }
-};
-
-
-export const decodeJWT = (token) => {
-    try {
-        return jwt.decode(token);
-    } catch (error) {
-        throw new Error('Invalid token');
-    }
-};
-
 
 
 export const jwtTokenAuthorization = (req, res, next) => {
@@ -86,23 +69,58 @@ export const jwtTokenAuthorization = (req, res, next) => {
 }
 
 
+export const setAuthCookie = (res, user)=>{
+    const token =  generateJWT(user);
+
+   let cookietoken =   res.cookie(COOKIE_NAME , token, {
+        httpOnly: true,
+        secure: process.env.APP_ENV === 'PROD', // Use secure in production
+        sameSite: 'strict',
+        maxAge: 5 * 60 * 1000, // 5 minutes in milliseconds
+        path: '/'
+    })
+
+    return cookietoken;
+}
+
+export const cookieTokenAuthorization =(req , res, next)=>{
+
+    const token =  req.cookies[COOKIE_NAME];
+
+    if(!token){
+        return ReE(res, {message : "Authentication cookie required", statuscode : 403, success : false});
+    }
+
+    try {
+        const data =  jwt.verify(token, JWT_SECRET);
+        req.user = data;
+       return next();
+    }catch(error){
+        return ReE(res, {message : "Invalid or expired token", statuscode : 403, success : false});
+    }
+};
 
 
-// export const setAuthCookie = (res, user) => {
-//     const token = generateJWT(user);
-    
-//     // Set HTTP-only cookie with 5-minute expiration
-//     res.cookie(COOKIE_NAME, token, {
-//         httpOnly: true,
-//         secure: process.env.APP_ENV === 'PROD', // Use secure in production
-//         sameSite: 'strict',
-//         maxAge: 5 * 60 * 1000, // 5 minutes in milliseconds
-//         path: '/'
-//     });
-    
-//     return token;
-// };
 
+
+
+//  --not using 
+
+export const decodeJWT = (token) => {
+    try {
+        return jwt.decode(token);
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
+};
+
+export const verifyJWT = async (token) => {
+    try {
+        return await jwt.verify(token, JWT_SECRET);
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
+};
 
 
 
