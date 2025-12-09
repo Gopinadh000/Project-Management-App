@@ -1,7 +1,7 @@
 import { ReS, ReE } from "../utils/Res.utils.js";
 import { db } from "../config/db-config.js";
 import bcrypt from "bcryptjs";
-import { generateJWT , decodeJWT} from "../services/jwt/jwt.service.js";
+import { generateJWT , decodeJWT  } from "../services/jwt/jwt.service.js";
 
 
 export const registerUser = async (req, res) => {
@@ -12,8 +12,6 @@ export const registerUser = async (req, res) => {
     };
 
     const connection =  await  db.getConnection();
-
-
     try {
         await connection.beginTransaction();
         // 1. Check if company already exists
@@ -119,7 +117,9 @@ export const loginUser =  async (req, res) => {
         // 4. Generate JWT token
         const token = generateJWT(user);
 
-        const decodedjwt = decodeJWT(token);
+        // const decodedjwt =  decodeJWT(token);
+
+        // setAuthCookie(res, token);
 
         return ReS(res, { 
             data: { 
@@ -131,8 +131,13 @@ export const loginUser =  async (req, res) => {
                     companyId: user.company_id 
                 },
                 token: token ,
-                decodedjwt: decodedjwt
+                // decodedjwt: decodedjwt
             }, 
             message: "Login successful" 
         });
-    }
+    };
+
+export const logoutUser =  async (req, res)=>{
+    res.clearCookie('auth_token')
+    return ReS(res, { message: "Logout successfull" , statuscode : 202});
+}

@@ -1,15 +1,20 @@
 import express from 'express';
 import { getAllUsers , getUserById , createUser , updateUser , deleteUser, getAllUsersTable} from "../controllers/users.controller.js";
 
+import  { jwtTokenAuthorization } from  "../services/jwt/jwt.service.js";
+
 const router = express.Router();
 
+
+//simple jwt token verification adding here
+
 //User Routes (Protected)
-router.get('/',  getAllUsers);
-router.get('/:id',  getUserById);
-router.post('/',  createUser);
-router.put('/:id',  updateUser);
-router.delete('/:id' , deleteUser);
-router.get('/:srchtab=allusers', getAllUsersTable)
+router.get('/', jwtTokenAuthorization,   getAllUsers);
+router.get('/:id', jwtTokenAuthorization,   getUserById);
+router.post('/', jwtTokenAuthorization,   createUser);
+router.put('/:id', jwtTokenAuthorization,   updateUser);
+router.delete('/:id' , jwtTokenAuthorization,   deleteUser);
+router.get('/:srchtab=allusers', jwtTokenAuthorization, getAllUsersTable)
 
 
 export default router;

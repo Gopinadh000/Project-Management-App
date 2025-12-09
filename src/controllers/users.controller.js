@@ -28,11 +28,14 @@ export const getUserById = async (req, res) => {
     const {id } = req.params
 
     try {
-        // Simulate fetching users (replace with real DB logic)
+        const getSingleUserQuery = `SELECT * FROM users WHERE id= ? OR name = ?`;
 
-        const getSingleUserQuery = `SELECT * FROM users WHERE id= ?`;
+        const [userData] = await  db.query(getSingleUserQuery ,[id ,  `${id}`]  );
 
-        const [userData]= await  db.query(getSingleUserQuery , id )
+        if (userData.length === 0) {
+            return ReE(res, { message: "User not found" });
+        }
+
         return ReS(res, { data: userData, message: "Single Users Data" });
     } catch (err) {
         return ReE(res, { message: "Failed to fetch users" });
