@@ -4,6 +4,15 @@ import { TableBuilder } from '../services/table-builder.service.js';
 import { usersTableConfig } from "../data-tables/users-table.config.js";
 
 export const createUser = (req,res) =>{
+    const { name, email, role, companyId } = req.body;
+
+    const userdata = {
+      userId: "COMPANYID-001",
+      name: name,
+      email: email,
+      role: role,
+      companyId: companyId,
+    };
     return res.json({data : "User Created"})
 };
 
