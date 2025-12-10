@@ -1,5 +1,4 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import LogoutIcon from "@mui/icons-material/Logout";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import ListAltIcon from "@mui/icons-material/ListAlt";
@@ -8,7 +7,7 @@ import QuickreplyIcon from '@mui/icons-material/Quickreply';
 
 export const sidebardata = [
   {
-    id: 0,
+    id: 1,
     name: "dashbaord",
     key: "dashbaord",
     title: "Dashboard",
@@ -16,7 +15,7 @@ export const sidebardata = [
     icon: <DashboardIcon />,
   },
   {
-    id: 1,
+    id: 2,
     name: "projects",
     key: "projects",
     title: "Projects",
@@ -24,7 +23,7 @@ export const sidebardata = [
     icon: <ListAltIcon />,
   },
   {
-    id: 2,
+    id: 3,
     name: "tasks",
     key: "tasks",
     title: "Tasks",
@@ -32,28 +31,29 @@ export const sidebardata = [
     icon: <AssignmentIcon />,
   },
   {
-    id: 3,
+    id: 4,
     name: "users",
     key: "users",
     title: "Users",
     route: "/users",
     icon: <PeopleAltIcon />,
   },
+
   {
-    id: 4,
-    name: "settings",
-    key: "settings",
-    title: "Settings",
-    route: "/settings",
-    icon: <SettingsSuggestIcon />,
-  },
-  {
-    id: 4,
+    id: 5,
     name: "ai-assistant",
     key: "ai-assistant",
     title: "Ai Assistant",
     route: "/ai-assistant",
     icon: <QuickreplyIcon />,
+  },
+  {
+    id: 6,
+    name: "settings",
+    key: "settings",
+    title: "Settings",
+    route: "/settings",
+    icon: <SettingsSuggestIcon />,
   },
   // {
   //   id: 4,
@@ -63,12 +63,12 @@ export const sidebardata = [
   //   route: "/inbox",
   //   icon: <QuickreplyIcon />,
   // },
-  {
-    id: 5,
-    name: "Logout",
-    key: "logout",
-    title: "Logout",
-    route: "/login",
-    icon: <LogoutIcon />,
-  },
+  // {
+  //   id: 7,
+  //   name: "Logout",
+  //   key: "logout",
+  //   title: "Logout",
+  //   route: "/login",
+  //   icon: <LogoutIcon />,
+  // },
 ];
