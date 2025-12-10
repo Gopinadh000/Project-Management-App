@@ -85,27 +85,19 @@ const LoginPage = () => {
 
 
   const handleSubmit = async () => {
-    navigate("/");
-    return;
+    const isValid = validateForm();
+    if (!isValid) return;
 
-   const isValid = validateForm();
-  if (!isValid) return;
+    try {
+      const resData = await apiInstance.post("/auth/login", userdata);
 
-  try {
-    const resData = await apiInstance.post("/auth/login", userdata);
-
-
-    
-
-    if (resData.data?.status == true) {
-      localStorage.setItem("appuser-token", resData?.data?.token);
-      navigate("/"); // Optional: redirect on success
+      console.log(resData, "resdata");
+      if (resData.data?.status) {
+        navigate("/"); // Optional: redirect on success
+      }
+    } catch (error) {
+      setSnackMsg("Login failed. Please try again.", error);
     }
-
-    setSnackMsg(resData?.data?.message || "Login response received.");
-  } catch (error) {
-    setSnackMsg("Login failed. Please try again.", error);
-  }
   };
 
   return (

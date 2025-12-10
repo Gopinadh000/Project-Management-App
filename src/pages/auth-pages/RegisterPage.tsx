@@ -94,7 +94,7 @@ const RegisterPage = () => {
     try {
       const res = await apiInstance.post("/auth/register", registerData);
 
-      if (res.status) {
+      if (res.data.status) {
         setSnackMessage("Registration successful!");
         setOpenSnack(true);
         navigate("/login");

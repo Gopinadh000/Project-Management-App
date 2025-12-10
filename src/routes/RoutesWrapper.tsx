@@ -1,30 +1,25 @@
-
-
-
-import {useEffect} from 'react';
-import { useNavigate, useLocation,  } from 'react-router-dom';
-import App from '../App';
-import AuthRoutes from './auth-routes/AuthRoutes';
+import { Routes, Route } from "react-router-dom";
+import App from "../App";
+import LoginPage from "../pages/auth-pages/LoginPage";
+import Outer from "./Outer";
+import RegisterPage from "../pages/auth-pages/RegisterPage";
 
 const RoutesWrapper = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const isLoggedIn =  true
-
-  useEffect(() => {
-        // Redirect to login page only if user is not logged in and not already on the login or register page
-        if (!isLoggedIn && location.pathname !== '/login' && location.pathname !== '/register') {
-            navigate('/login');
-        }
-    }, [isLoggedIn, navigate, location.pathname]);
-
-    console.log(isLoggedIn , "islogin")
-
-    return (
-        <div className=''>
-            {isLoggedIn ? <App /> : <AuthRoutes />}
-        </div>
-    );
+  return (
+    <>
+      <Routes>
+        <Route element={<Outer />}>
+          <Route path="/login" element={<LoginPage />} />
+        </Route>
+        <Route element={<Outer />}>
+          <Route path="register" element={<RegisterPage />} />
+          <Route element={<Outer />}>
+            <Route path="/*" element={<App />} />
+          </Route>
+        </Route>
+      </Routes>
+    </>
+  );
 };
 
-export default RoutesWrapper
+export default RoutesWrapper;
