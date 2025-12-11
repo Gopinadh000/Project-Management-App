@@ -5,18 +5,16 @@ import path from "path";;
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: { host : "", port: 4001 },
-  plugins: [
-  checker({ typescript: false }), react()],
+  server: { host: "", port: 4001 },
+  plugins: [checker({ typescript: false }), react()],
   resolve: {
     alias: {
       "@src": path.resolve(__dirname, "./src"),
-      '@components': '/src/components',
-      '@pages' : '/src/pages',
+      "@components": "/src/components",
+      "@pages": "/src/pages",
     },
   },
-  build:{
-    sourcemap:true,
-  }
-
-})
+  build: {
+    sourcemap: true,
+  },
+});
