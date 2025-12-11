@@ -1,5 +1,35 @@
 
-/* import 'bootstrap/dist/css/bootstrap.min.css'; */
+*{
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+:root {
+    --app-primary-50: #eff6ff;
+    --app-primary-100: #dbeafe;
+    --app-primary-500: #3b82f6;
+    --app-primary-900: #1e3a8a;
+
+    --app-secondary-50 :#f9fafb;
+    --app-secondary-100 :#f4f5f7;
+    --app-secondary-500 :#6b7280;
+    --app-secondary-900 :#1f2937;
+}
+
+
+*{
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+input:-webkit-autofill {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: inherit !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important; /* to override autofill bg */
+}
 
 @tailwind base;
 @tailwind components;
