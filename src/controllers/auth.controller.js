@@ -157,7 +157,13 @@ export const loginUser = async (req, res) => {
 };
 
 export const logoutUser = async (req, res) => {
-  res.clearCookie("auth_token");
+  // Clear cookie with same options as setAuthCookie for proper clearing
+  res.clearCookie("auth_token", {
+    httpOnly: true,
+    secure: process.env.APP_ENV === 'PROD',
+    sameSite: 'lax',
+    path: '/'
+  });
   return ReS(res, {
     message: "Successfully logged out 😏 🍀",
     statuscode: 202,

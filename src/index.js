@@ -13,7 +13,13 @@ dotenv.config();
 // Create Express app
 export const app = express();
 
-app.use(cors());
+// CORS configuration - allow credentials for cookie-based auth
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:4001',
+  credentials: true, // Allow cookies to be sent
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For form-encoded bodies
 app.use(cookieParser());

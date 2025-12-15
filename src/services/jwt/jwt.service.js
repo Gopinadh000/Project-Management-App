@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.APP_JWT_TOKEN || 'your-secret-key-change-in-production';
-const JWT_EXPIRES_IN = '5m'; // 5 minutes for cookies
+const JWT_EXPIRES_IN = '7d'; // 7 days - reasonable expiration time
 const COOKIE_NAME = 'auth_token';
 import { ReE } from '../../utils/Res.utils.js';
 
@@ -75,9 +75,11 @@ export const setAuthCookie = (res, user)=>{
    let cookietoken =   res.cookie(COOKIE_NAME , token, {
         httpOnly: true,
         secure: process.env.APP_ENV === 'PROD', // Use secure in production
-        sameSite: 'strict',
-        maxAge: 5 * 60 * 1000, // 5 minutes in milliseconds
-        path: '/'
+        sameSite: 'lax', // Changed from 'strict' to 'lax' for better cross-site compatibility
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds (matches JWT expiration)
+        path: '/',
+        // Note: Not setting 'domain' allows cookie to work on localhost across all ports
+        // For production, you might want to set domain: '.yourdomain.com'
     })
 
     return cookietoken;
@@ -88,15 +90,26 @@ export const cookieTokenAuthorization =(req , res, next)=>{
     const token =  req.cookies[COOKIE_NAME];
 
     if(!token){
-        return ReE(res, {message : "Authentication cookie required", statuscode : 403, success : false});
+        return ReE(res, {message : "Authentication cookie required", statuscode : 401, success : false});
     }
 
     try {
         const data =  jwt.verify(token, JWT_SECRET);
         req.user = data;
+        req.userId = data.id;
+        req.userEmail = data.email;
+        req.userRole = data.role;
+        req.companyId = data.companyId;
        return next();
     }catch(error){
-        return ReE(res, {message : "Invalid or expired token", statuscode : 403, success : false});
+        // Handle different JWT error types
+        if (error.name === 'TokenExpiredError') {
+            return ReE(res, { message: 'Token has expired', statuscode: 401, success: false });
+        } else if (error.name === 'JsonWebTokenError') {
+            return ReE(res, { message: 'Invalid token', statuscode: 401, success: false });
+        } else {
+            return ReE(res, {message : "Invalid or expired token", statuscode : 401, success : false});
+        }
     }
 };
 

@@ -71,7 +71,7 @@ export const getAllProjects = async (req, res) => {
 
     try {
         let whereClause = "WHERE company_id = ?";
-        let params = [user.companyId];
+        let params = [user?.companyId];
 
         if (status) {
             whereClause += " AND status = ?";
