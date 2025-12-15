@@ -4,6 +4,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import QuickreplyIcon from '@mui/icons-material/Quickreply';
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const sidebardata = [
   {
@@ -63,12 +64,12 @@ export const sidebardata = [
   //   route: "/inbox",
   //   icon: <QuickreplyIcon />,
   // },
-  // {
-  //   id: 7,
-  //   name: "Logout",
-  //   key: "logout",
-  //   title: "Logout",
-  //   route: "/login",
-  //   icon: <LogoutIcon />,
-  // },
+  {
+    id: 7,
+    name: "Logout",
+    key: "logout",
+    title: "Logout",
+    route: "/login",
+    icon: <LogoutIcon />,
+  },
 ];

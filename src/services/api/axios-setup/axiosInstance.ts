@@ -1,27 +1,23 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const apiInstance = axios.create({
-  baseURL: "http://localhost:4002/api/v1/",
-  // withCredentials: true,
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:4002/api/v1/",
+  withCredentials: true, // IMPORTANT: Send cookies with every request
   headers: {
-    "Content-Type": "application/json", // Set default content type
-    // 'Authorization': `Bearer ${localStorage.getItem('appuser-token')}`
+    "Content-Type": "application/json",
   },
-
-  //   withCredentials: true, //important to send cookies with requests,
 });
 
-export const useAuthInterceptor = () => {
-  const navigate = useNavigate();
-
-  apiInstance.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      if (error.response && error.response.status == 401) {
-        navigate("/login");
-      }
-      return Promise.reject(error);
+// Response interceptor to handle 401 errors globally
+apiInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Handle 401 Unauthorized - token expired or invalid
+    if (error.response && error.response.status === 401) {
+      // Clear any local auth state if needed
+      // The actual redirect will be handled by ProtectedRoute or AuthContext
+      console.error("Unauthorized access - redirecting to login");
     }
-  );
-};
+    return Promise.reject(error);
+  }
+);

@@ -5,6 +5,8 @@ import ProjectsPageWrapper from "../../pages/projects-page/ProjectsPageWrapper";
 import TasksPageWrapper from "../../pages/tasks-page/TasksPageWrapper";
 import SettingsPage from "../../pages/settings-page/SettingsPage";
 import CreateUserPage from "../../pages/add-user-page/CreateUserPage";
+import NotFoundPage from "../../pages/error-pages/PageNotFound";
+import MaintenancePage from "../../pages/error-pages/MaintenancePage";
 
 const RoutesList = [
   {
@@ -54,6 +56,20 @@ const RoutesList = [
     path: "/settings",
     name: "settings",
     element: <SettingsPage />,
+    hidden: false,
+  },
+  {
+    id: 9,
+    path: "/not-found",
+    name: "Not Found",
+    element: <NotFoundPage />,
+    hidden: false,
+  },
+  {
+    id: 10,
+    path: "/maintenance",
+    name: "Maintenance",
+    element: <MaintenancePage />,
     hidden: false,
   },
 ];

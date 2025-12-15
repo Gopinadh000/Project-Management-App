@@ -2,13 +2,14 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import { Button, TextField, Typography } from "@mui/material";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import SnackBar from "../../components/snack-bar/SnackBar";
-import { apiInstance } from "../../services/api/axios-setup/axiosInstance";
+import { useAuth } from "../../services/context/AuthContext";
 import loginimage from "../../assets/loginimage.svg";
 
 const LoginPage = () => {
+  const { login } = useAuth();
   const [userdata, setUserData] = useState({
     email : "",
     password: "",
@@ -19,8 +20,7 @@ const LoginPage = () => {
   });
 
   const [snackMsg, setSnackMsg] = useState("");
-
-  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: any) => {
 
@@ -46,7 +46,7 @@ const LoginPage = () => {
 
   const validateEmailRegex = /^\S+@\S+\.\S+$/;
   const validatePasswordRegex =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,}$/;
 
   let validedEmail = validateEmailRegex.test(userdata.email);
   let validatedPassword = validatePasswordRegex.test(userdata.password);
@@ -88,24 +88,24 @@ const LoginPage = () => {
     const isValid = validateForm();
     if (!isValid) return;
 
+    setIsSubmitting(true);
     try {
-      const resData = await apiInstance.post("/auth/login", userdata);
-
-      console.log(resData, "resdata");
-      if (resData.data?.status) {
-        navigate("/"); // Optional: redirect on success
-      }
-    } catch (error) {
-      setSnackMsg("Login failed. Please try again.", error);
+      await login(userdata.email, userdata.password);
+      // Success - AuthContext will handle navigation
+      setSnackMsg("Login successful!");
+    } catch (error: any) {
+      setSnackMsg(error.message || "Login failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="flex h-screen p-20 ">
-      <div className="md:w-3/5 xxs:hidden xs:hidden sm:hidden md:flex flex items-center shadow-sm">
+      <div className="md:w-3/5 xxs:hidden xs:hidden sm:hidden md:flex flex items-center shadow-sm bg-white">
         <img src={loginimage} alt="login" />
       </div>
-      <div className="sm:w-full md:w-2/5 shadow-md border-t">
+      <div className="sm:w-full md:w-2/5 shadow-md border-t bg-white">
         <div className="border-gray-20 h-full p-10">
           <div className="text-blue-900 font-bold h-10 flex items-center  mb-2">
             <DashboardOutlinedIcon className="text-blue-800 font-bold ml-2" />{" "}
@@ -167,8 +167,9 @@ const LoginPage = () => {
               color="primary"
               variant="contained"
               onClick={handleSubmit}
+              disabled={isSubmitting}
             >
-              Submit
+              {isSubmitting ? "Logging in..." : "Submit"}
             </Button>
             <p className="text-sm">
               Don't Have a an Account ?{" "}
@@ -179,7 +180,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      {snackMsg &&<SnackBar message={snackMsg} />}
+      {snackMsg && <SnackBar message={snackMsg} onClose={() => setSnackMsg("")} />}
     </div>
   );
 };

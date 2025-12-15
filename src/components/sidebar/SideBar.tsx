@@ -4,13 +4,23 @@ import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { sidebardata } from "../../assets/dummy-data/sidebar-data";
 import GoVantage from "../../assets/go-vantage-logo.png";
 import Avatar from "../avatar/Avatar";
+import { useAuth } from "../../services/context/AuthContext";
 
 const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { logout } = useAuth();
 
-  const handleSideOption = (name, route) => {
-    navigate(route);
+  const handleSideOption = async (name: string, route: string) => {
+    if (name == "Logout") {
+      // Use AuthContext logout function which handles:
+      // 1. API call to logout
+      // 2. Clearing user state
+      // 3. Navigation to login page
+      await logout();
+    } else {
+      navigate(route);
+    }
   };
 
   return (

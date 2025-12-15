@@ -3,7 +3,8 @@ import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Box, Typography, List, ListItem, ListItemText, Divider, Badge } from '@mui/material';
 import Poppover from '../poppover/Poppover';
-import { Button } from 'go-van-ui';
+// import { Button } from 'go-van-ui';
+import { useAuth } from '../../services/context/AuthContext';
 
 interface NavBarProps {
   borderRequired?: boolean;
@@ -14,6 +15,7 @@ const NavBar: React.FC<NavBarProps> = ({
   borderRequired = true, 
   backGroundColor = 'gray-50' 
 }) => {
+  const { user, logout } = useAuth();
   
   // Sample notifications data
   const notifications = [
@@ -25,35 +27,36 @@ const NavBar: React.FC<NavBarProps> = ({
     { id: 2, title: 'Task deadline approaching', time: '1 hour ago' },
   ];
 
-  // Sample profile menu items
+  // Profile menu items with logout functionality
   const profileMenuItems = [
     { label: 'Profile', action: () => console.log('Profile clicked') },
     { label: 'Settings', action: () => console.log('Settings clicked') },
     { label: 'Help', action: () => console.log('Help clicked') },
-    { label: 'Logout', action: () => console.log('Logout clicked') },
+    { label: 'Logout', action: () => logout() },
   ];
 
   return (
     <div className={`${borderRequired ? 'border-b-2' : ''} flex justify-end items-center w-full h-16 bg-${backGroundColor}`}>
       <div className="flex gap-4 items-end px-2 mr-4">
 
-      <Button size="sm"  variant='primary' onClick={() => console.log('Logout clicked')}>Submit</Button>
+      {/* <Button size="sm"  variant='primary' onClick={() => console.log('Logout clicked')}>Submit</Button> */}
 
         
         {/* Notifications Popover */}
         <Box>
         <Poppover 
           parentComponent={
-            <Badge 
+            <span className='flex gap-3 p-2 items-center font-bold'>
+              <Badge 
               badgeContent={notifications.length} 
               color="error"
               sx={{
                 '& .MuiBadge-badge': {
                   backgroundColor: 'red',
                   color: 'white',
-                  right: 8,
-                  top: 8,
-                  padding : '0px'
+                  right:  10,
+                  top: 10,
+                 
                 }
               }}
             >
@@ -62,6 +65,8 @@ const NavBar: React.FC<NavBarProps> = ({
                 className="rounded-full hover:bg-gray-300 cursor-pointer" 
               />
             </Badge>
+            </span>
+            
           }
           childComponent={
             <Box sx={{ width: 300, maxHeight: 400, overflow: 'auto' }}>
@@ -106,7 +111,7 @@ const NavBar: React.FC<NavBarProps> = ({
                 fontSize="large" 
                 className="rounded-full hover:bg-gray-300 cursor-pointer" 
               />
-              <span className="cursor-pointer">Gopinadh</span>
+              <span className="cursor-pointer">{user?.name || 'User'}</span>
             </span>
           } 
           childComponent={

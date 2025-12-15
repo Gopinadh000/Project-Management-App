@@ -124,7 +124,7 @@ const RegisterPage = () => {
       </div>
 
       {/* Right Panel */}
-      <div className="w-2/3 sm:w-full border">
+      <div className="w-2/3 sm:w-full border bg-white">
         <div className="p-10">
           <div className="flex flex-col gap-4">
             <Typography variant="h5" className="px-2 text-gray-600">
