@@ -5,7 +5,7 @@ import path from "path";;
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: { host: "", port: 4001 },
+  server: { host: "localhost", port: 4001 },
   plugins: [checker({ typescript: false }), react()],
   resolve: {
     alias: {
