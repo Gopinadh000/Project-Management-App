@@ -8,10 +8,17 @@ import {
   getAllProjectsTable,
 } from "../controllers/projects.controller.js";
 
+import {
+  jwtTokenAuthorization,
+  cookieTokenAuthorization,
+} from "../services/jwt/jwt.service.js";
+
 const router = express.Router();
 
-//Projects Routes (Protected)
-router.post("/", createProject);
+
+//  baseurl : "projects
+
+router.post("/", cookieTokenAuthorization,  createProject);
 router.get("/tabledata", getAllProjectsTable);
 router.get("/", getAllProjects);
 router.get("/:id", getProjectById);

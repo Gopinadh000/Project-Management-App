@@ -6,6 +6,8 @@ import  { jwtTokenAuthorization , cookieTokenAuthorization } from  "../services/
 const router = express.Router();
 
 
+//Route : /users
+
 //simple jwt token verification adding here
 
 //User Routes (Protected)

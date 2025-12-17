@@ -5,64 +5,82 @@ import { projectsTableConfig } from "../data-tables/project-table.config.js";
 
 
 export const createProject = async (req, res) => {
-    const { projectName, description, projectOwner, startDate, endDate, priority, status } = req.body;
-    const { user } = req; // From auth middleware
+  const {
+    projectName,
+    description,
+    projectOwner,
+    startDate,
+    endDate,
+    priority,
+    status,
+  } = req.body;
+  const { user } = req; // From auth middleware
 
-    if (!projectName || projectName.trim() === "") {
-        return ReE(res, { message: "Project Name is required." });
+  console.log(req, "reqqq");
+
+  if (!projectName || projectName.trim() === "") {
+    return ReE(res, { message: "Project Name is required." });
+  }
+
+  const [projects] = await db.query(
+    "SELECT * FROM projects WHERE company_id = ?",
+    [req?.companyId]
+  );
+
+  try {
+    // Generate unique project ID
+    const [existingProjects] = await db.query(
+      "SELECT id FROM projects WHERE company_id = ? ORDER BY created_at DESC LIMIT 1",
+      [user.companyId]
+    );
+
+    let projectNumber = 1;
+    if (existingProjects.length > 0) {
+      const lastProject = existingProjects[0];
+      const lastNumber = parseInt(lastProject.id.split("-")[1]);
+      projectNumber = lastNumber + 1;
     }
 
-    try {
-        // Generate unique project ID
-        const [existingProjects] = await db.query(
-            "SELECT id FROM projects WHERE company_id = ? ORDER BY created_at DESC LIMIT 1",
-            [user.companyId]
-        );
+    const projectId = `${user.companyId}-PROJ-${projectNumber
+      .toString()
+      .padStart(4, "0")}`;
 
-        let projectNumber = 1;
-        if (existingProjects.length > 0) {
-            const lastProject = existingProjects[0];
-            const lastNumber = parseInt(lastProject.id.split('-')[1]);
-            projectNumber = lastNumber + 1;
-        }
-
-        const projectId = `${user.companyId}-PROJ-${projectNumber.toString().padStart(4, '0')}`;
-
-        // Insert project
-        const [result] = await db.query(
-            `INSERT INTO projects (
+    // Insert project
+    const [result] = await db.query(
+      `INSERT INTO projects (
                 id, project_name, description, project_owner, created_by, 
                 company_id, status, priority, start_date, end_date
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [
-                projectId,
-                projectName.trim(),
-                description || null,
-                projectOwner || user.id,
-                user.id,
-                user.companyId,
-                status || 'ACTIVE',
-                priority || 'MEDIUM',
-                startDate || null,
-                endDate || null
-            ]
-        );
+      [
+        projectId,
+        projectName.trim(),
+        description || null,
+        projectOwner || user.id,
+        user.id,
+        user.companyId,
+        status || "ACTIVE",
+        priority || "MEDIUM",
+        startDate || null,
+        endDate || null,
+      ]
+    );
 
-        // Get the created project
-        const [newProject] = await db.query(
-            "SELECT * FROM projects WHERE id = ?",
-            [projectId]
-        );
+    // Get the created project
+    const [newProject] = await db.query("SELECT * FROM projects WHERE id = ?", [
+      projectId,
+    ]);
 
-        return ReS(res, {
-            data: newProject[0],
-            message: "Project created successfully"
-        });
-
-    } catch (error) {
-        console.error('Error creating project:', error);
-        return ReE(res, { message: "Failed to create project", error: error.message });
-    }
+    return ReS(res, {
+      data: newProject[0],
+      message: "Project created successfully",
+    });
+  } catch (error) {
+    console.error("Error creating project:", error);
+    return ReE(res, {
+      message: "Failed to create project",
+      error: error.message,
+    });
+  }
 };
 
 export const getAllProjects = async (req, res) => {
