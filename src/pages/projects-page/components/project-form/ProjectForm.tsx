@@ -33,9 +33,14 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
     const resData = await apiInstance.post("/projects", projectData);
 
     if (!resData.status) {
-      setSuccessMsg(resData?.message);
+      console.log("error", resData?.message);
     }
+    setSuccessMsg(resData?.message);
     setOpenModal(false);
+    setProjectData({
+      projectName: "",
+      projectDescription: "",
+    });
   };
 
   return (
@@ -77,10 +82,13 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
             name="projectDescription"
             value={projectData.projectDescription}
             onChange={(e) => handleOnChange(e, "PROJECTDESCRIPTION")}
+            placeholder="Enter Project Description"
           />
         </div>
       </APPModal>
-        {suceessMsg && <SnackBar message={suceessMsg} onClose={() => setSuccessMsg("")} />}
+      {suceessMsg && (
+        <SnackBar message={suceessMsg} onClose={() => setSuccessMsg("")} />
+      )}
     </>
   );
 };

@@ -25,7 +25,7 @@ const SideBar = () => {
 
   return (
     <Box
-      className={`h-screen bg-gray-50  xxs:w-[80px] xs:w-[80px] sm:w-[80px]  md:w-[300px]  dark:bg-app-secondary-900`}
+      className={`h-screen bg-gray-50  xxs:w-[80px] xs:w-[80px] sm:w-[80px]  md:w-[280px]  dark:bg-app-secondary-900`}
     >
       <Box className="flex justify-center cursor-pointer items-center h-16  border border-b hover:bg-blue-900 xxs:hidden xs:hidden sm:hidden md:block">
         <NavLink to="/">
@@ -53,7 +53,7 @@ const SideBar = () => {
             >
               <span>{item.icon}</span>
               <Box className="xxs:hidden xs:hidden sm:hidden  md:block">
-                <Typography variant="h6">{item.title}</Typography>
+                <Typography variant="subtitle1">{item.title}</Typography>
               </Box>
             </Box>
           );

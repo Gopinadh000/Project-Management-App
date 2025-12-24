@@ -52,8 +52,8 @@ const ProjectsPage = ({ TabsData, border }: any) => {
   return (
     <Box className="h-full">
       <TitleCard title="Projects" />
-      <Box className="flex items-center my-4 justify-between  border">
-        <Box className={`h-6 flex items-center justify-between px-1 py-4 `}>
+      <Box className="flex items-center my-4 justify-between bg-white">
+        <Box className={`flex items-center justify-between `}>
           <TabsHeaderComponent TabsData={TabsData} />
         </Box>
         <Box>

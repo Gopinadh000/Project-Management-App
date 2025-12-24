@@ -5,7 +5,7 @@ import { useTabContext } from "./tabs-context/TabContext";
 
 const TabsHeaderComponent = ({ TabsData }: any) => {
   const { activeTab, setActiveTab } = useTabContext();
-
+  
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setActiveTab(newValue);
   };
@@ -16,8 +16,8 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
       value={activeTab}
       onChange={handleChange}
       sx={{
-        "css-9biaq2-MuiTabs-root": { maxHeight: "4px !important" },
-        ".css-ja771h-MuiButtonBase-root-MuiTab-root": { minHeight: "40px" },
+        ".MuiTabs-list": { height: "100%" },
+        ".MuiTabs-list .MuiButtonBase-root-MuiTab-root": { minHeight: "10px" },
       }}
     >
       {TabsData.map((item: any) => (
@@ -31,7 +31,6 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
             height: "0px",
             "& .MuiButtonBase-root ": {
               padding: "0px",
-              minHeight: "10px!",
             },
           }}
         />

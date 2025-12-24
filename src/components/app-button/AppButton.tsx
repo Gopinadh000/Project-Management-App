@@ -47,7 +47,7 @@ const AppButton: React.FC<AppButtonProps> = ({
       ) : (
         <>
           {iconPosition === "start" && <span>{iconName}</span>}
-          <span className="">{text}</span>
+          <span className="font-medium">{text}</span>
           {iconPosition === "end" && <span>{iconName}</span>}
         </>
       )}
