@@ -12,6 +12,8 @@ import { useAuth } from '../services/context/AuthContext';
 const ProtectedRoute = () => {
   const { isAuthenticated, isLoading } = useAuth();
 
+  console.log('ProtectedRoute - isAuthenticated:', isAuthenticated, 'isLoading:', isLoading);
+
   // Show loading state while checking authentication
   if (isLoading) {
     return (

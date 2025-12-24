@@ -16,21 +16,18 @@ const AppButton: React.FC<AppButtonProps> = ({
   text,
   variant,
   iconName,
-  iconPosition = 'start',
+  iconPosition = "start",
   disabled,
-  loading ,
+  loading,
 }) => {
-  // Determine the class based on the variant
   const getButtonClasses = () => {
     switch (variant) {
-      case 'contained':
-        return 'bg-blue-900! text-white hover:bg-blue-800'; // Contained blue button
-    
-      case 'outlined':
-        return 'border border-white text-white hover:bg-gray-100 hover:text-black'; // Outlined button
-     
+      case "contained":
+        return "bg-blue-900! text-white hover:bg-blue-800"; // Contained blue button
+      case "outlined":
+        return "border border-white text-white hover:bg-gray-100 hover:text-black"; // Outlined button
       default:
-        return 'text-blue-900 hover:text-blue-700'; // Text-only button
+        return "text-blue-900 hover:text-blue-700";
     }
   };
 
@@ -38,19 +35,22 @@ const AppButton: React.FC<AppButtonProps> = ({
     <Button
       variant={variant}
       onClick={onClick}
-      className={`flex justify-center items-center gap-1 px-4 py-2 rounded-lg ${getButtonClasses()}`}
-      disabled={disabled || loading}  // Disable button while loading
+      className={`flex justify-center items-center gap-1 px-2 py-1 rounded-lg ${getButtonClasses()}`}
+      disabled={disabled || loading}
     >
-     {loading ? (
-        <CircularProgress size={16} className="text-white"  variant='indeterminate'/>  
+      {loading ? (
+        <CircularProgress
+          size={16}
+          className="text-white"
+          variant="intermediate"
+        />
       ) : (
         <>
-          {iconPosition === 'start' && <span>{iconName}</span>}
-          <span className="mt-0.5">{text}</span>
-          {iconPosition === 'end' && <span>{iconName}</span>}
+          {iconPosition === "start" && <span>{iconName}</span>}
+          <span className="">{text}</span>
+          {iconPosition === "end" && <span>{iconName}</span>}
         </>
       )}
-      
     </Button>
   );
 };

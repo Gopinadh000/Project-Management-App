@@ -59,9 +59,7 @@ const ProjectsPage = ({ TabsData, border }: any) => {
   return (
     <div className="h-full">
       <TitleCard title="Projects Page" />
-      <div
-        className='flex items-center mt-4 mb-10  justify-between  border'
-      >
+      <div className="flex items-center mt-4 mb-10  justify-between  border">
         <div className={`h-10 flex items-center justify-between px-1 py-6`}>
           <TabsHeaderComponent TabsData={TabsData} />
         </div>
@@ -72,17 +70,18 @@ const ProjectsPage = ({ TabsData, border }: any) => {
             onClick={() => setOpenModal(true)}
             iconName={<AddIcon />}
             iconPosition="start"
-            // loading={true}
+            loading={false}
             // disabled='true'
           />
         </div>
       </div>
       <div className="mt-4  h-[500px] overflow-y-auto">
-        {activeTab  === 'LIST_VIEW' ? 
-         <DataTable /> 
-           : 
-         <ProjectCardView projectsData={projectsData} />}
-        <ProjectForm openModal={openModal} setOpenModal={setOpenModal}  />
+        {activeTab === "LIST_VIEW" ? (
+          <DataTable />
+        ) : (
+          <ProjectCardView projectsData={projectsData} />
+        )}
+        <ProjectForm openModal={openModal} setOpenModal={setOpenModal} />
       </div>
     </div>
   );

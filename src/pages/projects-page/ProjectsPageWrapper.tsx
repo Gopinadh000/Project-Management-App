@@ -5,17 +5,21 @@ import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 
 
 const TabsData = [
-    { id: 1, label: "List View", key: "list-view", value:"LIST_VIEW", icon: <ListIcon/> },
-    {
-      id: 2,
-      label: "Card View",
-      key: "card-view",
-      value:"CARD_VIEW",
-      icon: <ViewKanbanIcon/>,
-    },
-  ];
-
-
+  {
+    id: 1,
+    label: "List View",
+    key: "list-view",
+    value: "LIST_VIEW",
+    icon: <ListIcon />,
+  },
+  {
+    id: 2,
+    label: "Card View",
+    key: "card-view",
+    value: "CARD_VIEW",
+    icon: <ViewKanbanIcon />,
+  },
+];
 
 const ProjectsPageWrapper = () => {
     return (

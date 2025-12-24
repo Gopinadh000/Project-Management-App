@@ -19,7 +19,7 @@ const sizeClasses = {
 // Modal style function based on modal type and size
 const modalStyle = (modalType: string, size: string, isOpen: boolean) => {
   const baseClasses = "bg-white shadow-lg flex flex-col justify-between"; // Shared styles
-  const sizeClass = sizeClasses[size] || sizeClasses.md; // Default to 'md' if size is not provided
+  const sizeClass = sizeClasses[size] || sizeClasses.md;
 
   if (modalType === MODAL_SIDE) {
     const slideIn = isOpen ? "translate-x-0" : "translate-x-full"; // Handle animation when opening
@@ -50,7 +50,7 @@ const APPModal: React.FC<ModalProps> = ({
   footerComponent,
 }) => {
   return (
-    <div>
+    <Box>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -65,8 +65,12 @@ const APPModal: React.FC<ModalProps> = ({
         }}
       >
         <Box className={modalStyle(modalType, size, open)}>
-          <div className="flex h-12 justify-between items-center bg-gray-100 p-2   text-lg cursor-pointer">
-            <Typography id="transition-modal-title" variant="h6" className="">
+          <Box className="flex h-12 justify-between items-center bg-gray-100 px-4    text-lg cursor-pointer">
+            <Typography
+              id="transition-modal-title"
+              variant="inherit"
+              className=""
+            >
               {title}
             </Typography>
             <span
@@ -75,18 +79,16 @@ const APPModal: React.FC<ModalProps> = ({
             >
               <CloseIcon className="cursor-pointer" />
             </span>
-          </div>
-          {/* Modal Content */}
-          <div className="flex-grow p-4 border-2       overflow-y-auto">
+          </Box>
+          <Box className="flex-grow p-4 border-2       overflow-y-auto">
             {children}
-          </div>
-          {/* Footer (optional) */}
+          </Box>
           {footerComponent && (
-            <div className="h-14 bg-gray-100 p-2">{footerComponent}</div>
+            <Box className="h-14 bg-gray-100 p-2">{footerComponent}</Box>
           )}
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 };
 

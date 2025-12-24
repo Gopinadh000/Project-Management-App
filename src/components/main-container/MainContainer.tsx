@@ -1,10 +1,14 @@
-
-const MainContainer = ({children}:any) => {
-  return (
-    <div className='p-10'>
-      {children}
-    </div>
-  )
+import { Box } from "@mui/material";
+interface MainContainerProps {
+  children: React.ReactNode;
 }
 
-export default MainContainer
+const MainContainer = ({ children }: MainContainerProps) => {
+  return (
+    <>
+      <Box className="p-10 bg-gray-100 h-full">{children}</Box>
+    </>
+  );
+};
+
+export default MainContainer;

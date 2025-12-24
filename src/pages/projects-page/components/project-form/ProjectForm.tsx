@@ -2,22 +2,14 @@ import AppButton from "../../../../components/app-button/AppButton";
 
 import InputFeild from "../../../../components/input-fields/input-feild/InputFeild";
 import TextAreaFeild from "../../../../components/input-fields/text-area/TextAreaFeild";
-import SelectFeild from "../../../../components/input-fields/select-feild/SelectFeild";
 import { useState } from "react";
 import { apiInstance } from "../../../../services/api/axios-setup/axiosInstance";
 import APPModal from "../../../../components/modal/Modal";
 
-const proejctownerdata = [
-  { id: 1, label: "Gopinadh", value: "gopinadh" },
-  { id: 2, label: "Virat Kohi", value: "viratkohli" },
-  { id: 2, label: "Dhoni", value: "Dhoni" },
-];
-
-const ProjectForm = ({ openModal, setOpenModal ,  }: any) => {
+const ProjectForm = ({ openModal, setOpenModal }: any) => {
   const [projectData, setProjectData] = useState({
     projectName: "",
     projectDescription: "",
-    projectOwner: "",
   });
 
   const handleProejctName = (e: any) => {
@@ -25,22 +17,18 @@ const ProjectForm = ({ openModal, setOpenModal ,  }: any) => {
   };
 
   const handleSubmitForm = async () => {
+    const resData = await apiInstance.post("/projects", projectData);
 
-
-   const  resData =  await  apiInstance.post('/projects' , projectData)
-   
-   if(!resData.status){
-    console.log(resData?.message)
-
-   }
-   setOpenModal(false)
+    if (!resData.status) {
+      console.log(resData?.message);
+    }
+    setOpenModal(false);
   };
 
-
   return (
-    <div>
+    <>
       <APPModal
-        modalType="side"
+        modalType="center"
         size="l"
         title="Add Project"
         open={openModal}
@@ -66,21 +54,20 @@ const ProjectForm = ({ openModal, setOpenModal ,  }: any) => {
             label="Project Name"
             required={true}
             name="projectName"
-            value = {projectData.projectName}
+            value={projectData.projectName}
             onChange={handleProejctName}
+            placeholder="Enter Project Name"
+            errMessage={"Project Name is required"}
           />
-          <TextAreaFeild label="Description" name="projectDescription" value={projectData.projectDescription}  onChange={handleProejctName} />
-          <SelectFeild
-            label="Project Owner"
-            required
-            options={proejctownerdata}
-            name="projectOwner"
-            value={projectData.projectOwner}
+          <TextAreaFeild
+            label="Description"
+            name="projectDescription"
+            value={projectData.projectDescription}
             onChange={handleProejctName}
           />
         </div>
       </APPModal>
-    </div>
+    </>
   );
 };
 
