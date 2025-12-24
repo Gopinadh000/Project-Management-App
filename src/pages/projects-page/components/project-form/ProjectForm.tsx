@@ -6,13 +6,24 @@ import { useState } from "react";
 import { apiInstance } from "../../../../services/api/axios-setup/axiosInstance";
 import APPModal from "../../../../components/modal/Modal";
 
-const ProjectForm = ({ openModal, setOpenModal }: any) => {
+interface ProjectFormProps {
+  openModal: boolean;
+  setOpenModal: (open: boolean) => void;
+}
+
+const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
   const [projectData, setProjectData] = useState({
     projectName: "",
     projectDescription: "",
   });
+  const [errorMsg, setErrMsg] = useState("");
 
-  const handleProejctName = (e: any) => {
+  const handleOnChange = (e, fieldName) => {
+    if (fieldName === "PROJECTNAME" && e.target.value.trim() === "") {
+      setErrMsg("Project Name is required");
+    } else {
+      setErrMsg("");
+    }
     setProjectData({ ...projectData, [e.target.name]: e.target.value });
   };
 
@@ -55,15 +66,15 @@ const ProjectForm = ({ openModal, setOpenModal }: any) => {
             required={true}
             name="projectName"
             value={projectData.projectName}
-            onChange={handleProejctName}
+            onChange={(e) => handleOnChange(e, "PROJECTNAME")}
             placeholder="Enter Project Name"
-            errMessage={"Project Name is required"}
+            errMessage={errorMsg}
           />
           <TextAreaFeild
             label="Description"
             name="projectDescription"
             value={projectData.projectDescription}
-            onChange={handleProejctName}
+            onChange={(e) => handleOnChange(e, "PROJECTDESCRIPTION")}
           />
         </div>
       </APPModal>
