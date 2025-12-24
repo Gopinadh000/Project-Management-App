@@ -13,24 +13,27 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
 
   return (
     <Tabs
-      value={activeTab} 
+      value={activeTab}
       onChange={handleChange}
-      sx={{  'css-9biaq2-MuiTabs-root':{maxHeight:"4px !important"} , '.css-ja771h-MuiButtonBase-root-MuiTab-root':{ minHeight :"46px"} }}
+      sx={{
+        "css-9biaq2-MuiTabs-root": { maxHeight: "4px !important" },
+        ".css-ja771h-MuiButtonBase-root-MuiTab-root": { minHeight: "40px" },
+      }}
     >
       {TabsData.map((item: any) => (
         <Tab
-         key={item.id}
+          key={item.id}
           label={item.label}
           icon={item.icon}
           value={item.value}
           iconPosition="start"
-          sx={{  height:"0px"  ,  "& .MuiButtonBase-root ": {
-            padding: "0px",
-            minHeight :"20px!"
-           
-          },}}
-          
-        
+          sx={{
+            height: "0px",
+            "& .MuiButtonBase-root ": {
+              padding: "0px",
+              minHeight: "10px!",
+            },
+          }}
         />
       ))}
     </Tabs>

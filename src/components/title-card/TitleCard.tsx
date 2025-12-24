@@ -1,11 +1,16 @@
-import { Typography } from '@mui/material'
+import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
-const TitleCard = ({title}:any) => {
-  return (
-    <div>
-      <Typography  variant='h5'>{title}</Typography>
-    </div>
-  )
+interface TitleCardProps {
+  title: string;
 }
 
-export default TitleCard
+const TitleCard = ({ title }: TitleCardProps) => {
+  return (
+    <Box>
+      <Typography variant="h5">{title}</Typography>
+    </Box>
+  );
+};
+
+export default TitleCard;

@@ -6,7 +6,7 @@ interface MainContainerProps {
 const MainContainer = ({ children }: MainContainerProps) => {
   return (
     <>
-      <Box className="p-10 bg-gray-100 h-full">{children}</Box>
+      <Box className="p-6 bg-gray-100 h-full">{children}</Box>
     </>
   );
 };

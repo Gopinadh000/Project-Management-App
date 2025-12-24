@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import TitleCard from "../../components/title-card/TitleCard";
 import TabsHeaderComponent from "../../components/tabs/Tabs";
 import AddIcon from "@mui/icons-material/Add";
-import userimg from '../../assets/user.webp'
+import userimg from "../../assets/user.webp";
+import { Box } from "@mui/material";
 
 import {
   projectcolumns,
@@ -17,53 +18,45 @@ import { apiInstance } from "../../services/api/axios-setup/axiosInstance";
 
 const ProjectsPage = ({ TabsData, border }: any) => {
   const { activeTab } = useTabContext();
-  const [projectsData , setProjectsData]=useState(projectsdata)
+  const [projectsData, setProjectsData] = useState(projectsdata);
 
   const [openModal, setOpenModal] = useState(false);
 
-
-
   useEffect(() => {
-    getAllProjectData()
- 
-  },[])
+    getAllProjectData();
+  }, []);
 
+  const getAllProjectData = async () => {
+    const resData = await apiInstance.get("/projects");
 
+    if (resData.status) {
+      console.log("errror");
+    }
 
-  const getAllProjectData = async ()=>{
-    const resData = await  apiInstance.get('/projects')
+    let activeData = resData?.data?.data;
 
-   if(resData.status){
-    console.log("errror")
-   }
+    if (activeData) {
+      const transformedData = activeData.map((item) => ({
+        ...item,
+        id: item.projectid, // Map `projectid` to `id`
+        projectOwner: item.projectowner,
+        projectstatuscolor: "blue",
+        project_progress: "87%",
+        proejctownerimg: userimg,
+      }));
 
-   let activeData =  resData?.data?.data
-
-   if (activeData) {
-    const transformedData = activeData.map((item) => ({
-      ...item,
-      id: item.projectid, // Map `projectid` to `id`
-      projectOwner : item.projectowner,
-      projectstatuscolor : "blue",
-      project_progress :"87%",
-      proejctownerimg : userimg
-    }));
-
-    setProjectsData(transformedData);
-  }
-  }
-
-  
-
+      setProjectsData(transformedData);
+    }
+  };
 
   return (
-    <div className="h-full">
-      <TitleCard title="Projects Page" />
-      <div className="flex items-center mt-4 mb-10  justify-between  border">
-        <div className={`h-10 flex items-center justify-between px-1 py-6`}>
+    <Box className="h-full">
+      <TitleCard title="Projects" />
+      <Box className="flex items-center my-4 justify-between  border">
+        <Box className={`h-6 flex items-center justify-between px-1 py-4 `}>
           <TabsHeaderComponent TabsData={TabsData} />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <AppButton
             text="Add Project"
             variant="contained"
@@ -73,17 +66,17 @@ const ProjectsPage = ({ TabsData, border }: any) => {
             loading={false}
             // disabled='true'
           />
-        </div>
-      </div>
-      <div className="mt-4  h-[500px] overflow-y-auto">
+        </Box>
+      </Box>
+      <Box className="mt-4  h-[500px] overflow-y-auto">
         {activeTab === "LIST_VIEW" ? (
           <DataTable />
         ) : (
           <ProjectCardView projectsData={projectsData} />
         )}
         <ProjectForm openModal={openModal} setOpenModal={setOpenModal} />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
