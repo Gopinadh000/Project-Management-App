@@ -2,25 +2,15 @@ import { ReS, ReE } from '../utils/Res.utils.js';
 import { db } from '../config/db-config.js';
 import { TableBuilder } from '../services/table-builder.service.js';
 import { projectsTableConfig } from "../data-tables/project-table.config.js";
-
+import { generateNextId } from "../utils/common.js";
 
 export const createProject = async (req, res) => {
-  const {
-    projectName,
-    description,
-  } = req.body;
+  const { projectName, projectDescription: description } = req.body;
   const { user } = req; // From auth middleware
-
-  console.log(req, "reqqq");
 
   if (!projectName || projectName.trim() === "") {
     return ReE(res, { message: "Project Name is required." });
   }
-
-  const [projects] = await db.query(
-    "SELECT * FROM projects WHERE company_id = ?",
-    [req?.companyId]
-  );
 
   try {
     // Generate unique project ID
@@ -29,35 +19,18 @@ export const createProject = async (req, res) => {
       [user.companyId]
     );
 
-    let projectNumber = 1;
-    if (existingProjects.length > 0) {
-      const lastProject = existingProjects[0];
-      const lastNumber = parseInt(lastProject.id.split("-")[1]);
-      projectNumber = lastNumber + 1;
-    }
+    const lastProjectId = existingProjects.length
+      ? existingProjects[0].id
+      : null;
 
-    const projectId = `${user.companyId}-PROJ-${projectNumber
-      .toString()
-      .padStart(4, "0")}`;
+    const projectId = generateNextId(req.companyId, "PROJECT", lastProjectId);
 
-    // Insert project
-    const [result] = await db.query(
+    await db.query(
       `INSERT INTO projects (
-                id, project_name, description, project_owner, created_by, 
-                company_id, status, priority, start_date, end_date
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        projectId,
-        projectName.trim(),
-        description || null,
-        projectOwner || user.id,
-        user.id,
-        user.companyId,
-        status || "ACTIVE",
-        priority || "MEDIUM",
-        startDate || null,
-        endDate || null,
-      ]
+                id, project_name, description, created_by, 
+                company_id
+            ) VALUES (?, ?, ?, ?, ?)`,
+      [projectId, projectName, description, user.id, user.companyId]
     );
 
     // Get the created project
