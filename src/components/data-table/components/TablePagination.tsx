@@ -70,30 +70,31 @@ export const TablePagination = ({
 
   return (
     <Box
+      className="bg-white!"
       sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '12px 16px',
-        backgroundColor: '#f5f5f5',
-        borderTop: '1px solid rgba(0, 0, 0, 0.12)',
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "12px 16px",
+        backgroundColor: "#FFF!",
+        borderTop: "1px solid rgba(0, 0, 0, 0.12)",
       }}
     >
       {/* Left side - Pagination controls */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
         {/* First Page Button */}
         <IconButton
           size="small"
           onClick={() => onPageChange(0)}
           disabled={currentPage === 0}
           sx={{
-            border: '1px solid rgba(0, 0, 0, 0.12)',
-            borderRadius: '4px',
-            padding: '4px',
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            border: "1px solid rgba(0, 0, 0, 0.12)",
+            borderRadius: "4px",
+            padding: "4px",
+            "&:hover": {
+              backgroundColor: "rgba(0, 0, 0, 0.04)",
             },
-            '&.Mui-disabled': {
+            "&.Mui-disabled": {
               opacity: 0.5,
             },
           }}
@@ -107,13 +108,13 @@ export const TablePagination = ({
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 0}
           sx={{
-            border: '1px solid rgba(0, 0, 0, 0.12)',
-            borderRadius: '4px',
-            padding: '4px',
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            border: "1px solid rgba(0, 0, 0, 0.12)",
+            borderRadius: "4px",
+            padding: "4px",
+            "&:hover": {
+              backgroundColor: "rgba(0, 0, 0, 0.04)",
             },
-            '&.Mui-disabled': {
+            "&.Mui-disabled": {
               opacity: 0.5,
             },
           }}
@@ -122,12 +123,12 @@ export const TablePagination = ({
         </IconButton>
 
         {pageNumbers.map((page, index) => {
-          if (page === '...') {
+          if (page === "...") {
             return (
               <Typography
                 key={`ellipsis-${index}`}
                 variant="body2"
-                sx={{ px: 1, color: 'text.secondary' }}
+                sx={{ px: 1, color: "text.secondary" }}
               >
                 ...
               </Typography>
@@ -142,23 +143,27 @@ export const TablePagination = ({
               key={pageNum}
               onClick={() => onPageChange(pageNum)}
               sx={{
-                minWidth: '32px',
-                height: '32px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                borderRadius: '4px',
-                border: '1px solid',
-                borderColor: isActive ? 'primary.main' : 'rgba(0, 0, 0, 0.12)',
-                backgroundColor: isActive ? 'primary.main' : 'transparent',
-                color: isActive ? '#fff' : 'text.primary',
-                fontSize: '14px',
+                minWidth: "32px",
+                height: "32px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                borderRadius: "4px",
+                border: "1px solid",
+                borderColor: isActive ? "primary.main" : "rgba(0, 0, 0, 0.12)",
+                backgroundColor: isActive ? "primary.main" : "transparent",
+                color: isActive ? "#fff" : "text.primary",
+                fontSize: "14px",
                 fontWeight: isActive ? 600 : 400,
-                transition: 'all 0.2s',
-                '&:hover': {
-                  backgroundColor: isActive ? 'primary.dark' : 'rgba(0, 0, 0, 0.04)',
-                  borderColor: isActive ? 'primary.dark' : 'rgba(0, 0, 0, 0.23)',
+                transition: "all 0.2s",
+                "&:hover": {
+                  backgroundColor: isActive
+                    ? "primary.dark"
+                    : "rgba(0, 0, 0, 0.04)",
+                  borderColor: isActive
+                    ? "primary.dark"
+                    : "rgba(0, 0, 0, 0.23)",
                 },
               }}
             >
@@ -173,13 +178,13 @@ export const TablePagination = ({
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage >= totalPages - 1}
           sx={{
-            border: '1px solid rgba(0, 0, 0, 0.12)',
-            borderRadius: '4px',
-            padding: '4px',
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            border: "1px solid rgba(0, 0, 0, 0.12)",
+            borderRadius: "4px",
+            padding: "4px",
+            "&:hover": {
+              backgroundColor: "rgba(0, 0, 0, 0.04)",
             },
-            '&.Mui-disabled': {
+            "&.Mui-disabled": {
               opacity: 0.5,
             },
           }}
@@ -193,13 +198,13 @@ export const TablePagination = ({
           onClick={() => onPageChange(totalPages - 1)}
           disabled={currentPage >= totalPages - 1}
           sx={{
-            border: '1px solid rgba(0, 0, 0, 0.12)',
-            borderRadius: '4px',
-            padding: '4px',
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            border: "1px solid rgba(0, 0, 0, 0.12)",
+            borderRadius: "4px",
+            padding: "4px",
+            "&:hover": {
+              backgroundColor: "rgba(0, 0, 0, 0.04)",
             },
-            '&.Mui-disabled': {
+            "&.Mui-disabled": {
               opacity: 0.5,
             },
           }}
@@ -209,7 +214,10 @@ export const TablePagination = ({
       </Box>
 
       {/* Right side - Total count */}
-      <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '14px' }}>
+      <Typography
+        variant="body2"
+        sx={{ color: "text.secondary", fontSize: "14px" }}
+      >
         Showing {startItem}-{endItem} of {totalItems} items
       </Typography>
     </Box>

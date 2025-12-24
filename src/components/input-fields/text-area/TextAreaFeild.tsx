@@ -9,7 +9,7 @@ interface TextAreaFeildProps {
   label: string;
   required?: boolean;
   placeholder?: string;
-  errMessage: string;
+  errMessage?: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 

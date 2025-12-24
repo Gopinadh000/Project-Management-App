@@ -53,7 +53,7 @@ const ProjectsPage = ({ TabsData, border }: any) => {
     <Box className="h-full">
       <TitleCard title="Projects" />
       <Box className="flex items-center my-4 justify-between bg-white">
-        <Box className={`flex items-center justify-between `}>
+        <Box className={`h-12 flex items-center justify-between `}>
           <TabsHeaderComponent TabsData={TabsData} />
         </Box>
         <Box>
@@ -68,7 +68,7 @@ const ProjectsPage = ({ TabsData, border }: any) => {
           />
         </Box>
       </Box>
-      <Box className="mt-4  h-[500px] overflow-y-auto">
+      <Box className="mt-4 bg-white  p-4  overflow-y-auto">
         {activeTab === "LIST_VIEW" ? (
           <DataTable />
         ) : (

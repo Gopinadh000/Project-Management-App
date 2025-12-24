@@ -123,7 +123,10 @@ export default function DataTable({
   };
 
   return (
-    <Box sx={{ height, display: 'flex', flexDirection: 'column' }}>
+    <Box
+      className="bg-white"
+      sx={{ height, display: "flex", flexDirection: "column" }}
+    >
       <Box sx={{ flex: 1 }}>
         <DataGrid
           key="data-table"
@@ -147,7 +150,7 @@ export default function DataTable({
           sx={tableStyles}
         />
       </Box>
-      
+
       {/* Custom Pagination */}
       <TablePagination
         currentPage={currentPage}

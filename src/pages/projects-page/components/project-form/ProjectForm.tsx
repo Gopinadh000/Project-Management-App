@@ -4,8 +4,8 @@ import InputFeild from "../../../../components/input-fields/input-feild/InputFei
 import TextAreaFeild from "../../../../components/input-fields/text-area/TextAreaFeild";
 import { useState } from "react";
 import { apiInstance } from "../../../../services/api/axios-setup/axiosInstance";
-import APPModal from "../../../../components/modal/Modal";
 import SnackBar from "../../../../components/snack-bar/SnackBar";
+import { Modal } from "go-van-ui";
 
 interface ProjectFormProps {
   openModal: boolean;
@@ -45,13 +45,13 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
 
   return (
     <>
-      <APPModal
+      <Modal
         modalType="center"
-        size="l"
+        size="md"
         title="Add Project"
         open={openModal}
         onClose={() => setOpenModal(false)}
-        footerComponent={
+        footer={
           <div className="flex gap-4 float-right mr-5">
             <AppButton
               onClick={() => setOpenModal(false)}
@@ -85,7 +85,7 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
             placeholder="Enter Project Description"
           />
         </div>
-      </APPModal>
+      </Modal>
       {suceessMsg && (
         <SnackBar message={suceessMsg} onClose={() => setSuccessMsg("")} />
       )}

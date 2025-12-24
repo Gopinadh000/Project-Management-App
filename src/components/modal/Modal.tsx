@@ -80,9 +80,7 @@ const APPModal: React.FC<ModalProps> = ({
               <CloseIcon className="cursor-pointer" />
             </span>
           </Box>
-          <Box className="flex-grow p-4 border-2       overflow-y-auto">
-            {children}
-          </Box>
+          <Box className="flex-grow p-4 overflow-y-auto">{children}</Box>
           {footerComponent && (
             <Box className="h-14 bg-gray-100 p-2">{footerComponent}</Box>
           )}
