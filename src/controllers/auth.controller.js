@@ -175,7 +175,7 @@ export const logoutUser = async (req, res) => {
 
 export const getCurrentUser = async (req, res) => {
   return ReS(res, {
-    data: { user: req.user },
+    data: { user: req.user  },
     message: "Current user fetched successfully",
   });
 };

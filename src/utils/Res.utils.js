@@ -1,12 +1,12 @@
 export const ReS = (
   res,
-  { data = {}, message = "", staus = true, statuscode = 200, ...rest }
+  { data = {}, message = "", status = true, statuscode = 200, ...rest }
 ) => {
   return res.status(statuscode).json({
-    success: staus,
+    status: status,
     message,
+     statuscode,
     data,
-    statuscode,
     ...rest,
   });
 };
@@ -17,5 +17,5 @@ export const ReE = (
 ) => {
   return res
     .status(statuscode)
-    .json({ data, message, status, statuscode, ...rest });
+    .json({status , message , statuscode ,  data, ...rest });
 };

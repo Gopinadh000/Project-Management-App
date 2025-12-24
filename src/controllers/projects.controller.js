@@ -8,11 +8,6 @@ export const createProject = async (req, res) => {
   const {
     projectName,
     description,
-    projectOwner,
-    startDate,
-    endDate,
-    priority,
-    status,
   } = req.body;
   const { user } = req; // From auth middleware
 
