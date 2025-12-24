@@ -369,3 +369,33 @@ export function displayStartupInfo(port, options = {}) {
   console.log(`${colors.bright}${colors.green}${bottomBorder}${colors.reset}`);
   console.log('\n');
 }
+
+
+
+
+export const NameWithoutHypens = (name) => {
+  return name.replace(/-/g, "");
+};
+
+export const generateNextId = (lastId, padLength = 3) => {
+  let prefix = "";
+  let nextNumber = 1;
+
+  if (lastId) {
+    const parts = lastId.split("-");
+    const numberPart = parts[parts.length - 1];
+    const parsedNumber = Number(numberPart);
+
+    if (!isNaN(parsedNumber)) {
+      prefix = parts.slice(0, -1).join("-");
+      nextNumber = parsedNumber + 1;
+    } else {
+      // No number found → treat full string as prefix
+      prefix = lastId;
+    }
+  }
+
+  const padded = String(nextNumber).padStart(padLength, "0");
+  return `${prefix}-${padded}`;
+};
+

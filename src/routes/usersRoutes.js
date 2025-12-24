@@ -13,7 +13,7 @@ const router = express.Router();
 //User Routes (Protected)
 router.get('/', cookieTokenAuthorization,   getAllUsers);
 router.get('/:id', jwtTokenAuthorization,   getUserById);
-router.post('/', jwtTokenAuthorization,   createUser);
+router.post("/", createUser);
 router.put('/:id', jwtTokenAuthorization,   updateUser);
 router.delete('/:id' , jwtTokenAuthorization,   deleteUser);
 router.get('/:srchtab=allusers', jwtTokenAuthorization, getAllUsersTable)

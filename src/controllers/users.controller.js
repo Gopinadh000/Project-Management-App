@@ -2,18 +2,27 @@ import { db } from '../config/db-config.js';
 import { ReS, ReE } from '../utils/Res.utils.js';
 import { TableBuilder } from '../services/table-builder.service.js';
 import { usersTableConfig } from "../data-tables/users-table.config.js";
+import { generateNextId } from "../utils/common.js";
 
-export const createUser = (req,res) =>{
-    const { name, email, role, companyId } = req.body;
+export const createUser = (req, res) => {
+  const { firstName, lastName, email, role, companyId, password, companyName } =
+    req?.body || {};
 
-    const userdata = {
-      userId: "COMPANYID-001",
-      name: name,
-      email: email,
-      role: role,
-      companyId: companyId,
-    };
-    return res.json({data : "User Created"})
+  if (!firstName || !lastName || !email || !role || !password || !companyId) {
+    return ReE(res, { message: "All fields are required" });
+  }
+
+  //step 1 :  get last user from the compnayID; ->,  Creating User Companay Id
+
+  const getLastUserQuery = `SELECT user_id FROM users WHERE company_id = ? ORDER BY created_at DESC LIMIT 1`;
+
+  const [lastUserData] = db.query(getLastUserQuery, [companyId]);
+
+  let newUserId = generateNextId(lastUserData?.user_id);
+
+  console.log(newUserId, "newUserId");
+
+  return res.json({ data: "User Created" });
 };
 
 export const getAllUsers =  async (req, res) => {

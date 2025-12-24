@@ -2,7 +2,7 @@ import { ReS, ReE } from "../utils/Res.utils.js";
 import { db } from "../config/db-config.js";
 import bcrypt from "bcryptjs";
 import { generateJWT , decodeJWT ,  setAuthCookie } from "../services/jwt/jwt.service.js";
-
+import { NameWithoutHypens } from "../utils/common.js";
 
 export const registerUser = async (req, res) => {
   const { firstName, lastName, email, password, companyId, companyName } =
@@ -50,9 +50,12 @@ export const registerUser = async (req, res) => {
     let fullname = `${firstName} ${lastName}`;
 
     // 3. Create company
+
+    let companyNameFormatted = NameWithoutHypens(companyName);
+
     await connection.query(
       "INSERT INTO companies (company_id, company_name) VALUES (?, ?)",
-      [companyId, companyName]
+      [companyId, companyNameFormatted]
     );
 
     // 4. Create user
