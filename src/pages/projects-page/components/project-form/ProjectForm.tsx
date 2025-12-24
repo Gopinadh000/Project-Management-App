@@ -5,6 +5,7 @@ import TextAreaFeild from "../../../../components/input-fields/text-area/TextAre
 import { useState } from "react";
 import { apiInstance } from "../../../../services/api/axios-setup/axiosInstance";
 import APPModal from "../../../../components/modal/Modal";
+import SnackBar from "../../../../components/snack-bar/SnackBar";
 
 interface ProjectFormProps {
   openModal: boolean;
@@ -17,6 +18,7 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
     projectDescription: "",
   });
   const [errorMsg, setErrMsg] = useState("");
+  const [suceessMsg, setSuccessMsg] = useState("");
 
   const handleOnChange = (e, fieldName) => {
     if (fieldName === "PROJECTNAME" && e.target.value.trim() === "") {
@@ -31,7 +33,7 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
     const resData = await apiInstance.post("/projects", projectData);
 
     if (!resData.status) {
-      console.log(resData?.message);
+      setSuccessMsg(resData?.message);
     }
     setOpenModal(false);
   };
@@ -78,6 +80,7 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
           />
         </div>
       </APPModal>
+        {suceessMsg && <SnackBar message={suceessMsg} onClose={() => setSuccessMsg("")} />}
     </>
   );
 };
