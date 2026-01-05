@@ -30,6 +30,10 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
   };
 
   const handleSubmitForm = async () => {
+    if (projectData.projectName.trim() === "") {
+      setErrMsg("Project Name is required");
+      return;
+    }
     const resData = await apiInstance.post("/projects", projectData);
 
     if (!resData.status) {
@@ -43,6 +47,11 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
     });
   };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setErrMsg("");
+  };
+
   return (
     <>
       <Modal
@@ -50,11 +59,11 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
         size="md"
         title="Add Project"
         open={openModal}
-        onClose={() => setOpenModal(false)}
+        onClose={handleCloseModal}
         footer={
           <div className="flex gap-4 float-right mr-5">
             <AppButton
-              onClick={() => setOpenModal(false)}
+              onClick={handleCloseModal}
               variant="outlined"
               text="cancel"
             />
@@ -62,6 +71,7 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
               onClick={handleSubmitForm}
               variant="contained"
               text="Submit"
+              loading={false}
             />
           </div>
         }

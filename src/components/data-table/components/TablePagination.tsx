@@ -26,7 +26,7 @@ export const TablePagination = ({
   // Generate page numbers to display
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
-    const maxPagesToShow = 4;
+    const maxPagesToShow = 3;
 
     if (totalPages <= maxPagesToShow) {
       // Show all pages if total is less than max

@@ -8,7 +8,9 @@ interface TitleCardProps {
 const TitleCard = ({ title }: TitleCardProps) => {
   return (
     <Box>
-      <Typography variant="h5">{title}</Typography>
+      <Typography variant="h6" className="font-bold">
+        {title}
+      </Typography>
     </Box>
   );
 };

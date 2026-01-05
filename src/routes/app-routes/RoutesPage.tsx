@@ -7,6 +7,7 @@ import SettingsPage from "../../pages/settings-page/SettingsPage";
 import CreateUserPage from "../../pages/add-user-page/CreateUserPage";
 import NotFoundPage from "../../pages/error-pages/PageNotFound";
 import MaintenancePage from "../../pages/error-pages/MaintenancePage";
+import AiAssistantPage from "../../pages/ai-assistant-page/AiAssistantPage";
 
 const RoutesList = [
   {
@@ -70,6 +71,13 @@ const RoutesList = [
     path: "/maintenance",
     name: "Maintenance",
     element: <MaintenancePage />,
+    hidden: false,
+  },
+  {
+    id: 11,
+    path: "/ai-assistant",
+    name: "Ai Assistant",
+    element: <AiAssistantPage />,
     hidden: false,
   },
 ];

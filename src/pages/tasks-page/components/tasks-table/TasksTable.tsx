@@ -136,7 +136,7 @@ const DynamicTable = () => {
   const filteredRows = getFilteredRows();
 
   return (
-    <div className="table-container">
+    <div className="table-container bg-white p-4 h-screen">
       <table className="table w-full border-collapse border border-gray-200">
         <thead>
           <tr>
@@ -148,7 +148,11 @@ const DynamicTable = () => {
               >
                 <div className="flex justify-between items-center">
                   {header.displayName}
-                  {header.sort && <span className="text-sm cursor-pointer text-blue-400">▲ ▼</span>}
+                  {header.sort && (
+                    <span className="text-sm cursor-pointer text-blue-400">
+                      ▲ ▼
+                    </span>
+                  )}
                 </div>
                 {header.search && (
                   <input

@@ -6,6 +6,7 @@ import { DataTableProps, TransformedRow, TableParams } from './types';
 import { useTableData, useTableConfig } from './hooks';
 import { tableStyles } from './styles/tableStyles';
 import { TablePagination } from './components/TablePagination';
+import { apiInstance } from "../../services/api/axios-setup/axiosInstance";
 
 /**
  * DataTable Component
@@ -48,6 +49,8 @@ export default function DataTable({
   const [searchParams, setSearchParams] = useState<Record<string, string>>({});
   const [sortField, setSortField] = useState<string | undefined>();
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | undefined>();
+
+  const [data, setData] = useState<any[]>([]);
 
   // Handle search
   const handleSearch = useCallback((field: string, value: string) => {
@@ -122,12 +125,29 @@ export default function DataTable({
     }
   };
 
+
+  useEffect(() => {
+    getTableData();
+  }, []);
+
+  const getTableData = async () => {
+    try {
+      const resData = await apiInstance.get("/projects/datatable/projects");
+      setData(resData.data.data.resData);
+      console.log("resData", resData.data.data.resData);
+    } catch (err) {
+      console.log("err", err);
+    }
+  };
+
+
+
   return (
     <Box
-      className="bg-white"
+      className="bg-white h-screen flex-grow-1"
       sx={{ height, display: "flex", flexDirection: "column" }}
     >
-      <Box sx={{ flex: 1 }}>
+      <Box>
         <DataGrid
           key="data-table"
           rows={rows}

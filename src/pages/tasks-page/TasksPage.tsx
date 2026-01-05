@@ -7,31 +7,32 @@ import TasksTabs from "./tabs/TasksTabs";
 import DynamicTable from "./components/tasks-table/TasksTable";
 import KanbanBoard from "../../components/kanban-board/KanbanBoard";
 import { Modal } from "go-van-ui";
+import { Box } from "@mui/material";
 
 const TasksPage = ({ TabsData, border = true }: any) => {
   const { activeTab } = useTabContext();
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <div>
+    <Box className="h-screen">
       <TitleCard title="Tasks Page" />
-      <div
-        className={`h-10 mt-2 flex items-center justify-between px-1 py-6 ${
+      <Box
+        className={`h-10 mt-2 flex items-center justify-between px-1 py-6  bg-white ${
           border && "border"
         }`}
       >
-        <div>
+        <Box className={`h-12 flex items-center justify-between `}>
           <TasksTabs TabsData={TabsData} />
-        </div>
-        <div>
+        </Box>
+        <Box>
           <Button onClick={() => setOpenModal(true)} variant="contained">
             Add Task
           </Button>
-        </div>
-      </div>
-      <div className="mt-10 ">
+        </Box>
+      </Box>
+      <Box className="mt-4 h-full">
         {activeTab == "TABLE_VIEW" ? <DynamicTable /> : <h1>Kanban</h1>}
-      </div>
+      </Box>
       <Modal
         size="md"
         modalType="side"
@@ -40,7 +41,7 @@ const TasksPage = ({ TabsData, border = true }: any) => {
       >
         Hello{" "}
       </Modal>
-    </div>
+    </Box>
   );
 };
 export default TasksPage;

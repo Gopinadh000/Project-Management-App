@@ -15,6 +15,8 @@ import AppButton from "../../components/app-button/AppButton";
 import ProjectForm from "./components/project-form/ProjectForm";
 import ProjectCardView from "./components/project-cards/ProjectCardView";
 import { apiInstance } from "../../services/api/axios-setup/axiosInstance";
+import DataTable2 from "../../components/sample-table/DataTable2";
+import AppDataTable from "../../components/app-table/AppDataTable";
 
 const ProjectsPage = ({ TabsData, border }: any) => {
   const { activeTab } = useTabContext();
@@ -64,13 +66,17 @@ const ProjectsPage = ({ TabsData, border }: any) => {
             iconName={<AddIcon />}
             iconPosition="start"
             loading={false}
-            // disabled='true'
           />
         </Box>
       </Box>
-      <Box className="mt-4 bg-white  p-4  overflow-y-auto">
+      <Box className="mt-4 bg-white   p-4  overflow-y-auto">
         {activeTab === "LIST_VIEW" ? (
-          <DataTable />
+          <AppDataTable
+            tableInstanceDetails={{
+              apiUrl: "projectstable",
+              tableId: "projects",
+            }}
+          />
         ) : (
           <ProjectCardView projectsData={projectsData} />
         )}

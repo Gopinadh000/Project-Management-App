@@ -1,10 +1,18 @@
-import React from 'react';
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Box, Typography, List, ListItem, ListItemText, Divider, Badge } from '@mui/material';
-import Poppover from '../poppover/Poppover';
+import React, { memo } from "react";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import {
+  Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  Badge,
+} from "@mui/material";
+import Poppover from "../poppover/Poppover";
 // import { Button } from 'go-van-ui';
-import { useAuth } from '../../services/context/AuthContext';
+import { useAuth } from "../../services/context/AuthContext";
 import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
 
 interface NavBarProps {
@@ -155,4 +163,4 @@ const NavBar: React.FC<NavBarProps> = ({
   );
 };
 
-export default NavBar
+export default memo(NavBar);

@@ -60,19 +60,20 @@ export default function DynamicMRTTable({ apiUrl }:any) {
   }, [apiUrl]);
 
   const table = useMaterialReactTable({
-    columns:columns,
+    columns: columns,
     data: useMemo(() => data, [data]),
-    enableColumnOrdering: true,
-    enableColumnPinning: true,
+    enableTopToolbar: false,
+    enableColumnOrdering: false,
+    enableColumnPinning: false,
     enableColumnFilters: true,
-    enableSorting: true,
-    enableGlobalFilter: true,
+    enableSorting: false,
+    enableGlobalFilter: false,
     enablePagination: true,
     initialState: {
-      showGlobalFilter: true,
+      showGlobalFilter: false,
       pagination: {
-          pageSize: 10,
-          pageIndex: 0
+        pageSize: 10,
+        pageIndex: 0,
       },
     },
   });
