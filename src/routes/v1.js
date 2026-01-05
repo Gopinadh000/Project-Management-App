@@ -12,6 +12,7 @@ import taskRoutes from "./tasksRoutes.js";
 import settingsRoutes from "./settingsRoutes.js";
 import aiRoutes from "./aiRoutes.js";
 import dashboardRoutes from "./dashboardRoutes.js";
+import tableControllerRoutes from "./tableRoutes.js";
 import { cookieTokenAuthorization } from "../services/jwt/jwt.service.js";
 
 //Test api
@@ -30,6 +31,9 @@ router.use("/tasks", cookieTokenAuthorization, taskRoutes);
 router.use("/settings", settingsRoutes);
 router.use("/ai", aiRoutes);
 router.use("/dashbaord", dashboardRoutes);
+
+//table routes
+router.use("/app/table", tableControllerRoutes);
 
 
 export  {router};

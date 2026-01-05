@@ -5,8 +5,9 @@ import {
   updateProject,
   getProjectById,
   deleteProject,
-  getAllProjectsTable,
+  // getAllProjectsTable,
 } from "../controllers/projects.controller.js";
+// import { getProjectsSampleTable } from "../controllers/projects.controller.js";
 
 import {
   jwtTokenAuthorization,
@@ -15,14 +16,14 @@ import {
 
 const router = express.Router();
 
-
 //  baseurl : "projects
 
-router.post("/", cookieTokenAuthorization,  createProject);
-router.get("/tabledata", getAllProjectsTable);
-router.get("/", getAllProjects);
-router.get("/:id", getProjectById);
-router.put("/:id", updateProject);
-router.delete("/:id", deleteProject);
+router.post("/", cookieTokenAuthorization, createProject);
+
+router.get("/", cookieTokenAuthorization, getAllProjects);
+router.get("/:id", cookieTokenAuthorization, getProjectById);
+router.put("/:id", cookieTokenAuthorization, updateProject);
+router.delete("/:id", cookieTokenAuthorization, deleteProject);
+// router.get("/tabledata", getAllProjectsTable);
 
 export default router;

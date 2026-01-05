@@ -1,6 +1,6 @@
 import { db } from '../config/db-config.js';
 import { ReS, ReE } from '../utils/Res.utils.js';
-import { TableBuilder } from '../services/table-builder.service.js';
+import { TableBuilder } from "../services/data-table-service/data-table.service.js";
 import { usersTableConfig } from "../data-tables/users-table.config.js";
 import { generateNextId } from "../utils/common.js";
 

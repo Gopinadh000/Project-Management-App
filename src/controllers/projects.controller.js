@@ -1,7 +1,7 @@
 import { ReS, ReE } from '../utils/Res.utils.js';
 import { db } from '../config/db-config.js';
-import { TableBuilder } from '../services/table-builder.service.js';
-import { projectsTableConfig } from "../data-tables/project-table.config.js";
+// import { TableBuilder } from "../services/data-table-service/data-table.service.js";
+// import { projectsTableConfig } from "../data-tables/project-table.config.js";
 import { generateNextId } from "../utils/common.js";
 
 export const createProject = async (req, res) => {
@@ -52,63 +52,28 @@ export const createProject = async (req, res) => {
 };
 
 export const getAllProjects = async (req, res) => {
-    const { user } = req;
-    const { page = 1, limit = 10, status, priority } = req.query;
+  const { user } = req;
 
-    try {
-        let whereClause = "WHERE company_id = ?";
-        let params = [user?.companyId];
+  try {
+    let whereClause = "WHERE company_id = ?";
+    let params = [user.companyId];
 
-        if (status) {
-            whereClause += " AND status = ?";
-            params.push(status);
-        }
+    const [projectsData] = await db.query(
+      `SELECT * FROM projects ${whereClause} order by id ASC`,
+      params
+    );
 
-        if (priority) {
-            whereClause += " AND priority = ?";
-            params.push(priority);
-        }
-
-        // Get total count
-        const [countResult] = await db.query(
-            `SELECT COUNT(*) as total FROM projects ${whereClause}`,
-            params
-        );
-
-        const total = countResult[0].total;
-        const offset = (page - 1) * limit;
-
-        // Get projects with pagination
-        const [projects] = await db.query(
-            `SELECT p.*, 
-                    u1.name as owner_name, 
-                    u2.name as creator_name
-             FROM projects p
-             LEFT JOIN users u1 ON p.project_owner = u1.id
-             LEFT JOIN users u2 ON p.created_by = u2.id
-             ${whereClause}
-             ORDER BY p.created_at DESC
-             LIMIT ? OFFSET ?`,
-            [...params, parseInt(limit), offset]
-        );
-
-        return ReS(res, {
-            data: {
-                projects,
-                pagination: {
-                    page: parseInt(page),
-                    limit: parseInt(limit),
-                    total,
-                    pages: Math.ceil(total / limit)
-                }
-            },
-            message: "Projects retrieved successfully"
-        });
-
-    } catch (error) {
-        console.error('Error fetching projects:', error);
-        return ReE(res, { message: "Failed to fetch projects", error: error.message });
-    }
+    return ReS(res, {
+      data: projectsData,
+      message: "Projects retrieved successfully",
+    });
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return ReE(res, {
+      message: "Failed to fetch projects",
+      error: error.message,
+    });
+  }
 };
 
 export const getProjectById = async (req, res) => {
@@ -274,66 +239,68 @@ export const deleteProject = async (req, res) => {
     }
 };
 
-export const getAllProjectsTable = async (req, res) => {
-    const { user } = req;
-    const { page = 1, limit = 20, status, priority } = req.query;
-    const pageNum = parseInt(page);
-    const limitNum = parseInt(limit);
-    const offset = (pageNum - 1) * limitNum;
+// export const getAllProjectsTable = async (req, res) => {
+//     const { user } = req;
+//     const { page = 1, limit = 20, status, priority } = req.query;
+//     const pageNum = parseInt(page);
+//     const limitNum = parseInt(limit);
+//     const offset = (pageNum - 1) * limitNum;
 
-    try {
-        let whereClause = "WHERE company_id = ?";
-        let params = [user.companyId];
+//     try {
+//         let whereClause = "WHERE company_id = ?";
+//         let params = [user.companyId];
 
-        if (status) {
-            whereClause += " AND status = ?";
-            params.push(status);
-        }
+//         if (status) {
+//             whereClause += " AND status = ?";
+//             params.push(status);
+//         }
 
-        if (priority) {
-            whereClause += " AND priority = ?";
-            params.push(priority);
-        }
+//         if (priority) {
+//             whereClause += " AND priority = ?";
+//             params.push(priority);
+//         }
 
-        // Get total count
-        const [countResult] = await db.query(
-            `SELECT COUNT(*) as total FROM projects ${whereClause}`,
-            params
-        );
+//         // Get total count
+//         const [countResult] = await db.query(
+//             `SELECT COUNT(*) as total FROM projects ${whereClause}`,
+//             params
+//         );
 
-        const total = countResult[0].total;
+//         const total = countResult[0].total;
 
-        // Get projects with pagination and JOIN for owner name
-        const [projects] = await db.query(
-            `SELECT p.*, 
-                    u1.name as owner_name, 
-                    u2.name as creator_name
-             FROM projects p
-             LEFT JOIN users u1 ON p.project_owner = u1.id
-             LEFT JOIN users u2 ON p.created_by = u2.id
-             ${whereClause}
-             ORDER BY p.created_at DESC
-             LIMIT ? OFFSET ?`,
-            [...params, limitNum, offset]
-        );
+//         // Get projects with pagination and JOIN for owner name
+//         const [projects] = await db.query(
+//             `SELECT p.*, 
+//                     u1.name as owner_name, 
+//                     u2.name as creator_name
+//              FROM projects p
+//              LEFT JOIN users u1 ON p.project_owner = u1.id
+//              LEFT JOIN users u2 ON p.created_by = u2.id
+//              ${whereClause}
+//              ORDER BY p.created_at DESC
+//              LIMIT ? OFFSET ?`,
+//             [...params, limitNum, offset]
+//         );
 
-        // Calculate pagination info
-        const paginationInfo = TableBuilder.calculatePagination(total, pageNum, limitNum);
+//         // Calculate pagination info
+//         const paginationInfo = TableBuilder.calculatePagination(total, pageNum, limitNum);
 
-        // Build table data using class-based approach
-        const tableBuilder = new TableBuilder(projectsTableConfig, {
-            downloadenable: true,
-            lastPageNavigation: true
-        });
-        const tableData = tableBuilder.build(projects, paginationInfo);
+//         // Build table data using class-based approach
+//         const tableBuilder = new TableBuilder(projectsTableConfig, {
+//             downloadenable: true,
+//             lastPageNavigation: true
+//         });
+//         const tableData = tableBuilder.build(projects, paginationInfo);
 
-        return ReS(res, {
-            data: tableData,
-            message: "Projects table data retrieved successfully"
-        });
+//         return ReS(res, {
+//             data: tableData,
+//             message: "Projects table data retrieved successfully"
+//         });
 
-    } catch (error) {
-        console.error('Error fetching projects table data:', error);
-        return ReE(res, { message: "Failed to fetch projects table data", error: error.message });
-    }
-};
+//     } catch (error) {
+//         console.error('Error fetching projects table data:', error);
+//         return ReE(res, { message: "Failed to fetch projects table data", error: error.message });
+//     }
+// };
+
+
