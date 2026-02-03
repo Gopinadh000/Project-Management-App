@@ -43,7 +43,7 @@ const RoutesList = [
     path: "/users/add",
     name: "add users",
     element: <CreateUserPage />,
-    hidden: false,
+    hidden: true,
   },
   {
     id: 7,

@@ -52,10 +52,23 @@ const ProjectsPage = ({ TabsData, border }: any) => {
   };
 
   return (
-    <Box className="h-full">
+    <Box
+      sx={{ display: "flex", flexDirection: "column", gap: 3, height: "100%" }}
+    >
       <TitleCard title="Projects" />
-      <Box className="flex items-center my-4 justify-between bg-white">
-        <Box className={`h-12 flex items-center justify-between `}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: 1,
+          borderRadius: "4px",
+          backgroundColor: "var(--app-bg-primary)",
+          boxShadow: "1px 2px 1px 3px rgba(0, 0, 0, 0.1)",
+          border: "1px solid var(--app-bg-primary)",
+        }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <TabsHeaderComponent TabsData={TabsData} />
         </Box>
         <Box>
@@ -69,7 +82,7 @@ const ProjectsPage = ({ TabsData, border }: any) => {
           />
         </Box>
       </Box>
-      <Box className="mt-4 bg-white   p-4  overflow-y-auto">
+      <Box sx={{ flex: 1, minHeight: 0 }}>
         {activeTab === "LIST_VIEW" ? (
           <AppDataTable
             tableInstanceDetails={{
@@ -80,8 +93,8 @@ const ProjectsPage = ({ TabsData, border }: any) => {
         ) : (
           <ProjectCardView projectsData={projectsData} />
         )}
-        <ProjectForm openModal={openModal} setOpenModal={setOpenModal} />
       </Box>
+      <ProjectForm openModal={openModal} setOpenModal={setOpenModal} />
     </Box>
   );
 };

@@ -14,6 +14,29 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
     <Tabs
       value={activeTab}
       onChange={handleChange}
+      sx={{
+        ".MuiBox-root": {
+          background: "red",
+        },
+        "& .MuiTabs-indicator": {
+          backgroundColor: "var(--app-primary-500)",
+        },
+        "& .MuiTab-root": {
+          color: "var(--app-text-secondary)",
+          textTransform: "none",
+          fontWeight: 500,
+          fontSize: "0.875rem",
+          minHeight: "40px",
+          "&.Mui-selected": {
+            color: "var(--app-primary-500)",
+            fontWeight: 600,
+          },
+          "&:hover": {
+            color: "var(--app-primary-500)",
+            backgroundColor: "var(--app-primary-100)",
+          },
+        },
+      }}
     >
       {TabsData.map((item: any) => (
         <Tab
@@ -23,11 +46,12 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
           value={item.value}
           iconPosition="start"
           sx={{
-            height: "0px",
-            "& .MuiButtonBase-root ": {
-              padding: "0px",
+            gap: 1,
+            "& .MuiSvgIcon-root": {
+              fontSize: "1.125rem",
             },
           }}
+          // sx={{}}
         />
       ))}
     </Tabs>

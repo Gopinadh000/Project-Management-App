@@ -20,23 +20,42 @@ const AppButton: React.FC<AppButtonProps> = ({
   disabled,
   loading,
 }) => {
-  const getButtonClasses = () => {
-    switch (variant) {
-      case "contained":
-        return "bg-blue-900! text-white hover:bg-blue-800"; // Contained blue button
-      case "outlined":
-        return "border border-white text-white hover:bg-gray-100 hover:text-black"; // Outlined button
-      default:
-        return "text-blue-900 hover:text-blue-700";
-    }
-  };
-
   return (
     <Button
       variant={variant}
       onClick={onClick}
-      className={`flex justify-center items-center gap-1 px-2 py-1 rounded-lg ${getButtonClasses()}`}
       disabled={disabled || loading}
+      sx={{
+        textTransform: "none",
+        fontWeight: 500,
+        px: 3,
+        py: 1,
+        borderRadius: "0.5rem",
+        ...(variant === "contained" && {
+          backgroundColor: "var(--app-primary-500)",
+          color: "white",
+          "&:hover": {
+            backgroundColor: "var(--app-primary-600)",
+          },
+          "&.Mui-disabled": {
+            backgroundColor: "var(--app-secondary-300)",
+            color: "var(--app-text-secondary)",
+          },
+        }),
+        ...(variant === "outlined" && {
+          borderColor: "var(--app-primary-500)",
+          color: "var(--app-primary-500)",
+          "&:hover": {
+            borderColor: "var(--app-primary-600)",
+            backgroundColor: "var(--app-primary-100)",
+            color: "var(--app-primary-600)",
+          },
+          "&.Mui-disabled": {
+            borderColor: "var(--app-secondary-300)",
+            color: "var(--app-text-secondary)",
+          },
+        }),
+      }}
     >
       {loading ? (
         <CircularProgress

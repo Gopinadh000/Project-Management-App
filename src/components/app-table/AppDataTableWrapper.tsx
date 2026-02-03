@@ -1,4 +1,4 @@
-import React, { useEffect , useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Box } from "@mui/material";
 import {
   MaterialReactTable,
@@ -12,36 +12,53 @@ import {apiInstance} from "../../services/api/axios-setup/axiosInstance";
 import  buildColumns  from "./utils/ColumBuilder";
 import NoDataMessage from "./components/NoDataMessage";
 
+interface TableData {
+  rows: Record<string, unknown>[];
+  columns: unknown[];
+  isLoading: boolean;
+  pagination: string;
+}
+
+interface AppDataTableWrapperProps {
+  tableInstanceDetails: {
+    tableId: string;
+    apiUrl: string;
+  };
+  baseUrl: string;
+  initialQueryParams: unknown;
+  tableProps?: unknown;
+  systemCells?: unknown[];
+  customCells?: unknown[];
+  filtersConfig: {
+    enabledFilters: boolean;
+  };
+  enablePagination: boolean;
+}
 
 const AppDataTableWrapper = ({
  tableInstanceDetails,
   baseUrl,
   initialQueryParams,
-  tableProps,
-  systemCells,
-  customCells,
   filtersConfig,
   enablePagination,
-}: any) => {
+}: AppDataTableWrapperProps) => {
 
-  const [ tableData , setTableData ] = useState ({ rows : [] , columns : [],  isLoading : false, pagination : "" });
+  const [ tableData , setTableData ] = useState<TableData>({ 
+    rows: [], 
+    columns: [], 
+    isLoading: false, 
+    pagination: "" 
+  });
 
   const { tableId, apiUrl } = tableInstanceDetails;
 
-
-  useEffect(() => {
-   fetchTableData()
-  }, [baseUrl, apiUrl, initialQueryParams]);
-
-
-  const fetchTableData = async ()=>{
+  const fetchTableData = useCallback(async () => {
      try {
-      setTableData((prev: any) => ({ ...prev, isLoading: true }));
+      setTableData((prev) => ({ ...prev, isLoading: true }));
 
       const res = await apiInstance.get(`${baseUrl}/${apiUrl}`);
 
-
-      const resData = res.data.data.resData
+      const resData = res.data.data.resData;
       setTableData({
         columns: resData.columns,
         rows: resData.rows,
@@ -50,40 +67,390 @@ const AppDataTableWrapper = ({
       });
     } catch (err) {
       console.error(err);
-      setTableData((prev: any) => ({ ...prev, isLoading: false }));
+      setTableData((prev) => ({ ...prev, isLoading: false }));
     }
+  }, [baseUrl, apiUrl]);
 
-  }
+  useEffect(() => {
+   fetchTableData();
+  }, [fetchTableData, initialQueryParams]);
 
   const columns = buildColumns(tableData?.columns);
 
 
 
 
-  return  (
-    <TableComponent>
-       {tableData?.isLoading  &&  <TableSkleton/>}
+  return (
+    <>
+      <style>{`
+        /* OEScroll styles - apply to table container and all scrollable elements */
+        .oescroll,
+        .MuiTableContainer-root.oescroll,
+        [data-testid*="app-data-table"] .MuiTableContainer-root.oescroll,
+        .oescroll-wrapper .MuiTableContainer-root {
+          scrollbar-color: var(--app-secondary-300) var(--app-bg-secondary) !important;
+        }
+        .oescroll::-webkit-scrollbar,
+        .MuiTableContainer-root.oescroll::-webkit-scrollbar,
+        [data-testid*="app-data-table"] .MuiTableContainer-root.oescroll::-webkit-scrollbar,
+        .oescroll-wrapper .MuiTableContainer-root::-webkit-scrollbar {
+          width: 8px !important;
+          height: 8px !important;
+        }
+        .oescroll::-webkit-scrollbar-thumb,
+        .MuiTableContainer-root.oescroll::-webkit-scrollbar-thumb,
+        [data-testid*="app-data-table"] .MuiTableContainer-root.oescroll::-webkit-scrollbar-thumb,
+        .oescroll-wrapper .MuiTableContainer-root::-webkit-scrollbar-thumb {
+          background-color: var(--app-secondary-300) !important;
+          border-radius: 20px !important;
+        }
+        .oescroll::-webkit-scrollbar-track,
+        .MuiTableContainer-root.oescroll::-webkit-scrollbar-track,
+        [data-testid*="app-data-table"] .MuiTableContainer-root.oescroll::-webkit-scrollbar-track,
+        .oescroll-wrapper .MuiTableContainer-root::-webkit-scrollbar-track {
+          background-color: var(--app-bg-secondary) !important;
+          border-radius: 20px !important;
+        }
+        /* Column resize handle styling */
+        [data-testid*="app-data-table"] .MuiTableCell-head {
+          position: relative;
+        }
+        [data-testid*="app-data-table"] .MuiTableCell-head:hover .Mui-TableHeadCell-ResizeHandle-Wrapper {
+          display: block;
+        }
+        [data-testid*="app-data-table"] .Mui-TableHeadCell-ResizeHandle-Wrapper {
+          display: block;
+          opacity: 0;
+          transition: opacity 0.2s;
+        }
+        [data-testid*="app-data-table"] .MuiTableCell-head:hover .Mui-TableHeadCell-ResizeHandle-Wrapper,
+        [data-testid*="app-data-table"] .Mui-TableHeadCell-ResizeHandle-Wrapper.isResizing {
+          opacity: 1;
+        }
+        /* Ensure table container can scroll */
+        [data-testid*="app-data-table"] .MuiTableContainer-root {
+          overflow: auto !important;
+          overflow-x: auto !important;
+          overflow-y: auto !important;
+          max-height: 100% !important;
+          width: 100% !important;
+        }
+        /* Ensure table can expand beyond container for horizontal scroll */
+        [data-testid*="app-data-table"] table {
+          width: 100% !important;
+          min-width: max-content;
+        }
+        /* Ensure MaterialReactTable root has proper height */
+        [data-testid*="app-data-table"] {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        /* Ensure sticky header works */
+        [data-testid*="app-data-table"] .MuiTableHead-root {
+          position: sticky !important;
+          top: 0 !important;
+          z-index: 20 !important;
+        }
+        [data-testid*="app-data-table"] .MuiTableHeadRow-root {
+          position: sticky !important;
+          top: 0 !important;
+          z-index: 20 !important;
+        }
+        [data-testid*="app-data-table"] .MuiTableCell-head {
+          position: sticky !important;
+          top: 0 !important;
+          z-index: 20 !important;
+        }
+      `}</style>
+      <TableComponent>
+        {tableData?.isLoading && (
+          <Box 
+            className="p-4 border-b"
+            sx={{
+              borderColor: "var(--app-secondary-200)",
+              backgroundColor: "var(--app-bg-primary)",
+            }}
+          >
+            <TableSkleton />
+          </Box>
+        )}
         {filtersConfig.enabledFilters && <TableFiltersContainer />}
-        <MaterialReactTable
-         data-testid={`app-data-table-${tableId}`}
-         columns={columns}
-         data={ tableData?.rows} 
-         layoutMode="semantic"
-         enablePagination={false}
-         enableGlobalFilter={false}
-         enableDensityToggle={false}
-         enableGlobalFilterModes={false}
-         enableColumnFilters={true}
-         enableHiding={false}
-         enableFullScreenToggle={false}
-         enableRowSelection={true}
-
-         renderEmptyRowsFallback={() => <NoDataMessage/>}
-          // {...defaultProps}
-         />
-         {enablePagination && <TablePagination  />}
+        <Box 
+          sx={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'hidden',
+            minHeight: 0,
+            height: '100%',
+          }}
+          className="oescroll-wrapper"
+        >
+          <MaterialReactTable
+            data-testid={`app-data-table-${tableId}`}
+            columns={columns}
+            data={tableData?.rows || []}
+            layoutMode="grid"
+            enablePagination={false}
+            enableGlobalFilter={false}
+            enableDensityToggle={false}
+            enableGlobalFilterModes={false}
+            enableColumnFilters={false}
+            enableHiding={false}
+            enableFullScreenToggle={false}
+            enableTopToolbar={false}
+            enableRowSelection={true}
+            enableColumnResizing={true}
+            columnResizeMode="onChange"
+            defaultColumn={{
+              minSize: 50,
+              maxSize: 800,
+              size: 200,
+            }}
+            columnFilterDisplayMode="custom"
+            enableStickyHeader={true}
+            enableStickyFooter={enablePagination}
+            memoMode="cells"
+            renderEmptyRowsFallback={() => (
+              <Box sx={{ 
+                height: '100%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                minHeight: '300px',
+                padding: '16px',
+              }}>
+                <NoDataMessage />
+              </Box>
+            )}
+            muiTablePaperProps={{
+              elevation: 0,
+              sx: {
+                height: '100%',
+                maxHeight: '100%',
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: 'none',
+                border: 'none',
+                borderRadius: 0,
+                overflow: 'hidden',
+                backgroundColor: 'transparent',
+                flex: 1,
+                minHeight: 0,
+                '& .MuiCheckbox-root': {
+                  color: 'var(--app-text-secondary)',
+                  '&.Mui-checked': {
+                    color: 'var(--app-primary-500)',
+                  },
+                  '&:hover': {
+                    backgroundColor: 'var(--app-primary-50)',
+                  },
+                },
+              },
+            }}
+            muiTableContainerProps={{
+              sx: {
+                flex: '1 1 auto',
+                maxHeight: '100%',
+                width: '100%',
+                overflow: 'auto',
+                overflowX: 'auto',
+                overflowY: 'auto',
+                border: '1px solid',
+                borderColor: 'var(--app-secondary-200)',
+                borderBottom: 'none',
+                borderRadius: '8px 8px 0 0',
+                minHeight: 0,
+                position: 'relative',
+                backgroundColor: 'var(--app-bg-primary)',
+                '& .MuiTableHead-root': {
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 20,
+                },
+              },
+              className: 'oescroll',
+            }}
+            muiTableProps={{
+              sx: {
+                tableLayout: 'auto',
+                borderCollapse: 'separate',
+                borderSpacing: 0,
+                width: '100%',
+                minWidth: 'max-content',
+              },
+            }}
+            muiTableHeadProps={{
+              sx: {
+                opacity: 1,
+              },
+            }}
+            muiTableHeadRowProps={{
+              sx: {
+                borderTop: 'none',
+                borderBottom: '2px solid',
+                borderLeft: 'none',
+                borderRight: 'none',
+                borderColor: 'var(--app-secondary-300)',
+                height: '56px',
+                textAlign: 'center',
+                alignItems: 'center',
+                fontSize: '16px',
+                fontWeight: 600,
+                color: 'var(--app-text-primary)',
+                boxShadow: 'none',
+                backgroundColor: 'var(--app-bg-secondary)',
+                position: 'sticky',
+                top: 0,
+                zIndex: 20,
+              },
+            }}
+            muiTableHeadCellProps={{
+              sx: {
+                backgroundColor: 'var(--app-bg-secondary)',
+                borderTop: 'none',
+                borderBottom: 'none',
+                borderLeft: 'none',
+                borderRight: '1px solid',
+                borderColor: 'var(--app-secondary-200)',
+                height: '56px',
+                textAlign: 'left',
+                padding: '0',
+                fontWeight: 600,
+                fontSize: '14px',
+                color: 'var(--app-text-primary)',
+                position: 'sticky',
+                top: 0,
+                zIndex: 20,
+                whiteSpace: 'nowrap',
+                '&:hover': {
+                  backgroundColor: 'var(--app-primary-50)',
+                },
+                '&:last-child': {
+                  borderRight: 'none',
+                },
+                '& .Mui-TableHeadCell-Content-Labels': {
+                  fontWeight: 600,
+                  color: 'var(--app-text-primary)',
+                },
+                '& .Mui-TableHeadCell-Content-Labels': {
+                  width: '100%',
+                  height: '56px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '0 12px',
+                },
+                '& .Mui-TableHeadCell-Content-Wrapper': {
+                  width: '100%',
+                },
+                '& .Mui-TableHeadCell-ResizeHandle-Wrapper': {
+                  position: 'absolute',
+                  right: 0,
+                  top: 0,
+                  width: '5px',
+                  height: '100%',
+                  cursor: 'col-resize',
+                  userSelect: 'none',
+                  touchAction: 'none',
+                  zIndex: 11,
+                  '&:hover': {
+                    backgroundColor: 'var(--app-primary-500)',
+                    opacity: 0.8,
+                  },
+                  '&.isResizing': {
+                    backgroundColor: 'var(--app-primary-500)',
+                    opacity: 1,
+                  },
+                },
+                '& .Mui-TableHeadCell-ResizeHandle-Divider': {
+                  height: '100%',
+                  width: '2px',
+                  backgroundColor: 'transparent',
+                  marginLeft: 'auto',
+                },
+              },
+            }}
+            muiTableBodyCellProps={{
+              sx: {
+                borderTop: 'none',
+                borderBottom: '1px solid',
+                borderLeft: 'none',
+                borderRight: '1px solid',
+                borderColor: 'var(--app-secondary-200)',
+                height: '52px',
+                textAlign: 'left',
+                padding: '12px 16px',
+                fontSize: '14px',
+                fontWeight: 400,
+                color: 'var(--app-text-primary)',
+                backgroundColor: 'transparent',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                '&:last-child': {
+                  borderRight: 'none',
+                },
+              },
+            }}
+            muiTableBodyRowProps={{
+              sx: {
+                height: '52px',
+                textAlign: 'center',
+                color: 'var(--app-text-primary)',
+                backgroundColor: 'var(--app-bg-primary)',
+                '&:nth-of-type(even)': {
+                  backgroundColor: 'var(--app-bg-secondary)',
+                },
+                '&:hover': {
+                  backgroundColor: 'var(--app-primary-50) !important',
+                },
+                '&.Mui-selected': {
+                  backgroundColor: 'var(--app-primary-100) !important',
+                  '&:hover': {
+                    backgroundColor: 'var(--app-primary-100) !important',
+                  },
+                },
+                '&.MuiTableRow-selected': {
+                  backgroundColor: 'var(--app-primary-100) !important',
+                  '&:hover': {
+                    backgroundColor: 'var(--app-primary-100) !important',
+                  },
+                },
+              },
+              className: 'group',
+            }}
+            muiTableFooterProps={{
+              sx: {
+                outline: 'none',
+              },
+            }}
+            muiBottomToolbarProps={{
+              sx: {
+                display: 'none',
+              },
+            }}
+          />
+        {enablePagination && (
+          <Box
+            sx={{
+              border: '1px solid',
+              borderTop: 'none',
+              borderColor: 'var(--app-secondary-200)',
+              borderRadius: '0 0 8px 8px',
+              backgroundColor: 'var(--app-bg-secondary)',
+              flexShrink: 0,
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <TablePagination pagination={tableData.pagination} />
+          </Box>
+        )}
+      </Box>
     </TableComponent>
-    );  
+    </>
+  );  
 };
 
 export default AppDataTableWrapper;

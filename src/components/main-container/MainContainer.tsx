@@ -6,7 +6,16 @@ interface MainContainerProps {
 const MainContainer = ({ children }: MainContainerProps) => {
   return (
     <>
-      <Box className="p-6 bg-gray-100 h-full border-2 flex-1 min-h-0 overflow-hidden">
+      <Box 
+        sx={{
+          padding: { xs: 2, sm: 3, md: 4 },
+          backgroundColor: "var(--app-bg-primary)",
+          flex: 1,
+          height: "calc(100vh - 64px)",
+          overflowY: "auto",
+          transition: "background-color 0.2s",
+        }}
+      >
         {children}
       </Box>
     </>

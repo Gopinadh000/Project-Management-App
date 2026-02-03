@@ -144,8 +144,13 @@ export default function DataTable({
 
   return (
     <Box
-      className="bg-white h-screen flex-grow-1"
-      sx={{ height, display: "flex", flexDirection: "column" }}
+      className="bg-white dark:bg-gray-900 h-screen flex-grow-1 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+      sx={{ 
+        height, 
+        display: "flex", 
+        flexDirection: "column",
+        backgroundColor: "var(--app-bg-primary)",
+      }}
     >
       <Box>
         <DataGrid

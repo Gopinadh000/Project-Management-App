@@ -1,4 +1,3 @@
-
 *{
     margin: 0px;
     padding: 0px;
@@ -6,22 +5,36 @@
 }
 
 :root {
+    /* Colors are dynamically set via JavaScript based on Redux state */
+    /* Default values (will be overridden on app load) */
     --app-primary-50: #eff6ff;
     --app-primary-100: #dbeafe;
     --app-primary-500: #3b82f6;
+    --app-primary-600: #2563eb;
+    --app-primary-800: #1e40af;
     --app-primary-900: #1e3a8a;
+    --app-primary-text: #1e3a8a;
 
-    --app-secondary-50 :#f9fafb;
-    --app-secondary-100 :#f4f5f7;
-    --app-secondary-500 :#6b7280;
-    --app-secondary-900 :#1f2937;
-}
+    --app-secondary-50: #f9fafb;
+    --app-secondary-100: #f3f4f6;
+    --app-secondary-200: #e5e7eb;
+    --app-secondary-300: #d1d5db;
+    --app-secondary-400: #9ca3af;
+    --app-secondary-500: #6b7280;
+    --app-secondary-800: #374151;
+    --app-secondary-900: #1f2937;
+    --app-secondary-text: #1f2937;
 
+    --app-bg-primary: #ffffff;
+    --app-bg-secondary: #f9fafb;
+    --app-text-primary: #111827;
+    --app-text-secondary: #6b7280;
 
-*{
-    margin: 0px;
-    padding: 0px;
-    overflow: hidden;
+    --app-white: #ffffff;
+    --app-black: #000000;
+    --app-success: #10b981;
+    --app-warning: #f59e0b;
+    --app-error: #ef4444;
 }
 
 input:-webkit-autofill {

@@ -16,7 +16,7 @@ const AppDataTable = (props :any) => {
      customCells = [],
     enablePagination = true,
     filtersConfig = {
-      enabledFilters : true 
+      enabledFilters : false 
     },
   } = props;
 

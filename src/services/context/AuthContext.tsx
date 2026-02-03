@@ -71,7 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  }, []); // Remove user from dependencies - checkAuth shouldn't depend on user state
+  }, []);
 
   // Login function
   const login = async (email: string, password: string) => {
@@ -79,18 +79,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await apiInstance.post('/auth/login', { email, password });
       
       if (response.data?.status && response.data?.data?.user) {
-        // Mark that initial check is done (so we don't run checkAuth again)
         setIsInitialCheck(false);
-        // Set loading to false and user state
         setIsLoading(false);
         setUser(response.data.data.user);
-        
-        // Small delay to ensure state is updated before navigation
-        // This prevents race conditions with ProtectedRoute
-        await new Promise(resolve => setTimeout(resolve, 50));
-        
+
+        await new Promise((resolve) => setTimeout(resolve, 50));
+
         // Navigate to home
-        navigate('/', { replace: true });
+        navigate("/", { replace: true });
         return;
       }
       throw new Error(response.data?.message || 'Login failed');
@@ -107,20 +103,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Logout function
   const logout = async () => {
     try {
-      await apiInstance.post('/auth/logout');
+      await apiInstance.post("/auth/logout");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
     setUser(null);
-    
-    // Use requestAnimationFrame to ensure state update has been processed
-    // before navigation, preventing PublicRoute from seeing stale auth state
+
     requestAnimationFrame(() => {
-      navigate('/login', { replace: true });
+      navigate("/login", { replace: true });
     });
   };
 
-  // Check authentication on mount (only on initial load)
   useEffect(() => {
     if (isInitialCheck) {
       checkAuth().finally(() => {

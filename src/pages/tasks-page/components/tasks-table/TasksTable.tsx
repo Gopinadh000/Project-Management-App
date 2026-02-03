@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Checkbox, Tooltip } from "@mui/material";
+import { Checkbox, Tooltip, Box } from "@mui/material";
 
 // Sample tableHeaders and tableRowsData
 const tableHeaders = [
@@ -136,20 +136,39 @@ const DynamicTable = () => {
   const filteredRows = getFilteredRows();
 
   return (
-    <div className="table-container bg-white p-4 h-screen">
-      <table className="table w-full border-collapse border border-gray-200">
+    <Box
+      sx={{
+        backgroundColor: "var(--app-bg-primary)",
+        padding: 2,
+        borderRadius: "12px",
+        overflow: "auto",
+        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      <table 
+        className="table w-full border-collapse" 
+        style={{ borderColor: "var(--app-secondary-200)" }}
+      >
         <thead>
-          <tr>
+          <tr style={{ backgroundColor: "var(--app-bg-secondary)" }}>
             {tableHeaders.map((header) => (
               <th
                 key={header.id}
-                className="border p-2 bg-blue-50"
+                className="border p-3 font-semibold text-sm"
+                style={{
+                  backgroundColor: "var(--app-bg-secondary)",
+                  borderColor: "var(--app-secondary-200)",
+                  color: "var(--app-text-primary)",
+                }}
                 onClick={() => header.sort && handleSort(header.fieldname)}
               >
                 <div className="flex justify-between items-center">
-                  {header.displayName}
+                  <span>{header.displayName}</span>
                   {header.sort && (
-                    <span className="text-sm cursor-pointer text-blue-400">
+                    <span 
+                      className="text-sm cursor-pointer"
+                      style={{ color: "var(--app-primary-500)" }}
+                    >
                       ▲ ▼
                     </span>
                   )}
@@ -158,7 +177,12 @@ const DynamicTable = () => {
                   <input
                     type="text"
                     placeholder={`Search ${header.displayName}`}
-                    className="mt-2 w-full border p-1"
+                    className="mt-2 w-full border p-1.5 rounded text-sm"
+                    style={{
+                      backgroundColor: "var(--app-bg-primary)",
+                      borderColor: "var(--app-secondary-300)",
+                      color: "var(--app-text-primary)",
+                    }}
                     onChange={(e) => handleSearchChange(e, header.fieldname)}
                   />
                 )}
@@ -168,12 +192,26 @@ const DynamicTable = () => {
         </thead>
         <tbody>
           {filteredRows.map((row, rowIndex) => (
-            <tr key={rowIndex} className="border-b">
+            <tr 
+              key={rowIndex} 
+              className="border-b hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              style={{
+                backgroundColor: rowIndex % 2 === 0 ? "var(--app-bg-primary)" : "var(--app-bg-secondary)",
+                borderColor: "var(--app-secondary-200)",
+              }}
+            >
               {tableHeaders.map((header) => (
-                <td key={header.id} className="border p-2">
+                <td 
+                  key={header.id} 
+                  className="border p-3 text-sm"
+                  style={{
+                    borderColor: "var(--app-secondary-200)",
+                    color: "var(--app-text-primary)",
+                  }}
+                >
                   {header.tooltip ? (
                     <Tooltip title={row[header.fieldname].value}>
-                      {renderCustomCell(header, row)}
+                      <span>{renderCustomCell(header, row)}</span>
                     </Tooltip>
                   ) : (
                     renderCustomCell(header, row)
@@ -184,7 +222,7 @@ const DynamicTable = () => {
           ))}
         </tbody>
       </table>
-    </div>
+    </Box>
   );
 };
 

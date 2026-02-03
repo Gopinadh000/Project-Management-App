@@ -1,37 +1,62 @@
 export const DARK_PALLETE = {
-  ['BLUE_THEME'] : {
+  BLUE_THEME: {
     primary: {
-      50: "#2A4365",  // Darker shade of blue for light background
-      100: '#1e365d',  // Darker blue
-      500: '#3b82f6',   // Standard blue for dark mode
-      800: "#1A365D",   // Deeper blue for dark mode
-      900: '#1e3a8a',   // Dark blue for contrast
-      text: "#EBF8FF"   // Light text for dark mode
+      50: "#1e3a8a",
+      100: "#1e40af",
+      500: "#60a5fa",
+      600: "#3b82f6",
+      800: "#3b82f6",
+      900: "#dbeafe",
+      text: "#dbeafe",
     },
     secondary: {
-      50: "#2C5282",   // Dark blue for secondary light
-      100: '#4A90E2',  // Soft blue
-      500: '#7E8A93',  // Medium gray-blue
-      800: "#2A4365",  // Deep blue for secondary
-      900: '#2C5282',  // Darker secondary blue
-      text: "#BEE3F8"  // Light text for secondary in dark mode
-    }
-  },
-  ['GRAY_THEME']: {
-    primary: { 
-      50: "#F9FAFB",    // very light 
-      100 : '#F3F4F6',
-      500 : '#6B7280',
-      800: "##474343",
-      900 : '#1F2937',    //high dark
-      text: "#111827" 
+      50: "#1f2937",
+      100: "#374151",
+      200: "#4b5563",
+      300: "#6b7280",
+      400: "#9ca3af",
+      500: "#9ca3af",
+      800: "#d1d5db",
+      900: "#f3f4f6",
+      text: "#f3f4f6",
     },
-    secondary: { 
-      50: "#4A5568", 
-      100 : '',
-      500 : '',
-      800: "#2D3748", 
-      900 : '', 
-      text: "#E2E8F0" },
-  }
-}
+    background: {
+      primary: "#111827",
+      secondary: "#1f2937",
+    },
+    text: {
+      primary: "#f9fafb",
+      secondary: "#d1d5db",
+    },
+  },
+  YELLOW_THEME: {
+    primary: {
+      50: "#713f12",
+      100: "#854d0e",
+      500: "#fbbf24",
+      600: "#fcd34d",
+      800: "#fcd34d",
+      900: "#fef3c7",
+      text: "#fef3c7",
+    },
+    secondary: {
+      50: "#1f2937",
+      100: "#374151",
+      200: "#4b5563",
+      300: "#6b7280",
+      400: "#9ca3af",
+      500: "#9ca3af",
+      800: "#d1d5db",
+      900: "#f3f4f6",
+      text: "#f3f4f6",
+    },
+    background: {
+      primary: "#111827",
+      secondary: "#1a1a1a",
+    },
+    text: {
+      primary: "#f9fafb",
+      secondary: "#d1d5db",
+    },
+  },
+};

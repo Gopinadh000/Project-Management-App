@@ -14,23 +14,43 @@ const TasksPage = ({ TabsData, border = true }: any) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Box className="h-screen">
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 3, height: "100%" }}>
       <TitleCard title="Tasks Page" />
       <Box
-        className={`h-10 mt-2 flex items-center justify-between px-1 py-6  bg-white ${
-          border && "border"
-        }`}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: 2,
+          borderRadius: "12px",
+          backgroundColor: "var(--app-bg-primary)",
+          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+        }}
       >
-        <Box className={`h-12 flex items-center justify-between `}>
+        <Box className="flex items-center">
           <TasksTabs TabsData={TabsData} />
         </Box>
         <Box>
-          <Button onClick={() => setOpenModal(true)} variant="contained">
+          <Button 
+            onClick={() => setOpenModal(true)} 
+            variant="contained"
+            sx={{
+              backgroundColor: "var(--app-primary-500)",
+              color: "white",
+              textTransform: "none",
+              fontWeight: 500,
+              px: 3,
+              py: 1,
+              "&:hover": {
+                backgroundColor: "var(--app-primary-600)",
+              },
+            }}
+          >
             Add Task
           </Button>
         </Box>
       </Box>
-      <Box className="mt-4 h-full">
+      <Box sx={{ flex: 1, minHeight: 0 }}>
         {activeTab == "TABLE_VIEW" ? <DynamicTable /> : <h1>Kanban</h1>}
       </Box>
       <Modal

@@ -1,41 +1,58 @@
 import TitleCard from "../../components/title-card/TitleCard";
 import AppButton from "../../components/app-button/AppButton";
-import {
-  projectsdata,
-  projectcolumns,
-} from "../../assets/dummy-data/projects-data";
 import { useNavigate } from "react-router-dom";
-import DynamicMRTTable from "../../components/m-table/MTable";
 import AppDataTable from "../../components/app-table/AppDataTable";
+import { Box } from "@mui/material";
+import APPModal from "../../components/modal/Modal";
+import { useState } from "react";
+import { Create } from "@mui/icons-material";
+import CreateUserForm from "./forms/CreateUserForm";
 
 const UsersPage = () => {
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
 
   const handleAddUser = () => {
     navigate("/users/add");
   };
 
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
+
+  const handleOpenModal = () => {
+    setOpen(true);
+  };
+
   return (
-    <div className="">
-      <TitleCard title="Users Page" />
-      <div className="flex justify-end mb-4">
+    <Box
+      sx={{ display: "flex", flexDirection: "column", gap: 3, height: "100%" }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <TitleCard title="Users Page" />
         <AppButton
           text="Add User"
           variant="contained"
-          onClick={handleAddUser}
+          onClick={handleOpenModal}
         />
-      </div>
-      <div className=" h-full">
-        {/* <DynamicMRTTable apiUrl="users/usersdata" /> */}
-
+      </Box>
+      <Box sx={{ flex: 1, minHeight: 0 }}>
         <AppDataTable
           tableInstanceDetails={{
             apiUrl: "userstable",
             tableId: "users",
           }}
         />
-      </div>
-    </div>
+      </Box>
+      <CreateUserForm openModal={open} setOpenModal={setOpen} />
+    </Box>
   );
 };
 

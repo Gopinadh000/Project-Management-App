@@ -70,14 +70,14 @@ export const TablePagination = ({
 
   return (
     <Box
-      className="bg-white!"
       sx={{
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         padding: "12px 16px",
-        backgroundColor: "#FFF!",
-        borderTop: "1px solid rgba(0, 0, 0, 0.12)",
+        backgroundColor: "var(--app-bg-secondary)",
+        borderTop: "1px solid",
+        borderColor: "var(--app-secondary-200)",
       }}
     >
       {/* Left side - Pagination controls */}
@@ -88,14 +88,19 @@ export const TablePagination = ({
           onClick={() => onPageChange(0)}
           disabled={currentPage === 0}
           sx={{
-            border: "1px solid rgba(0, 0, 0, 0.12)",
+            border: "1px solid",
+            borderColor: "var(--app-secondary-300)",
             borderRadius: "4px",
             padding: "4px",
+            color: "var(--app-text-primary)",
             "&:hover": {
-              backgroundColor: "rgba(0, 0, 0, 0.04)",
+              backgroundColor: "var(--app-primary-100)",
+              borderColor: "var(--app-primary-500)",
+              color: "var(--app-primary-500)",
             },
             "&.Mui-disabled": {
               opacity: 0.5,
+              borderColor: "var(--app-secondary-200)",
             },
           }}
         >
@@ -108,14 +113,19 @@ export const TablePagination = ({
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 0}
           sx={{
-            border: "1px solid rgba(0, 0, 0, 0.12)",
+            border: "1px solid",
+            borderColor: "var(--app-secondary-300)",
             borderRadius: "4px",
             padding: "4px",
+            color: "var(--app-text-primary)",
             "&:hover": {
-              backgroundColor: "rgba(0, 0, 0, 0.04)",
+              backgroundColor: "var(--app-primary-100)",
+              borderColor: "var(--app-primary-500)",
+              color: "var(--app-primary-500)",
             },
             "&.Mui-disabled": {
               opacity: 0.5,
+              borderColor: "var(--app-secondary-200)",
             },
           }}
         >
@@ -128,7 +138,10 @@ export const TablePagination = ({
               <Typography
                 key={`ellipsis-${index}`}
                 variant="body2"
-                sx={{ px: 1, color: "text.secondary" }}
+                sx={{ 
+                  px: 1, 
+                  color: "var(--app-text-secondary)",
+                }}
               >
                 ...
               </Typography>
@@ -151,19 +164,28 @@ export const TablePagination = ({
                 cursor: "pointer",
                 borderRadius: "4px",
                 border: "1px solid",
-                borderColor: isActive ? "primary.main" : "rgba(0, 0, 0, 0.12)",
-                backgroundColor: isActive ? "primary.main" : "transparent",
-                color: isActive ? "#fff" : "text.primary",
+                borderColor: isActive 
+                  ? "var(--app-primary-500)" 
+                  : "var(--app-secondary-300)",
+                backgroundColor: isActive 
+                  ? "var(--app-primary-500)" 
+                  : "transparent",
+                color: isActive 
+                  ? "white" 
+                  : "var(--app-text-primary)",
                 fontSize: "14px",
                 fontWeight: isActive ? 600 : 400,
                 transition: "all 0.2s",
                 "&:hover": {
                   backgroundColor: isActive
-                    ? "primary.dark"
-                    : "rgba(0, 0, 0, 0.04)",
+                    ? "var(--app-primary-600)"
+                    : "var(--app-primary-100)",
                   borderColor: isActive
-                    ? "primary.dark"
-                    : "rgba(0, 0, 0, 0.23)",
+                    ? "var(--app-primary-600)"
+                    : "var(--app-primary-500)",
+                  color: isActive
+                    ? "white"
+                    : "var(--app-primary-500)",
                 },
               }}
             >
@@ -178,14 +200,19 @@ export const TablePagination = ({
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage >= totalPages - 1}
           sx={{
-            border: "1px solid rgba(0, 0, 0, 0.12)",
+            border: "1px solid",
+            borderColor: "var(--app-secondary-300)",
             borderRadius: "4px",
             padding: "4px",
+            color: "var(--app-text-primary)",
             "&:hover": {
-              backgroundColor: "rgba(0, 0, 0, 0.04)",
+              backgroundColor: "var(--app-primary-100)",
+              borderColor: "var(--app-primary-500)",
+              color: "var(--app-primary-500)",
             },
             "&.Mui-disabled": {
               opacity: 0.5,
+              borderColor: "var(--app-secondary-200)",
             },
           }}
         >
@@ -198,14 +225,19 @@ export const TablePagination = ({
           onClick={() => onPageChange(totalPages - 1)}
           disabled={currentPage >= totalPages - 1}
           sx={{
-            border: "1px solid rgba(0, 0, 0, 0.12)",
+            border: "1px solid",
+            borderColor: "var(--app-secondary-300)",
             borderRadius: "4px",
             padding: "4px",
+            color: "var(--app-text-primary)",
             "&:hover": {
-              backgroundColor: "rgba(0, 0, 0, 0.04)",
+              backgroundColor: "var(--app-primary-100)",
+              borderColor: "var(--app-primary-500)",
+              color: "var(--app-primary-500)",
             },
             "&.Mui-disabled": {
               opacity: 0.5,
+              borderColor: "var(--app-secondary-200)",
             },
           }}
         >
@@ -216,7 +248,10 @@ export const TablePagination = ({
       {/* Right side - Total count */}
       <Typography
         variant="body2"
-        sx={{ color: "text.secondary", fontSize: "14px" }}
+        sx={{ 
+          color: "var(--app-text-secondary)", 
+          fontSize: "14px",
+        }}
       >
         Showing {startItem}-{endItem} of {totalItems} items
       </Typography>
