@@ -5,6 +5,19 @@ import { usersTableConfig } from "../data-tables/users-table.config.js";
 import { generateNextId } from "../utils/common.js";
 
 export const createUser = (req, res) => {
+  /*ui fields  
+  
+  userid [AUTOMATIC GENERATED ], 
+  username [firstName + lastName ],
+  email ,
+  role , [SUPER_ADMIN, MANAGER, MEMBER],
+  password, [ automatic created for new user when internally created by super admin/manager  USERNAME@DOB]
+  DESIGNATION, ['CEO', 'CTO', 'CFO', 'MANAGER', 'ENGINEER', 'INTERN', 'HR', 'SALES', 'MARKETING', 'UI DEVLOPER', 'UX DESIGNER',  'BACKEND DEVELOPER', 'FRONTEND DEVELOPER' ],
+  GENDER,  [MALE, FEMALE, OTHER],
+  REPORTING_MANAGER, [ USERID],
+  DOB,
+  */
+
   const { firstName, lastName, email, role, companyId, password, companyName } =
     req?.body || {};
 

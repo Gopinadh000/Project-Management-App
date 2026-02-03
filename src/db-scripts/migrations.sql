@@ -138,6 +138,16 @@ ADD COLUMN status TINYINT(1)  DEFAULT 0
 AFTER company_id;
 </migration-script>
 
+<migration-script id="012_create_app_designations_table">
+CREATE TABLE IF NOT EXISTS  app_designations(
+  id INT AUTO_INCREMENT PRIMARY KEY, 
+  desgination_name VARCHAR(225), 
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
+  created_by VARCHAR(50)
+  );
+</migration-script>
+
+
 
 
 

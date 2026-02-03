@@ -72,15 +72,15 @@ export const jwtTokenAuthorization = (req, res, next) => {
 export const setAuthCookie = (res, user)=>{
     const token =  generateJWT(user);
 
-   let cookietoken =   res.cookie(COOKIE_NAME , token, {
-        httpOnly: true,
-        secure: process.env.APP_ENV === 'PROD', // Use secure in production
-        sameSite: 'lax', // Changed from 'strict' to 'lax' for better cross-site compatibility
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds (matches JWT expiration)
-        path: '/',
-        // Note: Not setting 'domain' allows cookie to work on localhost across all ports
-        // For production, you might want to set domain: '.yourdomain.com'
-    })
+   let cookietoken = res.cookie(COOKIE_NAME, token, {
+     httpOnly: true,
+     secure: process.env.APP_ENV === "PROD", // Use secure in production
+     sameSite: "lax", // Changed from 'strict' to 'lax' for better cross-site compatibility
+     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds (matches JWT expiration)
+     path: "/",
+     // Note: Not setting 'domain' allows cookie to work on localhost across all ports
+     // For production, you might want to set domain: '.yourdomain.com'
+   });
 
     return cookietoken;
 }
