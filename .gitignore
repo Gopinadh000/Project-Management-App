@@ -4,5 +4,6 @@ node_modules
 
 .env
 .gitignore.local
-.DS_Store
+**/.DS_Store
 .readme_files
+.vscode
