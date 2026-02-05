@@ -47,6 +47,8 @@ const NavBar: React.FC<NavBarProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
 
+  console.log(user, "user");
+
   // Sample notifications data
   const notifications = [
     { id: 1, title: "New project assigned", time: "2 min ago" },
@@ -274,7 +276,7 @@ const NavBar: React.FC<NavBarProps> = ({
           <Poppover
             parentComponent={
               <span className="flex gap-3 p-2 items-center font-bold">
-                <Badge
+                {/* <Badge
                   badgeContent={notifications.length}
                   color="error"
                   sx={{
@@ -288,12 +290,15 @@ const NavBar: React.FC<NavBarProps> = ({
                       height: "18px",
                     },
                   }}
-                >
+                > */}
+                <Box className="flex items-center cursor-pointer p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">
                   <CircleNotificationsIcon
                     fontSize="medium"
-                    className="rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer text-gray-600 dark:text-gray-300 transition-colors duration-200 p-1"
+                    className="text-gray-600 dark:text-gray-300"
                   />
-                </Badge>
+                </Box>
+
+                {/* </Badge> */}
               </span>
             }
             childComponent={
@@ -376,11 +381,11 @@ const NavBar: React.FC<NavBarProps> = ({
         <Box>
           <Poppover
             parentComponent={
-              <span className="flex gap-2 items-center cursor-pointer p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">
+              <span className="flex items-center gap-2 bg-app-primary-100 max-w-32  cursor-pointer px-2 py-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">
                 <Avatar
                   sx={{
-                    width: 32,
-                    height: 32,
+                    width: 24,
+                    height: 24,
                     bgcolor: "var(--app-primary-500)",
                     fontSize: "0.875rem",
                     fontWeight: 600,
@@ -388,6 +393,20 @@ const NavBar: React.FC<NavBarProps> = ({
                 >
                   {user?.name?.charAt(0)?.toUpperCase() || "U"}
                 </Avatar>
+                <div className="flex flex-col">
+                  <Typography
+                    variant="body2"
+                    className="text-gray-900 dark:text-gray-100 font-medium"
+                    sx={{ fontSize: "0.75rem", fontWeight: 500 }}
+                  >
+                    {user?.name && (
+                      <div className="name font-bold">
+                        {user.name.split(" ")[0]}
+                      </div>
+                    )}
+                  </Typography>
+                  <span className="text-gray-400 text-[8px]">{user?.role}</span>
+                </div>
               </span>
             }
             childComponent={
@@ -430,7 +449,7 @@ const NavBar: React.FC<NavBarProps> = ({
                             lineHeight: 1.2,
                           }}
                         >
-                          {user?.name || "John Doe"}
+                          {user?.firstName || ""}
                         </Typography>
                         <Typography
                           variant="caption"

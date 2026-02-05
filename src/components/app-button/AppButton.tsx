@@ -28,9 +28,9 @@ const AppButton: React.FC<AppButtonProps> = ({
       sx={{
         textTransform: "none",
         fontWeight: 500,
-        px: 3,
-        py: 1,
-        borderRadius: "0.5rem",
+        px: 1.5,
+        py: 0.5,
+        borderRadius: "0.3rem",
         ...(variant === "contained" && {
           backgroundColor: "var(--app-primary-500)",
           color: "white",

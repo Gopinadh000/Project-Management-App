@@ -7,11 +7,12 @@ import { useState } from "react";
 import SnackBar from "../../components/snack-bar/SnackBar";
 import { useAuth } from "../../services/context/AuthContext";
 import loginimage from "../../assets/loginimage.svg";
+import InputFeild from "../../components/input-fields/input-feild/InputFeild";
 
 const LoginPage = () => {
   const { login } = useAuth();
   const [userdata, setUserData] = useState({
-    email : "",
+    email: "",
     password: "",
   });
   const [userDataErrors, setUserDataErrors] = useState({
@@ -23,66 +24,59 @@ const LoginPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: any) => {
-
-      if (e.target.value == "") {
-        setUserDataErrors({
-          ...userDataErrors,
-          [e.target.name] : `${e.target.name} is Required`,
-        });
-      }else{
-          setUserDataErrors({
-          ...userDataErrors,
-          [e.target.name] : "",
-        });
-      }
-      console.log( {[e.target.name] : e.target.value })
+    if (e.target.value == "") {
+      setUserDataErrors({
+        ...userDataErrors,
+        [e.target.name]: `${e.target.name} is Required`,
+      });
+    } else {
+      setUserDataErrors({
+        ...userDataErrors,
+        [e.target.name]: "",
+      });
+    }
+    console.log({ [e.target.name]: e.target.value });
     setUserData({ ...userdata, [e.target.name]: e.target.value });
   };
 
-
-
   const validateForm = () => {
-  let isValid = true;
+    let isValid = true;
 
-  const validateEmailRegex = /^\S+@\S+\.\S+$/;
-  const validatePasswordRegex =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,}$/;
+    const validateEmailRegex = /^\S+@\S+\.\S+$/;
+    const validatePasswordRegex =
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,}$/;
 
-  let validedEmail = validateEmailRegex.test(userdata.email);
-  let validatedPassword = validatePasswordRegex.test(userdata.password);
+    let validedEmail = validateEmailRegex.test(userdata.email);
+    let validatedPassword = validatePasswordRegex.test(userdata.password);
 
-  let errors = { ...userDataErrors };
+    let errors = { ...userDataErrors };
 
-  // Email Validation
-  if (userdata.email.trim() === "") {
-    errors.email = "Email is Required";
-    isValid = false;
-  } else if (!validedEmail) {
-    errors.email = "Invalid Email Address";
-    isValid = false;
-  } else {
-    errors.email = "";
-  }
+    // Email Validation
+    if (userdata.email.trim() === "") {
+      errors.email = "Email is Required";
+      isValid = false;
+    } else if (!validedEmail) {
+      errors.email = "Invalid Email Address";
+      isValid = false;
+    } else {
+      errors.email = "";
+    }
 
-  // Password Validation
-  if (userdata.password.trim() === "") {
-    errors.password = "Password is Required";
-    isValid = false;
-  } else if (!validatedPassword) {
-    errors.password =
-      "Password must be 8+ chars, with uppercase, lowercase, number & symbol.";
-    isValid = false;
-  } else {
-    errors.password = "";
-  }
+    // Password Validation
+    if (userdata.password.trim() === "") {
+      errors.password = "Password is Required";
+      isValid = false;
+    } else if (!validatedPassword) {
+      errors.password =
+        "Password must be 8+ chars, with uppercase, lowercase, number & symbol.";
+      isValid = false;
+    } else {
+      errors.password = "";
+    }
 
-  setUserDataErrors(errors);
-  return isValid;
-};
-
-
-
-
+    setUserDataErrors(errors);
+    return isValid;
+  };
 
   const handleSubmit = async () => {
     const isValid = validateForm();
@@ -107,9 +101,9 @@ const LoginPage = () => {
       </div>
       <div className="sm:w-full md:w-2/5 shadow-md border-t bg-white">
         <div className="border-gray-20 h-full p-10">
-          <div className="text-blue-900 font-bold h-10 flex items-center  mb-2">
-            <DashboardOutlinedIcon className="text-blue-800 font-bold ml-2" />{" "}
-            Go Vantage
+          <div className="text-blue-900 font-bold h-10 flex items-center gap-2  mb-2">
+            <DashboardOutlinedIcon className="text-blue-800  ml-2 font-2xl" />{" "}
+            Go Manage
           </div>
           <div className="mb-4 flex flex-col gap-4">
             <Typography variant="h5" component="h5">
@@ -119,7 +113,7 @@ const LoginPage = () => {
               Welcome Back!. Sign to your Account.
             </Typography>
           </div>
-          <div className="flex cursor-pointer text-md gap-2 w-full border-2 justify-between items-center ">
+          <div className="flex cursor-pointer text-md gap-2 w-full border-2 justify-between items-center">
             <span className="bg-gray-100 flex  gap-1  text-red-600 justify-center items-center m-1  p-2 w-full hover:bg-gray-300">
               <GoogleIcon />
               Google
@@ -129,8 +123,18 @@ const LoginPage = () => {
               Facebook
             </span>
           </div>
+          <div className="relative mt-5">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border"></div>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-4 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
           <div></div>
-          <div className="flex gap-8 flex-col mt-20 p-4">
+          <div className="flex gap-8 flex-col mt-5 p-4">
             <div className="flex flex-col gap-2">
               <TextField
                 className="border-2 border-red-500"
@@ -142,9 +146,11 @@ const LoginPage = () => {
                 name="email"
                 onChange={handleInputChange}
               />
-               {userDataErrors.email && <span className="text-xs text-red-400">
-                {userDataErrors.email}
-              </span> }
+              {userDataErrors.email && (
+                <span className="text-xs text-red-400">
+                  {userDataErrors.email}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -180,7 +186,9 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      {snackMsg && <SnackBar message={snackMsg} onClose={() => setSnackMsg("")} />}
+      {snackMsg && (
+        <SnackBar message={snackMsg} onClose={() => setSnackMsg("")} />
+      )}
     </div>
   );
 };

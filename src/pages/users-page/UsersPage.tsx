@@ -36,7 +36,7 @@ const UsersPage = () => {
           alignItems: "center",
         }}
       >
-        <TitleCard title="Users Page" />
+        <TitleCard title="Users" />
         <AppButton
           text="Add User"
           variant="contained"

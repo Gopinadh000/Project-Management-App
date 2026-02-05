@@ -61,11 +61,11 @@ const ProjectsPage = ({ TabsData, border }: any) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: 1,
+          padding: "0.5px",
           borderRadius: "4px",
           backgroundColor: "var(--app-bg-primary)",
-          boxShadow: "1px 2px 1px 3px rgba(0, 0, 0, 0.1)",
-          border: "1px solid var(--app-bg-primary)",
+          // boxShadow: "1px 2px 1px 3px rgba(0, 0, 0, 0.1)",
+          border: "1px solid var(--app-secondary-200)",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>

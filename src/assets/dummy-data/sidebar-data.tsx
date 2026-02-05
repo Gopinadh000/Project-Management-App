@@ -5,6 +5,10 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import QuickreplyIcon from '@mui/icons-material/Quickreply';
 import LogoutIcon from "@mui/icons-material/Logout";
+import SourceIcon from "@mui/icons-material/Source";
+import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 
 export const sidebardata = [
   {
@@ -21,7 +25,7 @@ export const sidebardata = [
     key: "projects",
     title: "Projects",
     route: "/projects",
-    icon: <ListAltIcon />,
+    icon: <SourceIcon />,
   },
   {
     id: 3,
@@ -29,7 +33,7 @@ export const sidebardata = [
     key: "tasks",
     title: "Tasks",
     route: "/tasks",
-    icon: <AssignmentIcon />,
+    icon: <AssignmentTurnedInIcon />,
   },
   {
     id: 4,
@@ -54,7 +58,7 @@ export const sidebardata = [
     key: "settings",
     title: "Settings",
     route: "/settings",
-    icon: <SettingsSuggestIcon />,
+    icon: <SettingsIcon />,
   },
   // {
   //   id: 4,

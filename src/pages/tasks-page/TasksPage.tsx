@@ -14,33 +14,36 @@ const TasksPage = ({ TabsData, border = true }: any) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 3, height: "100%" }}>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", gap: 3, height: "100%" }}
+    >
       <TitleCard title="Tasks Page" />
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: 2,
-          borderRadius: "12px",
+          padding: "2px",
+          borderRadius: "4px",
           backgroundColor: "var(--app-bg-primary)",
-          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+          // boxShadow: "1px 2px 1px 3px rgba(0, 0, 0, 0.1)",
+          border: "1px solid var(--app-secondary-200)",
         }}
       >
         <Box className="flex items-center">
           <TasksTabs TabsData={TabsData} />
         </Box>
         <Box>
-          <Button 
-            onClick={() => setOpenModal(true)} 
+          <Button
+            onClick={() => setOpenModal(true)}
             variant="contained"
             sx={{
               backgroundColor: "var(--app-primary-500)",
               color: "white",
               textTransform: "none",
               fontWeight: 500,
-              px: 3,
-              py: 1,
+              px: 2,
+              py: 0.5,
               "&:hover": {
                 backgroundColor: "var(--app-primary-600)",
               },
