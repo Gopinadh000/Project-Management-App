@@ -136,7 +136,7 @@ const MenuItems: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
             key={item.id}
             onClick={() => handleSideOption(item.name, item.route)}
             className={`flex items-center rounded-md cursor-pointer transition-all duration-200 ${
-              isOpen ? "p-2  gap-2" : "p-2 justify-center"
+              isOpen ? "p-2  gap-2" : "p-2.5 justify-center"
             } ${
               isActive
                 ? "text-white shadow-sm"
