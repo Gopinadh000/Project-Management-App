@@ -19,7 +19,14 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
           background: "red",
         },
         "& .MuiTabs-indicator": {
+          height: "3px",
           backgroundColor: "var(--app-primary-500)",
+        },
+        "& .MuiTabs-list": {
+          gap: "6px",
+        },
+        "& .MuiTab-root ": {
+          padding: "12px 10px",
         },
         "& .MuiTab-root": {
           color: "var(--app-text-secondary)",
@@ -30,6 +37,8 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
           "&.Mui-selected": {
             color: "var(--app-primary-500)",
             fontWeight: 600,
+            borderRadius: "2px",
+            backgroundColor: "var(--app-primary-100)", // 🔥 THIS is what you want
           },
           "&:hover": {
             color: "var(--app-primary-500)",

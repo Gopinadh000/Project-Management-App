@@ -16,7 +16,7 @@ const StaticBrand = memo<{ isOpen: boolean }>(({ isOpen }) => {
   return (
     <>
       <Box
-        className="flex mb-20 justify-center cursor-pointer items-center h-16 xxs:hidden xs:hidden sm:hidden md:flex transition-colors duration-200"
+        className="flex justify-center cursor-pointer items-center h-16 xxs:hidden xs:hidden sm:hidden md:flex transition-colors duration-200"
         sx={{
           borderBottom: "1px solid",
           borderColor: "var(--app-secondary-200)",
@@ -196,7 +196,7 @@ const MenuItems: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
 
   return (
     <Box
-      className="flex flex-col gap-2.5 overflow-auto"
+      className="flex flex-col gap-2.5 mt-5 overflow-auto"
       sx={{
         padding: isOpen ? 2 : 1,
         backgroundColor: "var(--app-bg-primary)",

@@ -15,25 +15,25 @@ const TasksPage = ({ TabsData, border = true }: any) => {
 
   return (
     <Box
-      sx={{ display: "flex", flexDirection: "column", gap: 3, height: "100%" }}
+      sx={{ display: "flex", flexDirection: "column", gap: 0, height: "100%" }}
     >
-      <TitleCard title="Tasks Page" />
+      <TitleCard title="Tasks" />
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "2px",
+          padding: "0.5px",
           borderRadius: "4px",
           backgroundColor: "var(--app-bg-primary)",
-          // boxShadow: "1px 2px 1px 3px rgba(0, 0, 0, 0.1)",
-          border: "1px solid var(--app-secondary-200)",
+          boxShadow: "1px 1px 1px rgba(0, 0, 0, 0.09)",
+          border: "0.85px solid var(--app-secondary-100)",
         }}
       >
         <Box className="flex items-center">
           <TasksTabs TabsData={TabsData} />
         </Box>
-        <Box>
+        <Box className="flex items-center gap-2 mr-2">
           <Button
             onClick={() => setOpenModal(true)}
             variant="contained"

@@ -136,7 +136,7 @@ const NavBar: React.FC<NavBarProps> = ({
           )}
         </div>
         {/* Search Bar */}
-        <Box
+        {/* <Box
           className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 flex-1 max-w-md"
           sx={{
             "&:focus-within": {
@@ -159,7 +159,7 @@ const NavBar: React.FC<NavBarProps> = ({
               },
             }}
           />
-        </Box>
+        </Box> */}
       </div>
       <div className="flex items-center gap-2">
         {/* Theme Color Selector */}
