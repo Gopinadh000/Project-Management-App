@@ -3,39 +3,70 @@ import { ReS, ReE } from '../utils/Res.utils.js';
 import { TableBuilder } from "../services/data-table-service/data-table.service.js";
 import { usersTableConfig } from "../data-tables/users-table.config.js";
 import { generateNextId } from "../utils/common.js";
+import bcrypt from "bcryptjs";
 
-export const createUser = (req, res) => {
-  /*ui fields  
-  
-  userid [AUTOMATIC GENERATED ], 
-  username [firstName + lastName ],
-  email ,
-  role , [SUPER_ADMIN, MANAGER, MEMBER],
-  password, [ automatic created for new user when internally created by super admin/manager  USERNAME@DOB]
-  DESIGNATION, ['CEO', 'CTO', 'CFO', 'MANAGER', 'ENGINEER', 'INTERN', 'HR', 'SALES', 'MARKETING', 'UI DEVLOPER', 'UX DESIGNER',  'BACKEND DEVELOPER', 'FRONTEND DEVELOPER' ],
-  GENDER,  [MALE, FEMALE, OTHER],
-  REPORTING_MANAGER, [ USERID],
-  DOB,
-  */
+export const createUser = async (req, res) => {
+  const { firstName, lastName, email, role, phoneNumber } = req?.body || {};
 
-  const { firstName, lastName, email, role, companyId, password, companyName } =
-    req?.body || {};
-
-  if (!firstName || !lastName || !email || !role || !password || !companyId) {
+  if (!firstName || !lastName || !email || !role || !phoneNumber) {
     return ReE(res, { message: "All fields are required" });
   }
+  const companyId = req?.companyId;
 
   //step 1 :  get last user from the compnayID; ->,  Creating User Companay Id
 
-  const getLastUserQuery = `SELECT user_id FROM users WHERE company_id = ? ORDER BY created_at DESC LIMIT 1`;
+  try {
+    const getLastUserQuery = `SELECT id FROM users WHERE company_id = ? ORDER BY created_at DESC LIMIT 1`;
 
-  const [lastUserData] = db.query(getLastUserQuery, [companyId]);
+    const [lastUserData] = await db.query(getLastUserQuery, [companyId]);
 
-  let newUserId = generateNextId(lastUserData?.user_id);
+    const lastUserId = lastUserData.length ? lastUserData[0].id : null;
 
-  console.log(newUserId, "newUserId");
+    let newUserId = generateNextId(req.companyId, "", lastUserId);
 
-  return res.json({ data: "User Created" });
+    if (!newUserId) {
+      return ReE(res, { message: "Failed to generate user ID" });
+    }
+    const fullName = `${firstName} ${lastName}`;
+
+    const insertNewUserQueryforUserTable =
+      "INSERT INTO users (id, name, email, role, company_id, status) VALUES (?, ?,?,?,?,?)";
+    const insertNewUserQueryData = [
+      newUserId,
+      fullName,
+      email,
+      role,
+      companyId,
+      0,
+    ];
+
+    const [insertResult] = await db.query(
+      insertNewUserQueryforUserTable,
+      insertNewUserQueryData
+    );
+
+    // Step 2: Insert default password into users_passwords table
+    const newUserDefaultPassword = email.split("@")[0] + "123"; // Default password logic (can be improved)
+    const passwordHash = await bcrypt.hash(newUserDefaultPassword, 10);
+
+    await db.query(
+      "INSERT INTO users_passwords (user_id, password , hash_password) VALUES (?, ?, ?)",
+      [newUserId, newUserDefaultPassword, passwordHash]
+    );
+
+    //step 3 . store basic user info
+    await db.query(
+      "INSERT INTO users_details_info(user_id , first_name , last_name, phone_number)  VALUES (? , ? , ? , ?)",
+      [newUserId, firstName, lastName, phoneNumber]
+    );
+
+    return res.json({
+      data: insertResult[0],
+      message: "User Created Successfully",
+    });
+  } catch (err) {
+    return ReE(res, { message: "Failed to create user", error: err.message });
+  }
 };
 
 export const getAllUsers =  async (req, res) => {

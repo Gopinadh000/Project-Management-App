@@ -147,6 +147,11 @@ CREATE TABLE IF NOT EXISTS  app_designations(
   );
 </migration-script>
 
+<migration-script id="013_create_app_departments_table">
+ALTER TABLE users
+MODIFY role ENUM('SUPER_ADMIN', 'MANAGER', 'USER') NOT NULL;
+</migration-script>
+
 
 
 

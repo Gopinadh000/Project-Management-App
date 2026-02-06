@@ -405,5 +405,9 @@ export const generateNextId = (
   }
 
   const padded = String(nextNumber).padStart(padLength, "0");
-  return `${companyId}-${entityType}-${padded}`;
+
+  if (entityType !== "") {
+    return `${companyId}-${entityType}-${padded}`;
+  }
+  return `${companyId}-${padded}`;
 }

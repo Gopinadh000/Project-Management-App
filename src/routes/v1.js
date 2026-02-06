@@ -25,7 +25,7 @@ router.post("/auth/login", loginUser);
 router.post("/auth/logout", logoutUser);
 
 //app Routes
-router.use("/users", userRoutes);
+router.use("/users", cookieTokenAuthorization, userRoutes);
 router.use("/projects", projectRoutes);
 router.use("/tasks", cookieTokenAuthorization, taskRoutes);
 router.use("/settings", settingsRoutes);

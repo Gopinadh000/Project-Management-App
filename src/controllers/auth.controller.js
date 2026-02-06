@@ -46,7 +46,7 @@ export const registerUser = async (req, res) => {
     }
 
     let role = "SUPER_ADMIN"; // First user is always SUPER-ADMIN
-    let newUserId = `${companyId}-0001`;
+    let newUserId = `${companyId}-001`;
     let fullname = `${firstName} ${lastName}`;
 
     // 3. Create company
