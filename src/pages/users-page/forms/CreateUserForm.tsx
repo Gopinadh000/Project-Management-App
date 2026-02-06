@@ -9,6 +9,7 @@ import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
+import { apiInstance } from "../../../services/api/axios-setup/axiosInstance";
 
 type CreateUserFormProps = {
   openModal: boolean;
@@ -25,19 +26,34 @@ const CreateUserForm = ({ openModal, setOpenModal }: CreateUserFormProps) => {
 
   console.log(errors, "form errors");
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
-
-  const handleFormSubmit = (data) => {
-    console.log({ data });
-  };
-
   useEffect(() => {
     if (openModal) {
       reset(); // clears values + errors
     }
   }, [openModal, reset]);
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleFormSubmit = async (data) => {
+    try {
+      const userData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        role: data.role,
+      };
+      const resData = await apiInstance.post("/users", userData);
+      console.log(resData, "response from server");
+    } catch (err) {
+      console.log(err, "error while creating user");
+    } finally {
+      // handleCloseModal();
+      // reset();
+    }
+  };
 
   return (
     <>
@@ -141,6 +157,9 @@ const CreateUserForm = ({ openModal, setOpenModal }: CreateUserFormProps) => {
                 <Controller
                   control={control}
                   name="phoneNumber"
+                  rules={{
+                    required: "Phone Number is required",
+                  }}
                   render={({ field }) => (
                     <InputFeild
                       {...field}
@@ -152,12 +171,16 @@ const CreateUserForm = ({ openModal, setOpenModal }: CreateUserFormProps) => {
                       startIcon={
                         <LocalPhoneOutlinedIcon className="text-app-secondary-500" />
                       }
+                      errMessage={errors?.phoneNumber?.message}
                     />
                   )}
                 />
                 <Controller
                   control={control}
                   name="role"
+                  rules={{
+                    required: "Role is required",
+                  }}
                   render={({ field }) => (
                     <SelectFeild
                       {...field}
@@ -170,6 +193,7 @@ const CreateUserForm = ({ openModal, setOpenModal }: CreateUserFormProps) => {
                         { id: 2, label: "Manager", value: "MANAGER" },
                         { id: 3, label: "User", value: "USER" },
                       ]}
+                      errMessage={errors?.role?.message}
                     />
                   )}
                 />

@@ -1,5 +1,5 @@
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
-import { Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import { NavLink } from "react-router-dom";
@@ -8,6 +8,11 @@ import SnackBar from "../../components/snack-bar/SnackBar";
 import { useAuth } from "../../services/context/AuthContext";
 import loginimage from "../../assets/loginimage.svg";
 import InputFeild from "../../components/input-fields/input-feild/InputFeild";
+import { EmailOutlined } from "@mui/icons-material";
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -22,6 +27,11 @@ const LoginPage = () => {
 
   const [snackMsg, setSnackMsg] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPasswordToggle = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const handleInputChange = (e: any) => {
     if (e.target.value == "") {
@@ -113,12 +123,12 @@ const LoginPage = () => {
               Welcome Back!. Sign to your Account.
             </Typography>
           </div>
-          <div className="flex cursor-pointer text-md gap-2 w-full border-2 justify-between items-center">
-            <span className="bg-gray-100 flex  gap-1  text-red-600 justify-center items-center m-1  p-2 w-full hover:bg-gray-300">
+          <div className="flex cursor-pointer  gap-2 w-full justify-between items-center">
+            <span className="bg-gray-100 flex gap-1 text-red-600 justify-center items-center m-1 p-2 w-full hover:bg-gray-100 border-2 border-transparent hover:border-app-primary-500 transition-all duration-200">
               <GoogleIcon />
               Google
             </span>
-            <span className="bg-gray-100 flex justify-center text-blue-600 items-center gap-1  p-2 w-full m-1 hover:bg-gray-300">
+            <span className="bg-gray-100 flex gap-1 text-blue-600 justify-center items-center m-1 p-2 w-full hover:bg-gray-100 border-2 border-transparent hover:border-app-primary-500 transition-all duration-200">
               <FacebookOutlinedIcon />
               Facebook
             </span>
@@ -137,7 +147,7 @@ const LoginPage = () => {
           <div className="flex gap-8 flex-col mt-5 p-4">
             <div className="flex flex-col gap-2">
               <TextField
-                className="border-2 border-red-500"
+                className="w-full"
                 type="text"
                 size="medium"
                 variant="standard"
@@ -145,6 +155,16 @@ const LoginPage = () => {
                 placeholder="user@google.com"
                 name="email"
                 onChange={handleInputChange}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <EmailOutlined
+                        fontSize="small"
+                        className="text-app-secondary-500  mr-2"
+                      />
+                    ),
+                  },
+                }}
               />
               {userDataErrors.email && (
                 <span className="text-xs text-red-400">
@@ -155,12 +175,39 @@ const LoginPage = () => {
 
             <div className="flex flex-col gap-2">
               <TextField
-                type="password"
+                type={showPassword ? "text" : "password"}
                 size="small"
                 variant="standard"
                 label="Password"
                 name="password"
                 onChange={handleInputChange}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <LockOutlinedIcon
+                        fontSize="small"
+                        className="text-app-secondary-500  mr-2"
+                      />
+                    ),
+                    endAdornment: (
+                      <Box>
+                        {showPassword ? (
+                          <VisibilityOffOutlinedIcon
+                            fontSize="small"
+                            className="text-app-secondary-500  mr-2 cursor-pointer"
+                            onClick={handleShowPasswordToggle}
+                          />
+                        ) : (
+                          <VisibilityOutlinedIcon
+                            fontSize="small"
+                            className="text-app-secondary-500  mr-2 cursor-pointer"
+                            onClick={handleShowPasswordToggle}
+                          />
+                        )}
+                      </Box>
+                    ),
+                  },
+                }}
               />
               {userDataErrors.password && (
                 <span className="text-xs text-red-400">
