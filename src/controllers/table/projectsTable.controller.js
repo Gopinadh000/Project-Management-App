@@ -217,3 +217,16 @@ export const getProjectsSampleTable = async (req, res)=>{
     message: "Sample projects table data retrieved successfully",
   });
 }
+
+
+export const getProjectTableData = async (req, res) => {
+  try {
+    return ReS(res, {
+      data: {},
+      message: "All projects table data retrieved successfully",
+    });
+  } catch (err) {
+    return ReE(res, { message: "Failed to fetch projects table data" });
+  }
+};
+ 
