@@ -19,11 +19,11 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
           background: "red",
         },
         "& .MuiTabs-indicator": {
-          height: "3px",
+          height: "4px",
           backgroundColor: "var(--app-primary-500)",
         },
         "& .MuiTabs-list": {
-          gap: "6px",
+          gap: "8px",
         },
         "& .MuiTab-root ": {
           padding: "12px 10px",

@@ -143,6 +143,7 @@ const RegisterPage = () => {
                 fullWidth
                 placeholder="First Name"
                 label="First Name"
+                size="small"
                 name="firstName"
                 onChange={handleInputChange}
                 error={!!errors.firstName}
@@ -158,6 +159,7 @@ const RegisterPage = () => {
                 fullWidth
                 label="Last Name"
                 variant="filled"
+                size="small"
                 name="lastName"
                 onChange={handleInputChange}
                 inputRef={(el) =>
@@ -175,6 +177,7 @@ const RegisterPage = () => {
                 fullWidth
                 label="Company Name"
                 variant="filled"
+                size="small"
                 name="companyName"
                 value={registerData.companyName}
                 onChange={handleInputChange}
@@ -185,6 +188,7 @@ const RegisterPage = () => {
                 fullWidth
                 label="Company Code"
                 variant="filled"
+                size="small"
                 name="companyId"
                 value={registerData.companyId}
                 onChange={handleInputChange}
@@ -196,6 +200,7 @@ const RegisterPage = () => {
               <TextField
                 fullWidth
                 label="Email"
+                size="small"
                 variant="filled"
                 name="email"
                 value={registerData.email}
@@ -207,6 +212,7 @@ const RegisterPage = () => {
               <TextField
                 fullWidth
                 label="Password"
+                size="small"
                 type="password"
                 variant="filled"
                 name="password"
@@ -233,7 +239,6 @@ const RegisterPage = () => {
       <SnackBar
         openSnackbar={openSnack}
         message={snackMessage}
-      
         onClose={() => setOpenSnack(false)}
       />
     </div>

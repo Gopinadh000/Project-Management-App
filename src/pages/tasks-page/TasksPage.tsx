@@ -8,15 +8,14 @@ import DynamicTable from "./components/tasks-table/TasksTable";
 import KanbanBoard from "../../components/kanban-board/KanbanBoard";
 import { Modal } from "go-van-ui";
 import { Box } from "@mui/material";
+import AppButton from "../../components/app-button/AppButton";
 
 const TasksPage = ({ TabsData, border = true }: any) => {
   const { activeTab } = useTabContext();
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", gap: 0, height: "100%" }}
-    >
+    <Box className="flex flex-col gap-2 h-full border-2">
       <TitleCard title="Tasks" />
       <Box
         sx={{
@@ -26,7 +25,7 @@ const TasksPage = ({ TabsData, border = true }: any) => {
           padding: "0.5px",
           borderRadius: "4px",
           backgroundColor: "var(--app-bg-primary)",
-          boxShadow: "1px 1px 1px rgba(0, 0, 0, 0.09)",
+          boxShadow: "1px 1px 0px rgba(0, 0, 0, 0.09)",
           border: "0.85px solid var(--app-secondary-100)",
         }}
       >
@@ -34,26 +33,17 @@ const TasksPage = ({ TabsData, border = true }: any) => {
           <TasksTabs TabsData={TabsData} />
         </Box>
         <Box className="flex items-center gap-2 mr-2">
-          <Button
-            onClick={() => setOpenModal(true)}
+          <AppButton
+            text="  Add Task"
             variant="contained"
-            sx={{
-              backgroundColor: "var(--app-primary-500)",
-              color: "white",
-              textTransform: "none",
-              fontWeight: 500,
-              px: 2,
-              py: 0.5,
-              "&:hover": {
-                backgroundColor: "var(--app-primary-600)",
-              },
-            }}
-          >
-            Add Task
-          </Button>
+            onClick={() => setOpenModal(true)}
+            // iconName={<AddIcon />}
+            // iconPosition="start"
+            loading={false}
+          />
         </Box>
       </Box>
-      <Box sx={{ flex: 1, minHeight: 0 }}>
+      <Box className="flex flex-col mt-4 h-full">
         {activeTab == "TABLE_VIEW" ? <DynamicTable /> : <h1>Kanban</h1>}
       </Box>
       <Modal

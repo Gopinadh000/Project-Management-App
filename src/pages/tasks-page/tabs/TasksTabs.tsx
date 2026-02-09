@@ -2,10 +2,10 @@ import TabsHeaderComponent from '../../../components/tabs/Tabs'
 
 const TasksTabs = ({TabsData}:any) => {
   return (
-    <div>
-       <TabsHeaderComponent TabsData={TabsData} />
-    </div>
-  )
+    <>
+      <TabsHeaderComponent TabsData={TabsData} />
+    </>
+  );
 }
 
 export default TasksTabs

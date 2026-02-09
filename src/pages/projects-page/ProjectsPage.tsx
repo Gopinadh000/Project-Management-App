@@ -52,51 +52,46 @@ const ProjectsPage = ({ TabsData, border }: any) => {
   };
 
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", gap: 0, height: "100%" }}
-    >
+    <Box className="flex flex-col gap-2 h-full">
       <TitleCard title="Projects" />
-      <Box className="flex flex-col  gap-5">
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "0.5px",
-            borderRadius: "4px",
-            backgroundColor: "var(--app-bg-primary)",
-            boxShadow: "1px 1px 0px rgba(0, 0, 0, 0.09)",
-            border: "0.85px solid var(--app-secondary-100)",
-          }}
-        >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <TabsHeaderComponent TabsData={TabsData} />
-          </Box>
-          <Box className="flex items-center gap-2 mr-2">
-            <AppButton
-              text="Add Project"
-              variant="contained"
-              onClick={() => setOpenModal(true)}
-              // iconName={<AddIcon />}
-              // iconPosition="start"
-              loading={false}
-            />
-          </Box>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0.5px",
+          borderRadius: "4px",
+          backgroundColor: "var(--app-bg-primary)",
+          boxShadow: "1px 1px 0px rgba(0, 0, 0, 0.09)",
+          border: "0.85px solid var(--app-secondary-100)",
+        }}
+      >
+        <Box className="flex items-center p-1">
+          <TabsHeaderComponent TabsData={TabsData} />
         </Box>
-        <Box sx={{ flex: 1, minHeight: 0 }}>
-          {activeTab === "LIST_VIEW" ? (
-            <AppDataTable
-              tableInstanceDetails={{
-                apiUrl: "projectstable",
-                tableId: "projects",
-              }}
-            />
-          ) : (
-            <ProjectCardView projectsData={projectsData} />
-          )}
+        <Box className="flex items-center gap-2 mr-2">
+          <AppButton
+            text="Add Project"
+            variant="contained"
+            onClick={() => setOpenModal(true)}
+            // iconName={<AddIcon />}
+            // iconPosition="start"
+            loading={false}
+          />
         </Box>
       </Box>
-
+      <Box className="flex flex-col mt-4 h-full">
+        {activeTab === "LIST_VIEW" ? (
+          <AppDataTable
+            tableInstanceDetails={{
+              apiUrl: "projectstable",
+              tableId: "projects",
+            }}
+          />
+        ) : (
+          <ProjectCardView projectsData={projectsData} />
+        )}
+      </Box>
       <ProjectForm openModal={openModal} setOpenModal={setOpenModal} />
     </Box>
   );
