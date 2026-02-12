@@ -16,7 +16,7 @@ import tableControllerRoutes from "./tableRoutes.js";
 import { cookieTokenAuthorization } from "../services/jwt/jwt.service.js";
 
 //Test api
-router.get("/", (req, res) => res.send({ message: "api parcel pending!" }));
+router.get("/test", (req, res) => res.send({ message: "api parcel pending!" }));
 
 //Auth Routes (Public)
 router.get("/auth/me", cookieTokenAuthorization, getCurrentUser);

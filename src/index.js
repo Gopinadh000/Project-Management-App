@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true })); // For form-encoded bodies
 app.use(cookieParser());
 
 // Add routes to the app
-app.use("/api/v1", v1Routes); 
+app.use("/", v1Routes); 
 
 // Start the server
 const PORT = process.env.APP_PORT || 4003;
