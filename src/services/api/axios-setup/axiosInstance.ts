@@ -15,6 +15,11 @@ export const apiInstance = axios.create({
   },
 });
 
+
+console.log(apiInstance, "apiNSTACNE");
+
+
+
 // Response interceptor to handle 401 errors globally
 apiInstance.interceptors.response.use(
   (response) => response,
