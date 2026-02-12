@@ -53,8 +53,7 @@ const LoginPage = () => {
     let isValid = true;
 
     const validateEmailRegex = /^\S+@\S+\.\S+$/;
-    const validatePasswordRegex =
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,}$/;
+    const validatePasswordRegex = /^(?=.*\d).{4,}$/;
 
     let validedEmail = validateEmailRegex.test(userdata.email);
     let validatedPassword = validatePasswordRegex.test(userdata.password);
