@@ -1,7 +1,14 @@
 import axios from "axios";
 
+console.log(import.meta.env.VITE_API_URL_LOCAL, "ausuasb");
+
+const baseUrlValue =
+  import.meta.env.VITE_INSTANCE_TYPE == "DEV"
+    ? import.meta.env.VITE_API_URL_PROD
+    : import.meta.env.VITE_API_URL_LOCAL;
+
 export const apiInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:4002/api/v1/",
+  baseURL: baseUrlValue,
   withCredentials: true, // IMPORTANT: Send cookies with every request
   headers: {
     "Content-Type": "application/json",

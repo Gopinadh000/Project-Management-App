@@ -12,7 +12,9 @@ import UserDashboard from "./dashboards/UserDashboard";
 import { useAuth } from "../../services/context/AuthContext";
 
 const DashboardPage = () => {
-  const { user } = useAuth();
+  const user = {
+    role: "SUPER_ADMIN",
+  };
 
   const renderDashboardByRole = () => {
     switch (user?.role) {
