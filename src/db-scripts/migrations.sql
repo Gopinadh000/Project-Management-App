@@ -152,6 +152,14 @@ ALTER TABLE users
 MODIFY role ENUM('SUPER_ADMIN', 'MANAGER', 'USER') NOT NULL;
 </migration-script>
 
+<migration-script id="014_priorities_default_value_data">
+INSERT INTO priorities (name, description) VALUES
+('LOW', 'Low priority'),
+('MEDIUM', 'Medium priority'),
+('HIGH', 'High priority'),
+('HIGHEST', 'Highest priority');
+</migration-script>
+
 
 
 

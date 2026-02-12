@@ -1,4 +1,10 @@
-import { ReS , ReE} from "../../utils/Res.utils.js";
+import { ReS, ReE } from "../../utils/Res.utils.js";
+import { db } from "../../config/db-config.js";
+import { buildTableResData } from "../../services/data-table-service/tableData.service.js";
+import {
+  usersTableMeta,
+  usersTableConfig,
+} from "../../data-tables/users-table.config.js";
 
 export const getUsersTableData = async (req, res) => {
   const usersTableData = {
@@ -270,10 +276,48 @@ export const getUsersTableData = async (req, res) => {
 };
 
 export const getAllUsersTableData = async (req, res) => {
+  const {user} = req;
   try {
-    return ReS(res, { message: "All users table data retrieved successfully" });
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const pageSize = Math.min(100, Math.max(1, parseInt(req.query.pageSize, 10) || 10));
+    const offset = (page - 1) * pageSize;
+
+    const countQuery = `SELECT COUNT(*) as total FROM users WHERE company_id = ?`;
+    const [countResult] = await db.query(countQuery, [user.companyId]);
+    const totalCount = countResult[0]?.total ?? 0;
+
+    const dataQuery = `
+      SELECT id, name, email, role, company_id, status, created_at
+      FROM users
+      WHERE company_id = ?
+      ORDER BY created_at ASC
+      LIMIT ? OFFSET ?
+    `;
+    const [rows] = await db.query(dataQuery, [user.companyId, pageSize, offset]);
+
+    const resData = buildTableResData({
+      meta: usersTableMeta,
+      columnsConfig: usersTableConfig,
+      rows,
+      totalCount,
+      page,
+      pageSize,
+      rowOptions: {
+        linkTemplate: (row) => ({
+          url: `/users/${row.id}`,
+          tooltip: "Click to view user",
+        }),
+        rowIdField: "id",
+      },
+    });
+
+    return ReS(res, {
+      data: { resData },
+      message: "Users table data retrieved successfully",
+    });
   } catch (err) {
-    return ReE(res, { message: "Failed to fetch users" });
+    console.error("getAllUsersTableData error:", err);
+    return ReE(res, { message: "Failed to fetch users table data" });
   }
 };
 

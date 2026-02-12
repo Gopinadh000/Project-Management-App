@@ -1,4 +1,10 @@
-import { ReS , ReE} from "../../utils/Res.utils.js";
+import { ReS, ReE } from "../../utils/Res.utils.js";
+import { db } from "../../config/db-config.js";
+import { buildTableResData } from "../../services/data-table-service/tableData.service.js";
+import {
+  projectsTableMeta,
+  projectsTableConfig,
+} from "../../data-tables/project-table.config.js";
 
 
 export const getProjectsSampleTable = async (req, res)=>{
@@ -220,12 +226,50 @@ export const getProjectsSampleTable = async (req, res)=>{
 
 
 export const getProjectTableData = async (req, res) => {
+  const {user} = req;
   try {
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const pageSize = Math.min(100, Math.max(1, parseInt(req.query.pageSize, 10) || 10));
+    const offset = (page - 1) * pageSize;
+
+    const countQuery = `SELECT COUNT(*) as total FROM projects WHERE company_id = ?`;
+    const [countResult] = await db.query(countQuery, [user.companyId]);
+    const totalCount = countResult[0]?.total ?? 0;
+
+    const dataQuery = `
+      SELECT p.id, p.project_name, p.description, p.status, p.priority,
+             p.start_date, p.end_date, p.created_at,
+             u.name AS owner_name
+      FROM projects p
+      LEFT JOIN users u ON p.project_owner = u.id
+      WHERE p.company_id = ?  
+      ORDER BY p.created_at ASC
+      LIMIT ? OFFSET ?
+    `;
+    const [rows] = await db.query(dataQuery, [user.companyId, pageSize, offset]);
+
+    const resData = buildTableResData({
+      meta: projectsTableMeta,
+      columnsConfig: projectsTableConfig,
+      rows,
+      totalCount,
+      page,
+      pageSize,
+      rowOptions: {
+        linkTemplate: (row) => ({
+          url: `/projects/${row.id}`,
+          tooltip: "Click to view project",
+        }),
+        rowIdField: "id",
+      },
+    });
+
     return ReS(res, {
-      data: {},
-      message: "All projects table data retrieved successfully",
+      data: { resData },
+      message: "Projects table data retrieved successfully",
     });
   } catch (err) {
+    console.error("getProjectTableData error:", err);
     return ReE(res, { message: "Failed to fetch projects table data" });
   }
 };

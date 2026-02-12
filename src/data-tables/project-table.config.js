@@ -1,8 +1,20 @@
-
 //  COLUMN_TYPES_SUPPORTED : [
-//     'string', 'number', 'date', 'boolean', 'object' , 'datetime', 
+//     'string', 'number', 'date', 'boolean', 'object' , 'datetime',
 // ]
 
+export const projectsTableMeta = {
+  tableId: "projects",
+  viewId: "default",
+  views: [
+    { id: "default", name: "All Projects" },
+    { id: "active", name: "Active Projects" },
+    { id: "my_projects", name: "My Projects" },
+  ],
+  download: {
+    enabled: true,
+    formats: ["csv", "excel"],
+  },
+};
 
 export const projectsTableConfig = [
   {
@@ -15,6 +27,7 @@ export const projectsTableConfig = [
     search: true,
     filter: false,
     type: "string",
+    link: true,
   },
   {
     id: 2,
@@ -32,7 +45,7 @@ export const projectsTableConfig = [
     order: 3,
     fieldName: "ownerName",
     displayName: "Project Owner",
-    dbFieldName: "owner_name", // From JOIN query
+    dbFieldName: "owner_name",
     sort: true,
     search: true,
     filter: false,
@@ -48,6 +61,12 @@ export const projectsTableConfig = [
     search: false,
     filter: true,
     type: "string",
+    badgeMap: {
+      ACTIVE: { text: "Active", color: "green" },
+      INACTIVE: { text: "Inactive", color: "gray" },
+      COMPLETED: { text: "Completed", color: "gray" },
+      ON_HOLD: { text: "On Hold", color: "orange" },
+    },
   },
   {
     id: 5,
@@ -59,6 +78,12 @@ export const projectsTableConfig = [
     search: false,
     filter: true,
     type: "string",
+    badgeMap: {
+      LOW: { text: "Low", color: "gray" },
+      MEDIUM: { text: "Medium", color: "orange" },
+      HIGH: { text: "High", color: "red" },
+      URGENT: { text: "Urgent", color: "purple" },
+    },
   },
   {
     id: 6,
@@ -96,19 +121,4 @@ export const projectsTableConfig = [
     type: "datetime",
     format: "DD-MM-YYYY H:MM:SS",
   },
-  {
-    id: 9,
-    order: 9,
-    fieldName: "isActiveProject",
-    displayName: "Active Project",
-    dbFieldName: "active_project",
-    sort: true,
-    search: false,
-    filter: true,
-    type: "number",
-  },
 ];
-
-
-
-

@@ -2,23 +2,46 @@
 //     'string', 'number', 'date', 'boolean', 'object' , 'datetime',
 // ]
 
-//10 options supporting
+export const usersTableMeta = {
+  tableId: "users",
+  viewId: "default",
+  views: [
+    { id: "default", name: "All Users" },
+    { id: "active", name: "Active Users" },
+    { id: "managers", name: "Managers" },
+  ],
+  download: {
+    enabled: true,
+    formats: ["csv", "excel"],
+  },
+};
 
 export const usersTableConfig = [
   {
     id: 1,
     order: 1,
-    fieldName: "username",
-    displayName: "User Name",
-    dbFieldName: "username",
+    fieldName: "id",
+    displayName: "User ID",
+    dbFieldName: "id",
     sort: true,
-    search: true,
+    search: false,
     filter: false,
     type: "string",
   },
   {
     id: 2,
     order: 2,
+    fieldName: "name",
+    displayName: "User Name",
+    dbFieldName: "name",
+    sort: true,
+    search: true,
+    filter: false,
+    type: "string",
+  },
+  {
+    id: 3,
+    order: 3,
     fieldName: "email",
     displayName: "Email",
     dbFieldName: "email",
@@ -28,20 +51,25 @@ export const usersTableConfig = [
     type: "string",
   },
   {
-    id: 3,
-    order: 3,
-    fieldName: "role",
-    displayName: "User Role",
-    dbFieldName: "role",
-    sort: true,
-    search: true,
-    filter: true,
-    type: "string",
-  },
-  {
     id: 4,
     order: 4,
-    fieldName: "companyId",
+    fieldName: "role",
+    displayName: "Role",
+    dbFieldName: "role",
+    sort: true,
+    search: false,
+    filter: true,
+    type: "string",
+    badgeMap: {
+      SUPER_ADMIN: { text: "Super Admin", color: "purple" },
+      MANAGER: { text: "Manager", color: "blue" },
+      USER: { text: "User", color: "gray" },
+    },
+  },
+  {
+    id: 5,
+    order: 5,
+    fieldName: "company_id",
     displayName: "Company ID",
     dbFieldName: "company_id",
     sort: true,
@@ -50,14 +78,14 @@ export const usersTableConfig = [
     type: "string",
   },
   {
-    id: 5,
-    order: 5,
-    fieldName: "createdAt",
+    id: 6,
+    order: 6,
+    fieldName: "created_at",
     displayName: "Created At",
     dbFieldName: "created_at",
     sort: true,
     search: false,
     filter: false,
-    type: "date",
+    type: "datetime",
   },
 ];
