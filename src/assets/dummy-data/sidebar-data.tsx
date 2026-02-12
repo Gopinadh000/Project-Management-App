@@ -31,7 +31,7 @@ export const sidebardata = [
     id: 3,
     name: "tasks",
     key: "tasks",
-    title: "Tasks",
+    title: "My Tasks",
     route: "/tasks",
     icon: <AssignmentTurnedInIcon />,
   },

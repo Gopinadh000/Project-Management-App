@@ -147,9 +147,7 @@ const AppDataTableWrapper = ({
             enableStickyFooter={enablePagination}
             // memoMode="cells"
             renderEmptyRowsFallback={() => (
-              <Box
-               className="h-full flex items-center justify-center p-4 min-h-50"
->
+              <Box className="h-full flex items-center justify-center p-4 min-h-50">
                 <NoDataMessage />
               </Box>
             )}
@@ -167,8 +165,8 @@ const AppDataTableWrapper = ({
                 display: "flex",
                 flexDirection: "column",
                 overflow: "hidden",
-              flex: 1,    
-                          minHeight: 0,
+                flex: 1,
+                minHeight: 0,
                 "& .MuiCheckbox-root": {
                   margin: "10px !important",
                   color: "var(--app-text-secondary)",
@@ -220,7 +218,7 @@ const AppDataTableWrapper = ({
               sx: {
                 display: "block",
                 overflowY: "auto",
-                height: `calc(100vh - 400px)`,
+                height: `calc(100vh - 200px)`,
               },
             }}
             muiTableHeadProps={{
