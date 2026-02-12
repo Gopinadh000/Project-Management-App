@@ -8,7 +8,7 @@ const baseUrlValue =
     : import.meta.env.VITE_API_URL_LOCAL;
 
 export const apiInstance = axios.create({
-  baseURL: "https://project-management-app-3cli.onrender.com/api/v1",
+  baseURL: "https://project-management-app-3cli.onrender.com",
   withCredentials: true, // IMPORTANT: Send cookies with every request
   headers: {
     "Content-Type": "application/json",
@@ -21,8 +21,6 @@ apiInstance.interceptors.response.use(
   (error) => {
     // Handle 401 Unauthorized - token expired or invalid
     if (error.response && error.response.status === 401) {
-      // Clear any local auth state if needed
-      // The actual redirect will be handled by ProtectedRoute or AuthContext
       console.error("Unauthorized access - redirecting to login");
     }
     return Promise.reject(error);
