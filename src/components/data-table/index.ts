@@ -20,7 +20,7 @@ export type {
 } from './types';
 
 // Hooks
-export { useTableData, useTableConfig } from './hooks';
+export { useTableData, useTableConfig, useTableReloadKey, TableReloadProvider } from './hooks';
 
 // Components
 export { 

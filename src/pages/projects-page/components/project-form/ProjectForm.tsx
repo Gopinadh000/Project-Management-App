@@ -10,9 +10,10 @@ import { Modal } from "go-van-ui";
 interface ProjectFormProps {
   openModal: boolean;
   setOpenModal: (open: boolean) => void;
+  onSuccess?: () => void;
 }
 
-const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
+const ProjectForm = ({ openModal, setOpenModal, onSuccess }: ProjectFormProps) => {
   const [projectData, setProjectData] = useState({
     projectName: "",
     projectDescription: "",
@@ -45,6 +46,7 @@ const ProjectForm = ({ openModal, setOpenModal }: ProjectFormProps) => {
       projectName: "",
       projectDescription: "",
     });
+    onSuccess?.();
   };
 
   const handleCloseModal = () => {

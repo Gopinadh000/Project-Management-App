@@ -1,25 +1,18 @@
 import TitleCard from "../../components/title-card/TitleCard";
 import AppButton from "../../components/app-button/AppButton";
-import { useNavigate } from "react-router-dom";
 import AppDataTable from "../../components/app-table/AppDataTable";
 import { Box } from "@mui/material";
-import APPModal from "../../components/modal/Modal";
 import { useState } from "react";
-import { Create } from "@mui/icons-material";
 import CreateUserForm from "./forms/CreateUserForm";
+import { useTableReloadKey } from "../../components/data-table";
+import { useAuth } from "../../services/context/AuthContext";
 
 const UsersPage = () => {
-  const navigate = useNavigate();
-
+  const { reRenderKey, refreshTable } = useTableReloadKey();
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
-  const handleAddUser = () => {
-    navigate("/users/add");
-  };
-
-  const handleCloseModal = () => {
-    setOpen(false);
-  };
+  console.log(user);
 
   const handleOpenModal = () => {
     setOpen(true);
@@ -37,21 +30,28 @@ const UsersPage = () => {
         }}
       >
         <TitleCard title="Users" />
-        <AppButton
-          text="Add User"
-          variant="contained"
-          onClick={handleOpenModal}
-        />
+        {user?.role === "SUPER_ADMIN" && (
+          <AppButton
+            text="Add User"
+            variant="contained"
+            onClick={handleOpenModal}
+          />
+        )}
       </Box>
       <Box sx={{ flex: 1, minHeight: 0 }}>
         <AppDataTable
+          reRenderKey={reRenderKey}
           tableInstanceDetails={{
-            apiUrl: "userstable",
+            apiUrl: "userstable/data",
             tableId: "users",
           }}
         />
       </Box>
-      <CreateUserForm openModal={open} setOpenModal={setOpen} />
+      <CreateUserForm
+        openModal={open}
+        setOpenModal={setOpen}
+        onSuccess={refreshTable}
+      />
     </Box>
   );
 };

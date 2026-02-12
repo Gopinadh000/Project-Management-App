@@ -4,6 +4,7 @@ import NavBar from "../components/navbar/NavBar";
 import MainContainer from "../components/main-container/MainContainer";
 import RoutesPage from "../routes/app-routes/RoutesPage";
 import { memo, useState } from "react";
+import { TableReloadProvider } from "../components/data-table";
 
 const AppLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -13,6 +14,7 @@ const AppLayout = () => {
   };
 
   return (
+    <TableReloadProvider>
     <Box
       sx={{
         display: "flex",
@@ -39,6 +41,7 @@ const AppLayout = () => {
         </MainContainer>
       </Box>
     </Box>
+    </TableReloadProvider>
   );
 };
 

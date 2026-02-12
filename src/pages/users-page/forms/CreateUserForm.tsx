@@ -14,9 +14,10 @@ import { apiInstance } from "../../../services/api/axios-setup/axiosInstance";
 type CreateUserFormProps = {
   openModal: boolean;
   setOpenModal: (open: boolean) => void;
+  onSuccess?: () => void;
 };
 
-const CreateUserForm = ({ openModal, setOpenModal }: CreateUserFormProps) => {
+const CreateUserForm = ({ openModal, setOpenModal, onSuccess }: CreateUserFormProps) => {
   const {
     handleSubmit,
     control,
@@ -47,11 +48,11 @@ const CreateUserForm = ({ openModal, setOpenModal }: CreateUserFormProps) => {
       };
       const resData = await apiInstance.post("/users", userData);
       console.log(resData, "response from server");
+      handleCloseModal();
+      reset();
+      onSuccess?.();
     } catch (err) {
       console.log(err, "error while creating user");
-    } finally {
-      // handleCloseModal();
-      // reset();
     }
   };
 

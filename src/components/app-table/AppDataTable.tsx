@@ -1,7 +1,7 @@
 import AppDataTableWrapper from "./AppDataTableWrapper";
 
 
-const AppDataTable = (props :any) => {
+const AppDataTable = (props: any) => {
   const {
     tableInstanceDetails,
     baseUrl = `app/table`,
@@ -11,27 +11,29 @@ const AppDataTable = (props :any) => {
       search: [],
       sort: [],
     },
-     tableProps,
-     systemCells = [],
-     customCells = [],
+    tableProps,
+    systemCells = [],
+    customCells = [],
     enablePagination = true,
     filtersConfig = {
-      enabledFilters : false 
+      enabledFilters: false,
     },
+    reRenderKey,
   } = props;
 
-  return  (
-      <AppDataTableWrapper
-        tableInstanceDetails={tableInstanceDetails}
-        baseUrl={baseUrl}
-        initialQueryParams={initialQueryParams}
-        tableProps={tableProps}
-        systemCells={systemCells}
-        customCells={customCells}
-        enablePagination={enablePagination}
-        filtersConfig={filtersConfig}
+  return (
+    <AppDataTableWrapper
+      key={reRenderKey}
+      tableInstanceDetails={tableInstanceDetails}
+      baseUrl={baseUrl}
+      initialQueryParams={initialQueryParams}
+      tableProps={tableProps}
+      systemCells={systemCells}
+      customCells={customCells}
+      enablePagination={enablePagination}
+      filtersConfig={filtersConfig}
     />
-    )
+  );
 };
 
 export default AppDataTable;

@@ -7,16 +7,8 @@ interface TitleCardProps {
 
 const TitleCard = ({ title }: TitleCardProps) => {
   return (
-    <Box>
-      <Typography 
-        variant="h6" 
-        sx={{
-          fontWeight: 700,
-          fontSize: "1.5rem",
-          color: "var(--app-text-primary)",
-          mb: 1,
-        }}
-      >
+    <Box className="flex items-center justify-between mb-2 leading-3">
+      <Typography variant="h5" className="font-bold">
         {title}
       </Typography>
     </Box>

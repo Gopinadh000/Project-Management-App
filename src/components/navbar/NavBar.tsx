@@ -1,15 +1,7 @@
 import React, { memo, useState } from "react";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import LockIcon from "@mui/icons-material/Lock";
-import FeedbackIcon from "@mui/icons-material/Feedback";
-import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Box,
@@ -19,10 +11,7 @@ import {
   ListItemText,
   ListItemIcon,
   Divider,
-  Badge,
-  InputBase,
   Avatar,
-  IconButton,
 } from "@mui/material";
 import Poppover from "../poppover/Poppover";
 import { useAuth } from "../../services/context/AuthContext";
@@ -31,6 +20,8 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import PaletteIcon from "@mui/icons-material/Palette";
 import { useNavigate, useLocation } from "react-router-dom";
+import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
+import ChevronLeftOutlinedIcon from "@mui/icons-material/ChevronLeftOutlined";
 
 interface NavBarProps {
   borderRequired?: boolean;
@@ -46,8 +37,7 @@ const NavBar: React.FC<NavBarProps> = ({
   const { theme, toggleMode, changeTheme, isDark } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
-
-  console.log(user, "user");
+  const [openSideBar, setOpenSidebar] = useState(false);
 
   // Sample notifications data
   const notifications = [
@@ -74,44 +64,18 @@ const NavBar: React.FC<NavBarProps> = ({
       route: "/settings",
     },
     {
-      label: "Support",
-      icon: <HelpOutlineIcon fontSize="small" />,
-      action: () => console.log("Support clicked"),
-      route: "/support",
-    },
-    {
-      label: "Account Settings",
-      icon: <AccountBoxIcon fontSize="small" />,
-      action: () => console.log("Account Settings clicked"),
-      route: "/account-settings",
-    },
-    {
-      label: "Privacy Center",
-      icon: <LockIcon fontSize="small" />,
-      action: () => console.log("Privacy Center clicked"),
-      route: "/privacy",
-    },
-    {
-      label: "Feedback",
-      icon: <FeedbackIcon fontSize="small" />,
-      action: () => console.log("Feedback clicked"),
-      route: "/feedback",
-    },
-    {
-      label: "History",
-      icon: <HistoryIcon fontSize="small" />,
-      action: () => console.log("History clicked"),
-      route: "/history",
+      label: "Logout",
+      icon: <LogoutIcon fontSize="small" />,
+      action: () => logout(),
     },
   ];
 
   const handleOnClickHamberger = () => {
     if (onToggleSidebar) {
+      setOpenSidebar((prev) => !prev);
       onToggleSidebar();
     }
   };
-
-  const [searchValue, setSearchValue] = useState("");
 
   return (
     <div
@@ -126,40 +90,21 @@ const NavBar: React.FC<NavBarProps> = ({
     >
       <div className="flex items-center gap-4 flex-1">
         <div
-          className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md cursor-pointer transition-colors duration-200"
+          className="flex items-center justify-center p-1 hover:bg-gray-100 dark:hover:bg-gray-800 border rounded-md cursor-pointer transition-colors duration-200"
           onClick={handleOnClickHamberger}
         >
-          {onToggleSidebar ? (
-            <MenuIcon className="text-gray-600 dark:text-gray-300" />
+          {openSideBar ? (
+            <ChevronRightOutlinedIcon
+              className="text-gray-600 dark:text-gray-300 "
+              fontSize="small"
+            />
           ) : (
-            <MenuOpenIcon className="text-gray-600 dark:text-gray-300" />
+            <ChevronLeftOutlinedIcon
+              fontSize="small"
+              className="text-gray-600 dark:text-gray-300"
+            />
           )}
         </div>
-        {/* Search Bar */}
-        {/* <Box
-          className="flex items-center gap-2 px-3 py-1.5 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 flex-1 max-w-md"
-          sx={{
-            "&:focus-within": {
-              borderColor: "var(--app-primary-500)",
-            },
-          }}
-        >
-          <SearchIcon className="text-gray-400" fontSize="small" />
-          <InputBase
-            placeholder="Q Ctrl + K"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="flex-1 text-sm"
-            sx={{
-              "& .MuiInputBase-input": {
-                color: "var(--app-text-primary)",
-                "&::placeholder": {
-                  opacity: 0.6,
-                },
-              },
-            }}
-          />
-        </Box> */}
       </div>
       <div className="flex items-center gap-2">
         {/* Theme Color Selector */}
@@ -276,29 +221,12 @@ const NavBar: React.FC<NavBarProps> = ({
           <Poppover
             parentComponent={
               <span className="flex gap-3 p-2 items-center font-bold">
-                {/* <Badge
-                  badgeContent={notifications.length}
-                  color="error"
-                  sx={{
-                    "& .MuiBadge-badge": {
-                      backgroundColor: "var(--app-primary-500)",
-                      color: "white",
-                      right: 4,
-                      top: 4,
-                      fontSize: "0.7rem",
-                      minWidth: "18px",
-                      height: "18px",
-                    },
-                  }}
-                > */}
                 <Box className="flex items-center cursor-pointer p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">
                   <CircleNotificationsIcon
                     fontSize="medium"
                     className="text-gray-600 dark:text-gray-300"
                   />
                 </Box>
-
-                {/* </Badge> */}
               </span>
             }
             childComponent={
@@ -456,22 +384,10 @@ const NavBar: React.FC<NavBarProps> = ({
                           className="text-gray-600 dark:text-gray-400"
                           sx={{ fontSize: "0.75rem", lineHeight: 1.2 }}
                         >
-                          {user?.role || "UI/UX Designer"}
+                          {user?.role}
                         </Typography>
                       </Box>
                     </Box>
-                    <IconButton
-                      size="small"
-                      onClick={logout}
-                      className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-                      sx={{
-                        "&:hover": {
-                          backgroundColor: isDark ? "#374151" : "#f3f4f6",
-                        },
-                      }}
-                    >
-                      <LogoutIcon fontSize="small" />
-                    </IconButton>
                   </Box>
                 </Box>
 

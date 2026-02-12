@@ -17,11 +17,12 @@ import ProjectCardView from "./components/project-cards/ProjectCardView";
 import { apiInstance } from "../../services/api/axios-setup/axiosInstance";
 import DataTable2 from "../../components/sample-table/DataTable2";
 import AppDataTable from "../../components/app-table/AppDataTable";
+import { useTableReloadKey } from "../../components/data-table";
 
-const ProjectsPage = ({ TabsData, border }: any) => {
+const ProjectsPage = ({ TabsData }: any) => {
   const { activeTab } = useTabContext();
+  const { reRenderKey, refreshTable } = useTableReloadKey();
   const [projectsData, setProjectsData] = useState(projectsdata);
-
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
@@ -83,8 +84,9 @@ const ProjectsPage = ({ TabsData, border }: any) => {
       <Box className="flex flex-col mt-4 h-full">
         {activeTab === "LIST_VIEW" ? (
           <AppDataTable
+            reRenderKey={reRenderKey}
             tableInstanceDetails={{
-              apiUrl: "projectstable",
+              apiUrl: "projectstable/data",
               tableId: "projects",
             }}
           />
@@ -92,7 +94,11 @@ const ProjectsPage = ({ TabsData, border }: any) => {
           <ProjectCardView projectsData={projectsData} />
         )}
       </Box>
-      <ProjectForm openModal={openModal} setOpenModal={setOpenModal} />
+      <ProjectForm
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSuccess={refreshTable}
+      />
     </Box>
   );
 };

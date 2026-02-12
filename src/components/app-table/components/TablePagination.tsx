@@ -304,18 +304,19 @@ const TablePagination: React.FC<TablePaginationProps> = ({
         >
           Displaying {startItem} to {endItem} (out of {totalItemsCount})
         </Typography>
-        <IconButton
-          size="small"
-          sx={{
-            color: "var(--app-text-secondary)",
-            "&:hover": {
-              backgroundColor: "var(--app-primary-100)",
-              color: "var(--app-primary-500)",
-            },
-          }}
+
+        <Box
+          className="cursor-pointer"
+          onClick={() => alert("Download functionality not implemented")}
         >
-          <Download fontSize="small" />
-        </IconButton>
+          <IconButton
+            disableFocusRipple={true}
+            size="small"
+            className="text-app-text-secondary"
+          >
+            <Download fontSize="small" />
+          </IconButton>
+        </Box>
       </Box>
     </Box>
   );

@@ -10,14 +10,17 @@ const ProjectCard = ({projectData}:any) => {
       projectstatuscolor,
       project_progress,
       project_status,
+      status,
     } = projectData;
+
+    console.log("projectData", projectData);
 
     const { isDark } = useTheme();
 
     return (
       <Box
         sx={{
-          width: { xs: "100%", sm: "280px", md: "300px" },
+          width: { xs: "100%", sm: "300px", md: "350px" },
           minHeight: "200px",
           padding: 3,
           display: "flex",
@@ -32,7 +35,7 @@ const ProjectCard = ({projectData}:any) => {
           transition: "all 0.2s",
           "&:hover": {
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-            transform: "translateY(-2px)",
+            transform: "translateY(1px)",
             borderColor: "var(--app-primary-300)",
           },
         }}
@@ -92,7 +95,7 @@ const ProjectCard = ({projectData}:any) => {
               color: "var(--app-text-primary)",
             }}
           >
-            {projectOwner}
+            {projectOwner || "John Doe"}
           </Typography>
         </Box>
 
@@ -106,10 +109,10 @@ const ProjectCard = ({projectData}:any) => {
           }}
         >
           <Chip
-            label={project_status}
+            label={project_status || status}
             size="small"
             sx={{
-              backgroundColor: projectstatuscolor || "var(--app-primary-500)",
+              backgroundColor: projectstatuscolor,
               color: "white",
               fontWeight: 500,
               fontSize: "0.75rem",
@@ -117,11 +120,11 @@ const ProjectCard = ({projectData}:any) => {
           />
           <Box
             sx={{
-              minWidth: 56,
-              height: 56,
+              minWidth: 50,
+              height: 50,
               borderRadius: "50%",
               border: "2px solid",
-              borderColor: "var(--app-primary-300)",
+              borderColor: "var(--app-secondary-200)",
               backgroundColor: "var(--app-primary-50)",
               display: "flex",
               alignItems: "center",
@@ -132,7 +135,7 @@ const ProjectCard = ({projectData}:any) => {
             <Typography
               variant="body2"
               sx={{
-                fontSize: "0.875rem",
+                fontSize: "12px",
                 fontWeight: 600,
                 color: "var(--app-primary-500)",
                 textAlign: "center",

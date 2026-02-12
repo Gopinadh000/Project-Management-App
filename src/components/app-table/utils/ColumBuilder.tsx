@@ -26,10 +26,34 @@ const buildColumns = (columnsData : any)=>{
       );
     },
     Cell: ({ cell }: any) => {
-      const fieldName = cell.column.id; // "project_name"
-      const row = cell.row.original; // full row object
-
-      return row[fieldName]?.value ?? "";
+      const fieldName = cell.column.id;
+      const row = cell.row.original;
+      const cellData = row[fieldName];
+      if (!cellData) return "";
+      const display = cellData.displayValue ?? cellData.value ?? "";
+      const badge = cellData.badge;
+      const link = cellData.link;
+      if (badge) {
+        return (
+          <span
+            className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium"
+            style={{
+              backgroundColor: `var(--app-${badge.color}-100, #e5e7eb)`,
+              color: `var(--app-${badge.color}-700, #374151)`,
+            }}
+          >
+            {badge.text}
+          </span>
+        );
+      }
+      if (link?.url) {
+        return (
+          <a href={link.url} className="text-app-primary-600 hover:underline" title={link.tooltip}>
+            {display}
+          </a>
+        );
+      }
+      return display;
     },
   }));
 }
