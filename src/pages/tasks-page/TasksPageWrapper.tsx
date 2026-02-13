@@ -45,13 +45,12 @@ const TabsData = [
 const TasksPageWrapper = () => {
 
   return (
-    <div>
-        <TabsProvider initialTab={TabsData[0].value}>
-            <TasksPage  TabsData={TabsData}/>
-        </TabsProvider>
-      
-    </div>
-  )
+    <>
+      <TabsProvider initialTab={TabsData[0].value}>
+        <TasksPage TabsData={TabsData} />
+      </TabsProvider>
+    </>
+  );
 }
 
 export default TasksPageWrapper

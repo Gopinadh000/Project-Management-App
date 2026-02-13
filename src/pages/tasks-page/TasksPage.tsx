@@ -9,13 +9,14 @@ import KanbanBoard from "../../components/kanban-board/KanbanBoard";
 import { Modal } from "go-van-ui";
 import { Box } from "@mui/material";
 import AppButton from "../../components/app-button/AppButton";
+import AppDataTable from "../../components/app-table/AppDataTable";
 
-const TasksPage = ({ TabsData, border = true }: any) => {
+const TasksPage = ({ TabsData }: any) => {
   const { activeTab } = useTabContext();
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Box className="flex flex-col gap-2 h-full border-2">
+    <Box className="flex flex-col gap-2 h-full">
       <TitleCard title="Tasks" />
       <Box
         sx={{
@@ -29,7 +30,7 @@ const TasksPage = ({ TabsData, border = true }: any) => {
           border: "0.85px solid var(--app-secondary-100)",
         }}
       >
-        <Box className="flex items-center">
+        <Box className="flex items-center p-1">
           <TasksTabs TabsData={TabsData} />
         </Box>
         <Box className="flex items-center gap-2 mr-2">
@@ -43,8 +44,16 @@ const TasksPage = ({ TabsData, border = true }: any) => {
           />
         </Box>
       </Box>
-      <Box className="flex flex-col mt-4 h-full">
-        {activeTab == "TABLE_VIEW" ? <DynamicTable /> : <h1>Kanban</h1>}
+      <Box className="flex flex-col  mt-4 h-full">
+        {activeTab == "TABLE_VIEW" && (
+          <AppDataTable
+            tableInstanceDetails={{
+              apiUrl: "projectstable/data",
+              tableId: "projects",
+            }}
+          />
+        )}
+        {activeTab == "KANBAN_VIEW" && <KanbanBoard />}
       </Box>
       <Modal
         size="md"

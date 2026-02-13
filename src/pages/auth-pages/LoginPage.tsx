@@ -14,6 +14,8 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
+console.log(import.meta.env.VITE_API_URL_LOCAL, "ausuasb");
+
 const LoginPage = () => {
   const { login } = useAuth();
   const [userdata, setUserData] = useState({

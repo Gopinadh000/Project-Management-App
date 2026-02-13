@@ -8,7 +8,7 @@ const baseUrlValue =
     : import.meta.env.VITE_API_URL_LOCAL;
 
 export const apiInstance = axios.create({
-  baseURL: "https://project-management-app-3cli.onrender.com",
+  baseURL: baseUrlValue,
   withCredentials: true, // IMPORTANT: Send cookies with every request
   headers: {
     "Content-Type": "application/json",
