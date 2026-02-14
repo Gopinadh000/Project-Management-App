@@ -2,14 +2,17 @@ import { Box } from "@mui/material";
 import React from "react";
 import SwimCard from "./SwimCard";
 import SwimLaneHeader from "./SwimLaneHeader";
+import type { SwimLaneData } from "../types/taskCard.types";
 
-const SwimLane = ({ laneData }:any) => {
+const SwimLane: React.FC<{ laneData: SwimLaneData }> = ({ laneData }) => {
   return (
    <Box
-  className="h-full border  border-gray-200 bg-gray-50 rounded-lg flex flex-col transition-all duration-300"
+  className="h-full border rounded-lg flex flex-col transition-all duration-300"
   sx={{
     width: laneData?.collapsed ? 60 : 320,
     minWidth: laneData?.collapsed ? 60 : 320,
+    borderColor: "var(--app-secondary-200)",
+    backgroundColor: "var(--app-bg-secondary)",
   }}
 >
       {/* Header */}
@@ -20,7 +23,7 @@ const SwimLane = ({ laneData }:any) => {
       {/* Cards Container */}
       <Box className="flex-1 overflow-y-auto p-4 space-y-4 ">
        {!laneData?.collapsed ? (
-    laneData?.tasks?.map((task: any) => (
+    laneData?.tasks?.map((task) => (
       <SwimCard key={task.id} task={task} />
     ))
   ) : (
