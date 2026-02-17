@@ -6,6 +6,8 @@ import { useState } from "react";
 import { apiInstance } from "../../../../services/api/axios-setup/axiosInstance";
 import SnackBar from "../../../../components/snack-bar/SnackBar";
 import { Modal } from "go-van-ui";
+import SelectFeild from "../../../../components/input-fields/select-feild/SelectFeild";
+import { Cancel, SaveAsSharp } from "@mui/icons-material";
 
 interface ProjectFormProps {
   openModal: boolean;
@@ -13,7 +15,11 @@ interface ProjectFormProps {
   onSuccess?: () => void;
 }
 
-const ProjectForm = ({ openModal, setOpenModal, onSuccess }: ProjectFormProps) => {
+const ProjectForm = ({
+  openModal,
+  setOpenModal,
+  onSuccess,
+}: ProjectFormProps) => {
   const [projectData, setProjectData] = useState({
     projectName: "",
     projectDescription: "",
@@ -65,11 +71,13 @@ const ProjectForm = ({ openModal, setOpenModal, onSuccess }: ProjectFormProps) =
         footer={
           <div className="flex gap-4 float-right mr-5">
             <AppButton
+              // iconName={<Cancel fontSize="small" />}
               onClick={handleCloseModal}
               variant="outlined"
               text="cancel"
             />
             <AppButton
+              // iconName={<SaveAsSharp fontSize="small" />}
               onClick={handleSubmitForm}
               variant="contained"
               text="Submit"
@@ -90,11 +98,24 @@ const ProjectForm = ({ openModal, setOpenModal, onSuccess }: ProjectFormProps) =
             errMessage={errorMsg}
           />
           <TextAreaFeild
+            rows={1}
             label="Description"
             name="projectDescription"
             value={projectData.projectDescription}
             onChange={(e) => handleOnChange(e, "PROJECTDESCRIPTION")}
             placeholder="Enter Project Description"
+            // height="60px !important"
+          />
+          <SelectFeild
+            required
+            label="Project Owner"
+            name="projectowner"
+            placeholder="Select Project Owner"
+            options={[
+              { id: 1, label: "Gopinadh Vallabhaneni", value: "OVALEDGE-001" },
+              { id: 2, label: "Sai Krishna", value: "OVALEDGE-002" },
+              { id: 3, label: "Vijay", value: "OVALEDGE-003" },
+            ]}
           />
         </div>
       </Modal>

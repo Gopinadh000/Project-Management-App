@@ -38,8 +38,6 @@ const TasksPage = ({ TabsData }: any) => {
             text="  Add Task"
             variant="contained"
             onClick={() => setOpenModal(true)}
-            // iconName={<AddIcon />}
-            // iconPosition="start"
             loading={false}
           />
         </Box>

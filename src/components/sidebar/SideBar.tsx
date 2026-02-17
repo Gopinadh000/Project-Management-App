@@ -130,7 +130,8 @@ const MenuItems: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
   const renderedItems = useMemo(
     () =>
       sidebardata?.map((item) => {
-        const isActive = pathname === item.route;
+        const isActive =
+          pathname === item.route || pathname.startsWith(item.route + "/");
         return (
           <Box
             key={item.id}

@@ -10,7 +10,7 @@ const SwimCard = ({ task }: any) => {
   );
 
   return (
-    <Box className="w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all p-4 flex flex-col gap-1 cursor-pointer">
+    <Box className="w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all p-4 flex flex-col gap-1 cursor-pointer select-none">
       {/* Task ID */}
       <Box className="flex justify-between">
         <Typography variant="caption" className="text-gray-400">
@@ -73,7 +73,7 @@ const SwimCard = ({ task }: any) => {
           label={task.priority?.level}
           color={task.priority?.color}
           variant="outlined"
-           sx={{
+          sx={{
             fontSize: "10px",
             height: "18px",
             borderRadius: "4px",
@@ -85,7 +85,7 @@ const SwimCard = ({ task }: any) => {
           size="small"
           label={`Due in ${diffDays} days`}
           variant="outlined"
-           sx={{
+          sx={{
             fontSize: "10px",
             height: "18px",
             borderRadius: "4px",

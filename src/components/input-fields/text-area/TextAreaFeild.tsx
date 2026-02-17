@@ -30,7 +30,7 @@ const TextAreaFeild = ({
         {label} {required && <span className="text-red-500">*</span>}{" "}
       </p>
       <textarea
-        className="w-full  min-h-[100px] outline-none border  p-1 text-md"
+        className="w-full  min-h-[60px] outline-none border  p-1 text-md"
         name={name}
         value={value}
         onChange={onChange}
