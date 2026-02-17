@@ -4,23 +4,21 @@ import { Typography } from "@mui/material";
 
 const StatCard = ({ itemData }: any) => {
   return (
-    <div>
-      <div className=" border border-app-secondary-600  h-34 w-64 flex-wrap rounded-md hover:border-app-primary-500 px-3 py-1   bg-app-secondary-50">
-        <Box className="flex h-1/3">{itemData.icon}</Box>
+    <>
+      <div className="border border-app-secondary-200 h-34 w-60 rounded-md hover:border-app-primary-500 p-3 bg-app-white shadow-sm">
+        <Box className="flex items-center justify-center rounded-md bg-app-primary-50 w-10 h-10">
+          {itemData.icon}
+        </Box>
         <Box className="flex flex-col mt-1 h-2/3">
-          <Typography variant="h6" className="text-app-secondary-500 ">
+          <Typography variant="subtitle1" className="text-app-secondary-500">
             {itemData.title}
           </Typography>
-          <Typography
-            className="text-app-secondary-800 font-extrabold!"
-            fontSize={26}
-            variant="h6"
-          >
+          <p className="text-app-secondary-800 font-extrabold! text-xl">
             {itemData?.value}
-          </Typography>
+          </p>
         </Box>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -113,13 +113,13 @@ const usersstatdata = [
 
 const SuperAdminDashboard = () => {
   return (
-    <Box>
-      <Box className="flex justify-between mb-6">
+    <Box className="flex flex-col gap-6">
+      <Box className="flex flex-wrap justify-between gap-4 ">
         {statcarddata.map((eachitem) => (
           <StatCard itemData={eachitem} />
         ))}
       </Box>
-      <Box className="flex justify-between">
+      <Box className="flex  flex-wrap justify-between gap-4">
         {usersstatdata.map((eachitem) => (
           <StatCard itemData={eachitem} />
         ))}
