@@ -1,10 +1,10 @@
 import  { useState } from "react";
 import TitleCard from "../../components/title-card/TitleCard";
-import { Button } from "@mui/material";
+
 
 import { useTabContext } from "../../components/tabs/tabs-context/TabContext";
 import TasksTabs from "./tabs/TasksTabs";
-import DynamicTable from "./components/tasks-table/TasksTable";
+
 import KanbanBoard from "../../components/kanban-board/KanbanBoard";
 import { Modal } from "go-van-ui";
 import { Box } from "@mui/material";
