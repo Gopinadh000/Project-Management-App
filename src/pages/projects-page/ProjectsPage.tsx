@@ -4,18 +4,15 @@ import TabsHeaderComponent from "../../components/tabs/Tabs";
 import AddIcon from "@mui/icons-material/Add";
 import userimg from "../../assets/user.webp";
 import { Box } from "@mui/material";
-
 import {
   projectcolumns,
   projectsdata,
 } from "../../assets/dummy-data/projects-data";
 import { useTabContext } from "../../components/tabs/tabs-context/TabContext";
-import DataTable from "../../components/data-table/DataTable";
 import AppButton from "../../components/app-button/AppButton";
 import ProjectForm from "./components/project-form/ProjectForm";
 import ProjectCardView from "./components/project-cards/ProjectCardView";
 import { apiInstance } from "../../services/api/axios-setup/axiosInstance";
-import DataTable2 from "../../components/sample-table/DataTable2";
 import AppDataTable from "../../components/app-table/AppDataTable";
 import { useTableReloadKey } from "../../components/data-table";
 

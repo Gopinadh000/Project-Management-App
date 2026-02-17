@@ -1,5 +1,6 @@
-import { Typography } from "@mui/material";
+import { Tabs, Typography } from "@mui/material";
 import { Box } from "@mui/material";
+// import TabsHeaderComponent from "../tabs/Tabs";
 
 interface TitleCardProps {
   title: string;
@@ -11,6 +12,7 @@ const TitleCard = ({ title }: TitleCardProps) => {
       <Typography variant="h5" className="font-bold">
         {title}
       </Typography>
+      {/* <TabsHeaderComponent /> */}
     </Box>
   );
 };
