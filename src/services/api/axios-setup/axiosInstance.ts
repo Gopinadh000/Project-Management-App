@@ -1,6 +1,5 @@
 import axios from "axios";
 
-console.log(import.meta.env.VITE_API_URL_LOCAL, "ausuasb");
 
 const baseUrlValue =
   import.meta.env.VITE_INSTANCE_TYPE == "DEV"
@@ -14,10 +13,6 @@ export const apiInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-
-console.log(apiInstance, "apiNSTACNE");
-
 
 
 // Response interceptor to handle 401 errors globally
