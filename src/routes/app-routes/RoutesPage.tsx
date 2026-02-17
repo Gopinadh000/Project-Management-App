@@ -25,12 +25,19 @@ const RoutesList = [
     hidden: false,
   },
   {
-    id: 3,
-    path: "/tasks",
+    id: 12,
+    path: "/projects/:id",
     name: "dashbaord",
     element: <TasksPageWrapper />,
     hidden: false,
   },
+  // {
+  //   id: 3,
+  //   path: "/my-tasks",
+  //   name: "dashbaord",
+  //   element: ,
+  //   hidden: false,
+  // },
   {
     id: 4,
     path: "/users",

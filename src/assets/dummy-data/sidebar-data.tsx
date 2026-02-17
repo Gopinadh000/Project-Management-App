@@ -27,14 +27,14 @@ export const sidebardata = [
     route: "/projects",
     icon: <SourceIcon />,
   },
-  {
-    id: 3,
-    name: "tasks",
-    key: "tasks",
-    title: "My Tasks",
-    route: "/tasks",
-    icon: <AssignmentTurnedInIcon />,
-  },
+  // {
+  //   id: 3,
+  //   name: "tasks",
+  //   key: "tasks",
+  //   title: "My Tasks",
+  //   route: "/my-tasks",
+  //   icon: <AssignmentTurnedInIcon />,
+  // },
   {
     id: 4,
     name: "users",

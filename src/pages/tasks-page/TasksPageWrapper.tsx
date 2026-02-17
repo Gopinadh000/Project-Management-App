@@ -8,18 +8,19 @@ import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 const TabsData = [
   {
     id: 1,
-    label: "Table View",
-    key: "Table-view",
-    value: "TABLE_VIEW",
-    icon: <ListIcon />,
-  },
-  {
-    id: 2,
     label: "Kanban View",
     key: "kanban-view",
     value: "KANBAN_VIEW",
     icon: <ViewKanbanIcon />,
   },
+  {
+    id: 2,
+    label: "Table View",
+    key: "Table-view",
+    value: "TABLE_VIEW",
+    icon: <ListIcon />,
+  },
+
   // {
   //   id:3,
   //   label:"Dashboard View",

@@ -136,6 +136,7 @@ const AppDataTableWrapper = ({
             enableTopToolbar={false}
             enableRowSelection={true}
             enableColumnResizing={true}
+            enableResizing={true}
             columnResizeMode="onChange"
             defaultColumn={{
               minSize: 50,

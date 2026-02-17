@@ -196,14 +196,16 @@ const SuperAdminDashboard = () => {
                   <Box className="w-44 text-center">
                     <p>{item.percenatgecomplete}%</p>
                     <LinearProgress
+                      sx={{
+                        height: "6px",
+                        borderRadius: "4px",
+                      }}
                       variant="determinate"
                       value={item.percenatgecomplete}
                     />
                   </Box>
-                  <Box className="w-60 ">
-                    <span className="bg-app-primary-100 p-2 rounded-md">
-                      {item.projectstatus}
-                    </span>
+                  <Box className="w-60 bg-app-primary-100 text-sm  p-0.5 text-center rounded-sm">
+                    {item.projectstatus}
                   </Box>
                 </Box>
               </Box>
