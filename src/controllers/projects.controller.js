@@ -5,7 +5,11 @@ import { db } from '../config/db-config.js';
 import { generateNextId } from "../utils/common.js";
 
 export const createProject = async (req, res) => {
-  const { projectName, projectDescription: description } = req.body;
+  const {
+    projectName,
+    projectDescription: description,
+    projectowner,
+  } = req.body;
   const { user } = req; // From auth middleware
 
   if (!projectName || projectName.trim() === "") {
@@ -28,9 +32,16 @@ export const createProject = async (req, res) => {
     await db.query(
       `INSERT INTO projects (
                 id, project_name, description, created_by, 
-                company_id
-            ) VALUES (?, ?, ?, ?, ?)`,
-      [projectId, projectName, description, user.id, user.companyId]
+                company_id, project_owner
+            ) VALUES (?, ?, ?, ?, ?, ?)`,
+      [
+        projectId,
+        projectName,
+        description,
+        user.id,
+        user.companyId,
+        projectowner.id,
+      ]
     );
 
     // Get the created project

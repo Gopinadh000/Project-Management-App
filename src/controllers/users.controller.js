@@ -165,3 +165,28 @@ export const getAllUsersTable = async (req, res) => {
     return ReE(res, { message: "Failed to fetch users table data" });
   }
 };
+
+
+export const getAllMembersInCompany = async (req, res) => {
+  try {
+    const [usersdata] = await db.query(
+      "SELECT * FROM users WHERE company_id = ?",
+      [req?.companyId]
+    );
+
+    const formattedData = usersdata.map((eachuser) => {
+      return {
+        id: eachuser.id,
+        label: eachuser.name,
+        value: eachuser.id,
+      };
+    });
+
+    return ReS(res, {
+      data: formattedData,
+      message: "Users table data retrieved successfully",
+    });
+  } catch (err) {
+    return ReE(res, { message: "Failed to fetch users data" });
+  }
+};

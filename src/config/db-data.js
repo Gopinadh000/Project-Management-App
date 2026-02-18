@@ -12,7 +12,7 @@ export const DB_CREDIENTAILS_CONFIG = {
     PORT: 3306,
     USERNAME: "root",
     PASSWORD: "ovaledge!",
-    DATABASE: "pmapp",
+    DATABASE: "projectmanagement",
     ssl: false,
   },
   TEST: {
