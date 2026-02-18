@@ -11,25 +11,14 @@ import { Box } from "@mui/material";
 import AppButton from "../../components/app-button/AppButton";
 import AppDataTable from "../../components/app-table/AppDataTable";
 
-const TasksPage = ({ TabsData }: any) => {
+const TasksPage = ({ TabsData, projectId }: any) => {
   const { activeTab } = useTabContext();
   const [openModal, setOpenModal] = useState(false);
 
   return (
     <Box className="flex flex-col gap-2 h-full">
       <TitleCard title="Tasks" />
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0.5px",
-          borderRadius: "4px",
-          backgroundColor: "var(--app-bg-primary)",
-          boxShadow: "1px 1px 0px rgba(0, 0, 0, 0.09)",
-          border: "0.85px solid var(--app-secondary-100)",
-        }}
-      >
+      <Box className="border-[0.85px] border-app-secondary-50 shadow-sm bg-app-primary rounded-sm flex justify-between items-center">
         <Box className="flex items-center p-1">
           <TasksTabs TabsData={TabsData} />
         </Box>
@@ -48,6 +37,11 @@ const TasksPage = ({ TabsData }: any) => {
             tableInstanceDetails={{
               apiUrl: "projectstable/data",
               tableId: "projects",
+            }}
+            initialQueryParams={{
+              search: {
+                projectId: projectId,
+              },
             }}
           />
         )}

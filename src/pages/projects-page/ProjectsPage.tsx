@@ -79,7 +79,7 @@ const ProjectsPage = ({ TabsData }: any) => {
         </Box>
       </Box>
       <Box className="flex flex-col mt-4 h-full">
-        {activeTab === "LIST_VIEW" ? (
+        {activeTab === "LIST_VIEW" && (
           <AppDataTable
             reRenderKey={reRenderKey}
             tableInstanceDetails={{
@@ -87,9 +87,9 @@ const ProjectsPage = ({ TabsData }: any) => {
               tableId: "projects",
             }}
           />
-        ) : (
-          <ProjectCardView projectsData={projectsData} />
         )}
+
+        {/* <ProjectCardView /> */}
       </Box>
       <ProjectForm
         openModal={openModal}

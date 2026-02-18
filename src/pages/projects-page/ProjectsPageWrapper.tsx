@@ -1,7 +1,7 @@
 import { TabsProvider } from "../../components/tabs/tabs-context/TabContext";
 import ProjectsPage from "./ProjectsPage";
 import ListIcon from '@mui/icons-material/List';
-import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
+// import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 
 
 const TabsData = [
@@ -12,13 +12,13 @@ const TabsData = [
     value: "LIST_VIEW",
     icon: <ListIcon />,
   },
-  {
-    id: 2,
-    label: "Card View",
-    key: "card-view",
-    value: "CARD_VIEW",
-    icon: <ViewKanbanIcon />,
-  },
+  // {
+  //   id: 2,
+  //   label: "Card View",
+  //   key: "card-view",
+  //   value: "CARD_VIEW",
+  //   icon: <ViewKanbanIcon />,
+  // },
 ];
 
 const ProjectsPageWrapper = () => {

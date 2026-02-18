@@ -1,9 +1,13 @@
 import { TabsProvider } from '../../components/tabs/tabs-context/TabContext'
 import TasksPage from './TasksPage';
 import ListIcon from '@mui/icons-material/List';
-import ViewTimelineIcon from '@mui/icons-material/ViewTimeline';
+// import ViewTimelineIcon from '@mui/icons-material/ViewTimeline';
 import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 
+
+type TasksPageWrapperPropTypes = {
+  projectId: string;
+};
 
 const TabsData = [
   {
@@ -44,15 +48,14 @@ const TabsData = [
   // },
 ];
 
-const TasksPageWrapper = () => {
-
+const TasksPageWrapper = ({ projectId }: TasksPageWrapperPropTypes) => {
   return (
     <>
       <TabsProvider initialTab={TabsData[0].value}>
-        <TasksPage TabsData={TabsData} />
+        <TasksPage projectId={projectId} TabsData={TabsData} />
       </TabsProvider>
     </>
   );
-}
+};
 
 export default TasksPageWrapper

@@ -12,6 +12,7 @@ import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { Typography } from "@mui/material";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import ScheduleIcon from "@mui/icons-material/Schedule";
+import { useAuth } from "../../../services/context/AuthContext";
 
 const statcarddata = [
   {
@@ -151,6 +152,7 @@ const recentProjectsData = [
 ];
 
 const SuperAdminDashboard = () => {
+  const { user } = useAuth();
   return (
     <Box className="flex flex-col gap-6">
       <Box className="flex flex-wrap justify-between gap-4 ">
@@ -158,11 +160,13 @@ const SuperAdminDashboard = () => {
           <StatCard itemData={eachitem} />
         ))}
       </Box>
-      <Box className="flex  flex-wrap justify-between gap-4">
-        {usersstatdata.map((eachitem) => (
-          <StatCard itemData={eachitem} />
-        ))}
-      </Box>
+      {user?.role === "SUPER_ADMIN" && (
+        <Box className="flex  flex-wrap justify-between gap-4">
+          {usersstatdata.map((eachitem) => (
+            <StatCard itemData={eachitem} />
+          ))}
+        </Box>
+      )}
       <Box>
         <Box className="border border-app-secondary-100 min-h-60 p-4  rounded-lg">
           <Typography variant="h6">Recent Projects</Typography>
