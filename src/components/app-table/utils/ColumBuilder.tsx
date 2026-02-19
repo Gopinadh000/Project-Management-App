@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 
-
-const buildColumns = (columnsData : any)=>{
-     if (!columnsData) return [];
+const buildColumns = (columnsData: any) => {
+  if (!columnsData) return [];
 
   return columnsData.map((col: any) => ({
     accessorKey: col.fieldName,
@@ -48,14 +48,21 @@ const buildColumns = (columnsData : any)=>{
       }
       if (link?.url) {
         return (
-          <a href={link.url} className="text-app-primary-600 hover:underline" title={link.tooltip}>
+          <Link
+            to={link.url}
+            className="text-app-primary-600 hover:underline"
+            title={link.tooltip}
+          >
             {display}
-          </a>
+          </Link>
+          // <a href={link.url} >
+          //   {display}
+          // </a>
         );
       }
       return display;
     },
   }));
-}
+};
 
-export  default buildColumns;
+export default buildColumns;

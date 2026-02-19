@@ -26,7 +26,7 @@ const RoutesList = [
   },
   {
     id: 12,
-    path: "/projects/:id",
+     path: "/projects/projectstasks/:projectid",
     name: "dashbaord",
     element: <TasksPageWrapper />,
     hidden: false,
