@@ -7,7 +7,9 @@ const TabsHeaderComponent = ({ TabsData }: any) => {
   const { activeTab, setActiveTab } = useTabContext();
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setActiveTab(newValue);
+    if (activeTab != newValue) {
+      setActiveTab(newValue);
+    }
   };
 
   return (

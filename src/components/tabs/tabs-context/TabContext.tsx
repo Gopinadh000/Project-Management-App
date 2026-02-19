@@ -4,6 +4,14 @@ import { useSearchParams } from "react-router-dom";
 // Create a TabContext
 const TabsContext = createContext("");
 
+export const useTabContext = () => {
+  const context = useContext(TabsContext);
+  if (!context) {
+    throw new Error("useTabContext must be used within a TabsProvider");
+  }
+  return context;
+};
+
 const TabsProvider = ({ children, initialTab, routingRequired }: any) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const urlTab = searchParams.get("tabname");
@@ -39,10 +47,3 @@ const TabsProvider = ({ children, initialTab, routingRequired }: any) => {
 
 export { TabsProvider };
 
-export const useTabContext = () => {
-  const context = useContext(TabsContext);
-  if (!context) {
-    throw new Error("useTabContext must be used within a TabsProvider");
-  }
-  return context;
-};
