@@ -51,7 +51,7 @@ const TabsData = [
 const TasksPageWrapper = ({ projectId }: TasksPageWrapperPropTypes) => {
   return (
     <>
-      <TabsProvider initialTab={TabsData[0].value}>
+      <TabsProvider initialTab={TabsData[0].value} routingRequired={true}>
         <TasksPage projectId={projectId} TabsData={TabsData} />
       </TabsProvider>
     </>

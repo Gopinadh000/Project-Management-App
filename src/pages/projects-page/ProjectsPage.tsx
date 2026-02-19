@@ -88,8 +88,7 @@ const ProjectsPage = ({ TabsData }: any) => {
             }}
           />
         )}
-
-        {/* <ProjectCardView /> */}
+        {activeTab === "CARD_VIEW" && <ProjectCardView />}
       </Box>
       <ProjectForm
         openModal={openModal}

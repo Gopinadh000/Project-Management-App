@@ -2,7 +2,7 @@ import AppButton from "../../../../components/app-button/AppButton";
 
 import InputFeild from "../../../../components/input-fields/input-feild/InputFeild";
 import TextAreaFeild from "../../../../components/input-fields/text-area/TextAreaFeild";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { apiInstance } from "../../../../services/api/axios-setup/axiosInstance";
 import SnackBar from "../../../../components/snack-bar/SnackBar";
 import { Modal } from "go-van-ui";
@@ -23,9 +23,16 @@ const ProjectForm = ({
   const [projectData, setProjectData] = useState({
     projectName: "",
     projectDescription: "",
+    projectowner: {
+      id: "",
+      label: "",
+      value: "",
+    },
   });
   const [errorMsg, setErrMsg] = useState("");
   const [suceessMsg, setSuccessMsg] = useState("");
+
+  const [usersData, setUsersData] = useState([]);
 
   const handleOnChange = (e, fieldName) => {
     if (fieldName === "PROJECTNAME" && e.target.value.trim() === "") {
@@ -34,6 +41,20 @@ const ProjectForm = ({
       setErrMsg("");
     }
     setProjectData({ ...projectData, [e.target.name]: e.target.value });
+  };
+
+  const handleSelectField = (e) => {
+    let selectedId = e.target.value;
+
+    setProjectData({
+      ...projectData,
+      projectowner: {
+        id: selectedId,
+        label: "",
+        value: selectedId,
+      },
+    });
+  
   };
 
   const handleSubmitForm = async () => {
@@ -59,6 +80,22 @@ const ProjectForm = ({
     setOpenModal(false);
     setErrMsg("");
   };
+
+  const getAllCompanyMembers = async () => {
+    const resData = await apiInstance.get("/users/usersincompany/all");
+
+    if (!resData.status && !resData?.data?.length > 0) {
+      console.log(resData.message);
+    } else {
+      setUsersData(resData.data.data);
+    }
+
+    console.log(resData);
+  };
+
+  useEffect(() => {
+    getAllCompanyMembers();
+  }, []);
 
   return (
     <>
@@ -111,11 +148,8 @@ const ProjectForm = ({
             label="Project Owner"
             name="projectowner"
             placeholder="Select Project Owner"
-            options={[
-              { id: 1, label: "Gopinadh Vallabhaneni", value: "OVALEDGE-001" },
-              { id: 2, label: "Sai Krishna", value: "OVALEDGE-002" },
-              { id: 3, label: "Vijay", value: "OVALEDGE-003" },
-            ]}
+            options={usersData}
+            onChange={(e) => handleSelectField(e)}
           />
         </div>
       </Modal>

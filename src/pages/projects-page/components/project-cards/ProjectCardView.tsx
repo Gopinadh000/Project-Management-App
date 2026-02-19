@@ -9,7 +9,7 @@ const projectsData = [
     projectname: "Web App Design and Enhancement",
     projectlink: "/tasks/OVALEDGE-PROEJCT-001",
     projectdescription:
-      "Web App Design and Enhancement Web App Design and Enhancement",
+      "Web App Design and Enhancement Web App Design and Enhancement Web App Design and Enhancement Web App Design and Enhancement",
     projectstatus: "Active",
     projectowner: {
       username: "Gopinadh Vallabhanei",
