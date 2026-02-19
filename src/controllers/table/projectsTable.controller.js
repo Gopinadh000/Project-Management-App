@@ -257,7 +257,7 @@ export const getProjectTableData = async (req, res) => {
       pageSize,
       rowOptions: {
         linkTemplate: (row) => ({
-          url: `/projects/${row.id}`,
+         url: `/projects/projectstasks/projectid=${row.id}`,
           tooltip: "Click to view project",
         }),
         rowIdField: "id",
