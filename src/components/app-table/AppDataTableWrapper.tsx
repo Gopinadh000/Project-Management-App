@@ -182,17 +182,22 @@ const AppDataTableWrapper = ({
             }}
             muiTableContainerProps={{
               sx: {
-                flex: 1,
-                minHeight: 0,
-                overflow: "hidden",
-                width: "100%",
-                overflowX: "auto",
+                // flex: 1,
+                // minHeight: 0,
+                // overflowY: "auto",
+                // width: "100%",
+                // overflowX: "auto",
                 border: "1px solid",
                 borderColor: "var(--app-secondary-200)",
-                borderBottom: "none",
+                // borderBottom: "none",
                 borderRadius: "8px 8px 0 0",
-                position: "relative",
-                backgroundColor: "var(--app-bg-primary)",
+                // position: "relative",
+                // maxHeight: "100%",
+                // backgroundColor: "var(--app-bg-primary)",
+                flex: 1,
+                minHeight: 0,
+                overflow: "auto", // ✅ allow both scrolls
+                maxHeight: "100%",
                 "& .MuiTableHead-root": {
                   position: "sticky",
                   top: 0,
@@ -215,13 +220,13 @@ const AppDataTableWrapper = ({
                 minWidth: "max-content",
               },
             }}
-            muiTableBodyProps={{
-              sx: {
-                display: "block",
-                overflowY: "auto",
-                height: `calc(100vh - 200px)`,
-              },
-            }}
+            // muiTableBodyProps={{
+            //   sx: {
+            //     display: "block",
+            //     overflowY: "auto",
+            //     height: `calc(100vh - 20vh)`,
+            //   },
+            // }}
             muiTableHeadProps={{
               sx: {
                 opacity: 1,
