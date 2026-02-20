@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { apiInstance } from "../../services/api/axios-setup/axiosInstance";
 import SnackBar from "../../components/snack-bar/SnackBar";
+import { Helmet } from "react-helmet";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -80,8 +81,8 @@ const RegisterPage = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setRegisterData({
-      ...registerData, 
-      [name] : value
+      ...registerData,
+      [name]: value,
     });
 
     setErrors((prev) => ({ ...prev, [name]: "" })); // Clear error when typing
@@ -110,6 +111,11 @@ const RegisterPage = () => {
 
   return (
     <div className="flex p-20 h-screen ">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Register Go Manage </title>
+        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+      </Helmet>
       {/* Left Panel */}
       <div className="w-1/3 md:w-3/5 xxs:hidden xs:hidden sm:hidden md:flex bg-blue-900 text-white flex flex-col rounded-l-md p-10 gap-8 shadow-lg">
         <div className="flex items-center gap-2 font-bold h-10 mb-2">

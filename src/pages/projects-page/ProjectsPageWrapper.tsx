@@ -2,6 +2,7 @@ import { TabsProvider } from "../../components/tabs/tabs-context/TabContext";
 import ProjectsPage from "./ProjectsPage";
 import ListIcon from '@mui/icons-material/List';
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
+import { Helmet } from "react-helmet";
 
 const TabsData = [
   {
@@ -23,6 +24,11 @@ const TabsData = [
 const ProjectsPageWrapper = () => {
   return (
     <TabsProvider initialTab={TabsData[0].value} routingRequired={true}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Projects</title>
+        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+      </Helmet>
       <ProjectsPage TabsData={TabsData} />
     </TabsProvider>
   );

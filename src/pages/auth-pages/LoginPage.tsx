@@ -13,6 +13,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Helmet } from "react-helmet";
 
 console.log(import.meta.env.VITE_API_URL_LOCAL, "ausuasb");
 
@@ -107,6 +108,11 @@ const LoginPage = () => {
 
   return (
     <div className="flex h-screen p-20 ">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login </title>
+        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+      </Helmet>
       <div className="md:w-3/5 xxs:hidden xs:hidden sm:hidden md:flex flex items-center shadow-sm bg-white">
         <img src={loginimage} alt="login" />
       </div>

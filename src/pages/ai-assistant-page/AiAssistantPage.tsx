@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Box, Typography } from "@mui/material";
 import ChatHistory, { Message } from "./components/ChatHistory";
 import ChatInput from "./components/ChatInput";
+import { Helmet } from "react-helmet";
 
 const AiAssistantPage = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -86,6 +87,12 @@ const AiAssistantPage = () => {
         boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
       }}
     >
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Ai Assistant </title>
+        {/* <link rel="canonical" href="http://mysite.com/example" /> */}
+      </Helmet>
+
       {/* Header */}
       <Box
         sx={{
@@ -102,8 +109,8 @@ const AiAssistantPage = () => {
           <Box>
             <Typography
               variant="h5"
-              sx={{ 
-                fontSize: "1.25rem", 
+              sx={{
+                fontSize: "1.25rem",
                 fontWeight: 600,
                 color: "var(--app-text-primary)",
               }}
@@ -112,8 +119,8 @@ const AiAssistantPage = () => {
             </Typography>
             <Typography
               variant="body2"
-              sx={{ 
-                fontSize: "0.875rem", 
+              sx={{
+                fontSize: "0.875rem",
                 mt: 0.5,
                 color: "var(--app-text-secondary)",
               }}
