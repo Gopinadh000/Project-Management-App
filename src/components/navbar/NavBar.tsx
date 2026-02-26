@@ -367,22 +367,21 @@ const NavBar: React.FC<NavBarProps> = ({
                       >
                         {user?.name?.charAt(0)?.toUpperCase() || "U"}
                       </Avatar>
-                      <Box>
+                      <Box className="flex flex-col">
                         <Typography
                           variant="body1"
                           className="text-gray-900 dark:text-gray-100 font-semibold"
                           sx={{
-                            fontSize: "0.9375rem",
+                            fontSize: "12px",
                             fontWeight: 600,
-                            lineHeight: 1.2,
                           }}
                         >
-                          {user?.firstName || ""}
+                          {user?.name || ""}
                         </Typography>
                         <Typography
                           variant="caption"
-                          className="text-gray-600 dark:text-gray-400"
-                          sx={{ fontSize: "0.75rem", lineHeight: 1.2 }}
+                          className="text-gray-600 dark:text-gray-400 bg-app-primary-200 w-fit p-1"
+                          sx={{ fontSize: "10px", lineHeight: 1.2 }}
                         >
                           {user?.role}
                         </Typography>
@@ -392,52 +391,56 @@ const NavBar: React.FC<NavBarProps> = ({
                 </Box>
 
                 {/* Menu Items */}
-                <List sx={{ py: 0.5 }}>
+                <List sx={{ py: 0.5, width: "100%" }}>
                   {profileMenuItems.map((item, index) => {
                     const isActive = location.pathname === item.route;
                     return (
                       <React.Fragment key={item.label}>
-                        <ListItem
-                          onClick={item.action}
-                          sx={{
-                            py: 1,
-                            px: 2,
-                            cursor: "pointer",
-                            backgroundColor: isActive
-                              ? "var(--app-primary-50)"
-                              : "transparent",
-                            "&:hover": {
-                              backgroundColor: isActive
-                                ? "var(--app-primary-100)"
-                                : isDark
-                                ? "#374151"
-                                : "#f9fafb",
-                            },
-                            transition: "background-color 0.2s",
-                          }}
-                        >
-                          <ListItemIcon
+                        <Box className="px-2">
+                          <ListItem
+                            onClick={item.action}
                             sx={{
-                              minWidth: 36,
-                              color: isActive
-                                ? "var(--app-primary-500)"
-                                : "var(--app-text-secondary)",
+                              py: 1,
+                              px: 2,
+                              // margin: "0px 10px",
+                              borderRadius: "4px",
+                              cursor: "pointer",
+                              backgroundColor: isActive
+                                ? "var(--app-primary-50)"
+                                : "transparent",
+                              "&:hover": {
+                                backgroundColor: "var(--app-primary-100)",
+                                // backgroundColor: isActive
+                                //   ? "var(--app-primary-100)"
+                                //   : isDark
+                                //   ? "#374151"
+                                //   : "#f9fafb",
+                              },
+                              transition: "background-color 0.2s",
                             }}
                           >
-                            {item.icon}
-                          </ListItemIcon>
-                          <ListItemText
-                            primary={item.label}
-                            primaryTypographyProps={{
-                              fontSize: "0.875rem",
-                              fontWeight: isActive ? 500 : 400,
-                              color: isActive
-                                ? "var(--app-primary-500)"
-                                : "var(--app-text-primary)",
-                            }}
-                          />
-                        </ListItem>
-                        {index < profileMenuItems.length - 1 && <Divider />}
+                            <ListItemIcon
+                              sx={{
+                                minWidth: 36,
+                                color: isActive
+                                  ? "var(--app-primary-500)"
+                                  : "var(--app-text-secondary)",
+                              }}
+                            >
+                              {item.icon}
+                            </ListItemIcon>
+                            <ListItemText
+                              primary={item.label}
+                              primaryTypographyProps={{
+                                fontSize: "0.875rem",
+                                fontWeight: isActive ? 500 : 400,
+                                color: isActive
+                                  ? "var(--app-primary-500)"
+                                  : "var(--app-text-primary)",
+                              }}
+                            />
+                          </ListItem>
+                        </Box>
                       </React.Fragment>
                     );
                   })}
