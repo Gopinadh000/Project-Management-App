@@ -8,9 +8,11 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CalendarIcon } from "@mui/x-date-pickers";
+import { Link } from "react-router-dom";
 
 const ProjectCard = ({ projectData }: any) => {
   const {
+    id,
     projectname,
     projectmembers,
     projectdescription,
@@ -24,15 +26,17 @@ const ProjectCard = ({ projectData }: any) => {
     <>
       <Box className="border border-app-primary w-[340px] h-[240px] rounded-md p-4">
         <Box className="flex flex-row gap-1">
-          <Typography
-            variant="subtitle1"
-            className="truncate hover:text-app-primary-900 cursor-pointer"
-            sx={{
-              fontWeight: 600,
-            }}
-          >
-            {projectname}
-          </Typography>
+          <Link to={`/projects/projectstasks/projectid${id}`}>
+            <Typography
+              variant="subtitle1"
+              className="truncate hover:text-app-primary-900 cursor-pointer"
+              sx={{
+                fontWeight: 600,
+              }}
+            >
+              {projectname}
+            </Typography>
+          </Link>
           <Box className="w-6 hover:bg-app-primary-100 rounded-sm hover:text-red-500  cursor-pointer flex items-center justify-center ">
             <MoreVertIcon />
           </Box>
