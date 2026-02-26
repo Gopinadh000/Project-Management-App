@@ -437,9 +437,7 @@ const NavBar: React.FC<NavBarProps> = ({
                             }}
                           />
                         </ListItem>
-                        {index < profileMenuItems.length - 1 && (
-                          <Divider sx={{ mx: 2 }} />
-                        )}
+                        {index < profileMenuItems.length - 1 && <Divider />}
                       </React.Fragment>
                     );
                   })}
