@@ -10,6 +10,7 @@ import { Modal } from "go-van-ui";
 import { Box } from "@mui/material";
 import AppButton from "../../components/app-button/AppButton";
 import AppDataTable from "../../components/app-table/AppDataTable";
+import TasksModal from "./components/tasks-modal/TasksModal";
 
 const TasksPage = ({ TabsData, projectId }: any) => {
   const { activeTab } = useTabContext();
@@ -47,14 +48,14 @@ const TasksPage = ({ TabsData, projectId }: any) => {
         )}
         {activeTab == "KANBAN_VIEW" && <KanbanBoard />}
       </Box>
-      <Modal
-        size="md"
-        modalType="side"
+      <TasksModal
+        size="sm"
+        modalType="center"
         open={openModal}
         onClose={() => setOpenModal(false)}
       >
         Hello{" "}
-      </Modal>
+      </TasksModal>
     </Box>
   );
 };

@@ -1,35 +1,49 @@
-import React from "react";
-import { Autocomplete, Box, FormLabel, TextField } from "@mui/material";
-
-import Select from 'react-select';
+import { Autocomplete, TextField, Typography, Box } from "@mui/material";
+import { Popper } from "@mui/material";
 
 const options = [
-  { label: 'The Shawshank Redemption', year: 1994 },
-  { label: 'The Godfather', year: 1972 },
-  { label: 'The Godfather: Part II', year: 1974 },
-  { label: 'The Dark Knight', year: 2008 },
-  { label: '12 Angry Men', year: 1957 },
-  { label: "Schindler's List", year: 1993 },
-  { label: 'Pulp Fiction', year: 1994 },
-]
+  "Active",
+  "Pending",
+  "Closed",
+  "Active",
+  "Pending",
+  "Closed",
+  "Active",
+  "Pending",
+  "Closed",
+];
 
-const SelectFeild = () => {
+const CustomPopper = (props) => (
+  <Popper {...props} style={{ zIndex: 2000, background: "gray" }} />
+);
 
-  return( 
-
-    <Box>
-         <FormLabel >{"Select Priroity"}</FormLabel>
-  <Autocomplete
-//   disablePortal
-  options={options}
-  size="small"
-  renderInput={(params) => <TextField {...params} label="Movie" />}/>
-
-
+export default function StatusAutocomplete({
+  label,
+  required,
+  options: propsOptions,
+}: any) {
+  return (
+    <Box className="px-2 w-full">
+      <p>
+        {label} {required && <span className="text-red-700">*</span>}
+      </p>
+      <Autocomplete
+        size="small"
+        options={propsOptions || options}
+        ListboxProps={{
+          style: {
+            maxHeight: "140px",
+            overflow: "auto",
+            zIndex: "2000",
+            border: "2px solid  var(--app-secondary-200)",
+            borderRadius: "2px",
+            boxShadow: "10px 10px #888888;",
+          },
+        }}
+        renderInput={(params) => (
+          <TextField {...params} placeholder="Select Status" />
+        )}
+      />
     </Box>
-
-  
-)
-};
-
-export default SelectFeild;
+  );
+}

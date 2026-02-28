@@ -78,7 +78,7 @@ const ProjectsPage = ({ TabsData }: any) => {
           />
         </Box>
       </Box>
-      <Box className="flex flex-col mt-4 h-full">
+      <Box className="flex flex-col mt-4 h-full ">
         {activeTab === "LIST_VIEW" && (
           <AppDataTable
             reRenderKey={reRenderKey}

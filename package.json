@@ -24,6 +24,7 @@
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "dayjs": "^1.11.19",
     "go-van-ui": "github:Gopinadh000/go-vantage-ui#main",
     "material-react-table": "^3.2.1",
     "path": "^0.12.7",

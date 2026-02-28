@@ -153,7 +153,7 @@ const NavBar: React.FC<NavBarProps> = ({
                       primary="Blue Theme"
                       primaryTypographyProps={{
                         fontSize: "0.875rem",
-                        fontWeight: theme === "BLUE_THEME" ? 500 : 400,
+                        fontWeight: theme === "BLUE_THEME" ? 600 : 600,
                         color:
                           theme === "BLUE_THEME"
                             ? "var(--app-primary-500)"

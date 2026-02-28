@@ -272,7 +272,7 @@ const projectsData = [
 
 const ProjectCardView = () => {
   return (
-    <Box className="flex flex-wrap w-full gap-6 overflow-auto h-full">
+    <Box className="flex flex-wrap w-full gap-10 overflow-auto h-full">
       {projectsData?.map((item: any) => (
         <ProjectCard key={item.id} projectData={item} />
       ))}

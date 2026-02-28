@@ -38,6 +38,7 @@ interface ModalProps {
   title?: string;
   footerComponent?: React.ReactNode;
   children?: React.ReactNode;
+  sx: object;
 }
 
 const APPModal: React.FC<ModalProps> = ({
@@ -48,12 +49,14 @@ const APPModal: React.FC<ModalProps> = ({
   children,
   title,
   footerComponent,
+  sx,
 }) => {
   return (
     <Box>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
+        sx={sx}
         open={open}
         onClose={onClose}
         closeAfterTransition
@@ -64,7 +67,7 @@ const APPModal: React.FC<ModalProps> = ({
           },
         }}
       >
-        <Box className={modalStyle(modalType, size, open)}>
+        <Box className={modalStyle(modalType, size, open)} sx={sx}>
           <Box className="flex h-12 justify-between items-center bg-gray-100 px-4    text-lg cursor-pointer">
             <Typography
               id="transition-modal-title"

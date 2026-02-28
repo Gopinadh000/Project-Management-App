@@ -9,6 +9,7 @@ import { Modal } from "go-van-ui";
 import SelectFeild from "../../../../components/input-fields/select-feild/SelectFeild";
 import { Cancel, SaveAsSharp } from "@mui/icons-material";
 import MySelect from "../../../../components/input-fields/select/SelectFeild";
+import StatusAutocomplete from "../../../../components/input-fields/select/SelectFeild";
 
 interface ProjectFormProps {
   openModal: boolean;
@@ -153,6 +154,7 @@ const ProjectForm = ({
           />
           {/* <MySelect /> */}
         </div>
+        <StatusAutocomplete label="Status" required={true} />
       </Modal>
       {suceessMsg && (
         <SnackBar message={suceessMsg} onClose={() => setSuccessMsg("")} />

@@ -4,7 +4,10 @@ import SwimCard from "./SwimCard";
 import SwimLaneHeader from "./SwimLaneHeader";
 import type { SwimLaneData } from "../types/taskCard.types";
 
-const SwimLane: React.FC<{ laneData: SwimLaneData }> = ({ laneData }) => {
+const SwimLane: React.FC<{
+  laneData: SwimLaneData;
+  handleLaneCollapsed: (laneId: string) => void;
+}> = ({ laneData, handleLaneCollapsed }) => {
   return (
     <Box
       className="h-full border rounded-lg flex flex-col transition-all duration-300"
@@ -17,7 +20,10 @@ const SwimLane: React.FC<{ laneData: SwimLaneData }> = ({ laneData }) => {
     >
       {/* Header */}
       <Box className="h-10">
-        <SwimLaneHeader laneData={laneData} />
+        <SwimLaneHeader
+          laneData={laneData}
+          toggleLaneCollapsed={handleLaneCollapsed}
+        />
       </Box>
 
       {/* Cards Container */}

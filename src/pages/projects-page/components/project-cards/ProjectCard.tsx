@@ -24,7 +24,7 @@ const ProjectCard = ({ projectData }: any) => {
 
   return (
     <>
-      <Box className="border border-app-primary w-[340px] h-[240px] rounded-md p-4">
+      <Box className="border-2 border-app-primary w-[340px] h-[240px] shadow-sm rounded-lg p-4">
         <Box className="flex flex-row gap-1">
           <Link to={`/projects/projectstasks/projectid${id}`}>
             <Typography
