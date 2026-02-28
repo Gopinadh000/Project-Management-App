@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import React, { useState } from "react";
 import SwimLane from "./SwimLane";
 
-const SwimLanesBoardContainer = () => {
   const lanes = [
     {
       id: "new",
@@ -257,28 +256,59 @@ const SwimLanesBoardContainer = () => {
     },
   ];
 
-  const [boardData, setBoardData] = useState(lanes);
+  const SwimLanesBoardContainer = () => {
+    const [boardData, setBoardData] = useState(lanes);
 
-  const handleLaneCollapsed = (laneId: string) => {
-    const updatedBoardData = boardData.map((lane) => {
-      if (lane.id === laneId) {
-        return { ...lane, collapsed: !lane.collapsed };
-      }
-      return lane;
-    });
-    setBoardData(updatedBoardData);
+    const handleLaneCollapsed = (laneId: string) => {
+      const updatedBoardData = boardData.map((lane) => {
+        if (lane.id === laneId) {
+          return { ...lane, collapsed: !lane.collapsed };
+        }
+        return lane;
+      });
+
+      setBoardData(updatedBoardData);
+    };
+
+    return (
+      <Box
+        className="flex gap-5 overflow-x-auto overflow-y-hidden h-full px-4 py-3"
+        sx={{
+          backgroundColor: "var(--app-bg-primary)",
+
+          /* smoother horizontal scrolling */
+          scrollBehavior: "smooth",
+
+          /* thin scrollbar */
+          scrollbarWidth: "thin",
+
+          "&::-webkit-scrollbar": {
+            height: 8,
+          },
+
+          "&::-webkit-scrollbar-track": {
+            background: "transparent",
+          },
+
+          "&::-webkit-scrollbar-thumb": {
+            background: "#d1d5db",
+            borderRadius: 10,
+          },
+
+          "&::-webkit-scrollbar-thumb:hover": {
+            background: "#9ca3af",
+          },
+        }}
+      >
+        {boardData.map((eachlane) => (
+          <SwimLane
+            key={eachlane.id}
+            laneData={eachlane}
+            handleLaneCollapsed={handleLaneCollapsed}
+          />
+        ))}
+      </Box>
+    );
   };
-
-  return (
-    <Box className="flex gap-6 overflow-x-auto overflow-y-hidden w-max min-w-screen h-full px-4">
-      {boardData.map((eachlane) => (
-        <SwimLane
-          laneData={eachlane}
-          handleLaneCollapsed={handleLaneCollapsed}
-        />
-      ))}
-    </Box>
-  );
-};
 
 export default SwimLanesBoardContainer;

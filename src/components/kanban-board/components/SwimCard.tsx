@@ -10,23 +10,25 @@ const SwimCard = ({ task }: any) => {
   );
 
   return (
-    <Box className="w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all p-4 flex flex-col gap-1 cursor-pointer select-none">
+    <Box className="w-full bg-app-secondary rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-200 p-4 flex flex-col gap-2 cursor-pointer select-none">
       {/* Task ID */}
-      <Box className="flex justify-between">
-        <Typography variant="caption" className="text-gray-400">
+      <Box className="flex justify-between items-center">
+        <Typography variant="caption" className="text-gray-400 tracking-wide">
           {task.id}
         </Typography>
 
         <Chip
           sx={{
             fontSize: "10px",
-            height: "18px",
-            borderRadius: "4px",
-            padding: "1px",
+            height: "20px",
+            borderRadius: "6px",
+            backgroundColor: "#eef4ff",
+            borderColor: "#dbe6ff",
+            color: "#335dff",
+            fontWeight: 500,
           }}
           size="small"
           label={task.issuedata?.type}
-          color="primary"
           variant="outlined"
         />
       </Box>
@@ -34,7 +36,10 @@ const SwimCard = ({ task }: any) => {
       {/* Title */}
       <Typography
         variant="subtitle1"
-        className="font-semibold text-gray-800 hover:text-blue-600"
+        className="font-semibold text-gray-800 hover:text-blue-600 transition-colors"
+        sx={{
+          lineHeight: 1.2,
+        }}
       >
         {task.taskname}
       </Typography>
@@ -50,8 +55,9 @@ const SwimCard = ({ task }: any) => {
             WebkitLineClamp: 2,
             overflow: "hidden",
             whiteSpace: "normal",
-            fontSize: "11px",
-            height: "32px",
+            fontSize: "12px",
+            height: "34px",
+            color: "#6b7280",
           }}
         >
           {task.taskdesc}
@@ -60,8 +66,16 @@ const SwimCard = ({ task }: any) => {
 
       {/* Assignee */}
       <Box className="flex items-center gap-2 mt-1">
-        <Avatar src={task.assignee?.userimg} sx={{ width: 28, height: 28 }} />
-        <Typography variant="body2" className="text-gray-700">
+        <Avatar
+          src={task.assignee?.userimg}
+          sx={{
+            width: 28,
+            height: 28,
+            border: "2px solid white",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+          }}
+        />
+        <Typography variant="body2" className="text-gray-700 font-medium">
           {task.assignee?.username}
         </Typography>
       </Box>
@@ -71,26 +85,31 @@ const SwimCard = ({ task }: any) => {
         <Chip
           size="small"
           label={task.priority?.level}
-          color={task.priority?.color}
-          variant="outlined"
           sx={{
             fontSize: "10px",
-            height: "18px",
-            borderRadius: "4px",
-            padding: "1px",
+            height: "20px",
+            borderRadius: "6px",
+            backgroundColor: "#fff5f5",
+            borderColor: "#ffd6d6",
+            color: "#d32f2f",
+            fontWeight: 500,
           }}
+          variant="outlined"
         />
 
         <Chip
           size="small"
           label={`Due in ${diffDays} days`}
-          variant="outlined"
           sx={{
             fontSize: "10px",
-            height: "18px",
-            borderRadius: "4px",
-            padding: "1px",
+            height: "20px",
+            borderRadius: "6px",
+            backgroundColor: "#f0fdf4",
+            borderColor: "#d1fadf",
+            color: "#15803d",
+            fontWeight: 500,
           }}
+          variant="outlined"
         />
       </Box>
     </Box>

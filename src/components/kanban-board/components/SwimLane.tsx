@@ -10,12 +10,15 @@ const SwimLane: React.FC<{
 }> = ({ laneData, handleLaneCollapsed }) => {
   return (
     <Box
-      className="h-full border rounded-lg flex flex-col transition-all duration-300"
+      className="h-full rounded-md flex flex-col transition-all duration-300"
       sx={{
         width: laneData?.collapsed ? 60 : 320,
         minWidth: laneData?.collapsed ? 60 : 320,
-        borderColor: "var(--app-secondary-200)",
-        backgroundColor: "var(--app-bg-secondary)",
+
+        border: "1px solid #e5e7eb",
+        background: "var(--app-bg-primary)",
+
+        boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
       }}
     >
       {/* Header */}
@@ -27,19 +30,59 @@ const SwimLane: React.FC<{
       </Box>
 
       {/* Cards Container */}
-      <Box className="flex-1 overflow-y-auto p-4 space-y-4 ">
+      <Box
+        className="flex-1 overflow-y-auto p-3 space-y-3"
+        sx={{
+          scrollbarWidth: "thin",
+
+          "&::-webkit-scrollbar": {
+            width: 6,
+          },
+
+          "&::-webkit-scrollbar-thumb": {
+            background: "#e5e7eb",
+            borderRadius: 6,
+          },
+
+          "&::-webkit-scrollbar-thumb:hover": {
+            background: "#cbd5f5",
+          },
+        }}
+      >
         {!laneData?.collapsed ? (
           laneData?.tasks?.map((task) => <SwimCard key={task.id} task={task} />)
         ) : (
           <>
-            <Box className="w-full rounded-sm mr-2 flex items-center px-1 justify-center text-right border border-app-primary-100 cursor-pointer hover:border-app-primary-900">
-              <span>{laneData?.totalTasks}</span>
-            </Box>
+            {/* Collapsed Task Counter */}
             <Box
-              className="text-gray-500  font-semibold tracking-wider"
+              className="w-full rounded-md flex items-center justify-center border cursor-pointer"
+              sx={{
+                // borderColor: "#e5e7eb",
+                // background: "#f9fafb",
+                height: 32,
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "#374151",
+                transition: "all .2s",
+
+                "&:hover": {
+                  borderColor: "#6366f1",
+                  background: "#eef2ff",
+                  color: "#4338ca",
+                },
+              }}
+            >
+              {laneData?.totalTasks}
+            </Box>
+
+            {/* Collapsed Lane Name */}
+            <Box
+              className="text-gray-500 font-semibold tracking-wide"
               sx={{
                 writingMode: "vertical-rl",
                 transform: "rotate(180deg)",
+                fontSize: "12px",
+                letterSpacing: "0.08em",
               }}
             >
               {laneData?.displayName}
