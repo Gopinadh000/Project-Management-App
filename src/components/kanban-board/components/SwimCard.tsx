@@ -1,6 +1,4 @@
-import { Box, Avatar, Chip, Typography, LinearProgress } from "@mui/material";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import { Box, Avatar, Chip, Typography } from "@mui/material";
 
 const SwimCard = ({ task }: any) => {
   const dueDate = new Date(task.duedate);
@@ -10,7 +8,7 @@ const SwimCard = ({ task }: any) => {
   );
 
   return (
-    <Box className="w-full bg-app-secondary rounded-lg border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-200 p-4 flex flex-col gap-2 cursor-pointer select-none">
+    <Box className="w-full bg-white dark:bg-app-bg-secondary rounded-lg border border-gray-300 border-double shadow-sm hover:shadow-lg transition-all duration-200 p-4 flex flex-col gap-2 cursor-pointer select-none">
       {/* Task ID */}
       <Box className="flex justify-between items-center">
         <Typography variant="caption" className="text-gray-400 tracking-wide">
@@ -75,7 +73,10 @@ const SwimCard = ({ task }: any) => {
             boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
           }}
         />
-        <Typography variant="body2" className="text-gray-700 font-medium">
+        <Typography
+          variant="body2"
+          className="text-app-secondary-500 font-medium"
+        >
           {task.assignee?.username}
         </Typography>
       </Box>

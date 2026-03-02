@@ -16,7 +16,7 @@ const SwimLane: React.FC<{
         minWidth: laneData?.collapsed ? 60 : 320,
 
         border: "1px solid #e5e7eb",
-        background: "var(--app-bg-primary)",
+        background: "var(--app-bg-secondary)",
 
         boxShadow: "0 1px 3px rgba(0,0,0,0.06)",
       }}
@@ -57,8 +57,8 @@ const SwimLane: React.FC<{
             <Box
               className="w-full rounded-md flex items-center justify-center border cursor-pointer"
               sx={{
-                // borderColor: "#e5e7eb",
-                // background: "#f9fafb",
+                borderColor: "#e5e7eb",
+                background: "#f9fafb",
                 height: 32,
                 fontSize: "13px",
                 fontWeight: 600,
