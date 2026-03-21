@@ -1,15 +1,16 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom"; // Added import
 import TitleCard from "../../components/title-card/TitleCard";
 import { Settings } from "@mui/icons-material";
 import SettingsTabs from "./components/SettingsTabs";
 import SettingsTabContent from "./components/SettingsTabContent";
 
 const SettingsPage = () => {
-  const [activeTab, setActiveTab] = useState("profile");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get("tab") || "profile"; // Read from URL, default to "profile"
 
-  const handleTabChanging = (tabname) => {
-    setActiveTab(tabname.toLowerCase());
+  const handleTabChanging = (tabname: string) => {
+    setSearchParams({ tab: tabname }); // Update URL
   };
 
   return (
@@ -20,7 +21,10 @@ const SettingsPage = () => {
       </p>
       <Box className="flex h-full mt-5 flex-row border border-app-secondary-200 rounded">
         <Box className="w-1/5 border-r h-full">
-          <SettingsTabs handleOnTabChange={handleTabChanging} />
+          <SettingsTabs
+            handleOnTabChange={handleTabChanging}
+            activeTab={activeTab}
+          />
         </Box>
         <Box className="w-4/5 p-4">
           <SettingsTabContent tabName={activeTab} />

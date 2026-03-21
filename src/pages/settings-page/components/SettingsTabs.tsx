@@ -31,19 +31,31 @@ const settingsTabsData =[
     }
 ]
 
-const SettingsTabs = ({handleOnTabChange}:any) => {
-
-  return( 
+const SettingsTabs = ({ handleOnTabChange, activeTab }: any) => {
+  return (
     <Box>
-        {
-            settingsTabsData.map((tab)=> 
-             <div key={tab.id} onClick={()=> handleOnTabChange(tab.label.toLowerCase())} className="flex items-center gap-4 m-2 p-2 cursor-pointer text-app-secondary-800 hover:bg-app-primary-500 rounded">
-                {tab.icon}
-                <span>{tab.label}</span>
-            </div>
-            )
-        }
-    </Box>);
+      {settingsTabsData.map((tab) => (
+        <div
+          key={tab.id}
+          onClick={() => handleOnTabChange(tab.label.toLowerCase())}
+          className="flex items-center gap-4 m-2 p-2 cursor-pointer text-app-secondary-800 hover:bg-app-primary-500 rounded"
+          style={{
+            backgroundColor:
+              activeTab === tab.label.toLowerCase()
+                ? "var(--app-primary-500)"
+                : "transparent",
+            color:
+              activeTab === tab.label.toLowerCase()
+                ? "white"
+                : "var(--app-secondary-800)",
+          }}
+        >
+          {tab.icon}
+          <span>{tab.label}</span>
+        </div>
+      ))}
+    </Box>
+  );
 };
 
 export default SettingsTabs;
